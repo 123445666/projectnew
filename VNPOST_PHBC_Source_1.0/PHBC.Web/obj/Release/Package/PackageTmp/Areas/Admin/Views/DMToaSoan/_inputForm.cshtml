@@ -1,0 +1,104 @@
+﻿@model PHBC.DAO.Models.DMToaSoanModel
+
+<div class="form-group col-md-6">
+    @Html.LabelForEdit(model => model.MaToaSoan, new { @class = "col-md-4 control-label" })
+
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.MaToaSoan, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.MaToaSoan, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-6">
+    @Html.LabelForEdit(model => model.TenToaSoan, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.TenToaSoan, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.TenToaSoan, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-6">
+    @Html.LabelForEdit(model => model.DiaChi, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.TextAreaFor(model => model.DiaChi, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-6">
+    @Html.LabelForEdit(model => model.SoDienThoai, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.SoDienThoai, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.SoDienThoai, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-6">
+    @Html.LabelForEdit(model => model.Email, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-6">
+    @Html.LabelForEdit(model => model.Web, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.Web, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Web, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-6">
+   
+    @Html.LabelForEdit(model => model.MaSoThue, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.MaSoThue, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.MaSoThue, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-6">
+   
+    @Html.LabelForEdit(model => model.TaiKhoan, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.TaiKhoan, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.TaiKhoan, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-6">
+   
+    @Html.LabelForEdit(model => model.TongBienTap, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.TongBienTap, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.TongBienTap, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-6">
+   
+    @Html.LabelForEdit(model => model.NganHang, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.NganHang, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.NganHang, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-6">
+    
+    @Html.LabelForEdit(model => model.NguoiDaiDien, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.NguoiDaiDien, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.NguoiDaiDien, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-6">
+   
+    @Html.LabelForEdit(model => model.CoQuanChuQuan, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.CoQuanChuQuan, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.CoQuanChuQuan, "", new { @class = "text-danger" })
+    </div>
+</div>  

@@ -1,0 +1,184 @@
+﻿@model PagedList<dynamic>
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "Index";
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Danh sách kế hoạch xuất bản
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="btn-toolbar col-md-7">
+
+            </div>
+            <div class="col-md-5">
+                <div class="row" style="float:right;margin-right:5px;">
+                    @using (Html.BeginForm("Search", "KeHoachXuatBan", new { Area = "Bao" }, FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", id = "actionForm", thongtin = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div id="adv-search" class="input-group" style="width:300px;">
+                            <input type="text" value="@Request.QueryString["keysearch"]" placeholder="Mã báo hoặc Tên Báo" name="keysearch" id="keysearch" class="form-control text-box single-line" style="position: relative;width: calc(100% + 3px);z-index: 3;">
+
+                            <div class="input-group-btn" style="position: relative;width: 125px;z-index: 1;">
+                                <div role="group" class="btn-group">
+                                    <select class="form-control text-box single-line" name="keyyear" id="keyyear">
+                                        <option value="-1">Tất cả</option>
+                                        @{
+                        for (int i = DateTime.Now.Year - 10; i <= DateTime.Now.Year + 50; i++)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                                        }
+
+                                    </select>
+                                    <button class="btn btn-primary" type="submit" attr-search><span aria-hidden="true" class="glyphicon glyphicon-search"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div style="clear:both;"></div>
+                @*@Html.Partial("_searchPartial", new PHBC.DAO.Models.ThongTinBaoSearchModel())*@
+            </div>
+        </div>
+        <div style="clear:both;height:20px;"></div>
+        <div class=" table-responsive">
+            <table class="table table-bordered table-hover table-custom">
+                <colgroup>
+                    @*<col style="width: 200px;" />*@
+                    <col style="width: 120px" />
+                    <col style="width: 200px" />
+                    <col style="width: 100px" />
+                    <col style="width: 100px" />
+                    <col style="width: 150px" />
+                    <col style="width: 150px" />
+                    <col style="width: calc(100% - 860px);" />
+                </colgroup>
+                <tr>
+                    @*<th>
+                            ID KHXB
+                        </th>*@
+                    <th>
+                        Mã Báo
+                    </th>
+                    <th>
+                        Tên Báo
+                    </th>
+                    <th>
+                        Năm
+                    </th>
+                    <th>
+                        Số bắt đầu
+                    </th>
+                    <th>
+                        Người cập nhật
+                    </th>
+                    <th>
+                        Ngày cập nhật
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+
+
+                @foreach (var item in Model)
+                {
+                    dynamic itemDy = JsonConvert.DeserializeObject<System.Dynamic.ExpandoObject>(JsonConvert.SerializeObject(item));
+
+                    <tr>
+                        @*<td>
+                                @itemDy.Id
+                            </td>*@
+                        <td>
+                            @itemDy.MaBao
+                        </td>
+                        <td title="@itemDy.TenBao">
+                            @itemDy.TenBao
+                        </td>
+                        <td>
+                            @itemDy.Nam
+                        </td>
+                        <td>
+                            @itemDy.SoBatDau
+                        </td>
+                        <td title="@itemDy.DislayName">
+                            @itemDy.DislayName
+                        </td>
+                        <td title="@Convert.ToDateTime(itemDy.ModifyDate).ToString("dd/MM/yyy, HH:mm")">
+                            @Convert.ToDateTime(itemDy.ModifyDate).ToString("dd/MM/yyy, HH:mm")
+                        </td>
+                        <td style="text-align:right;">
+                            @if (permisson.hasPermisson("ChiTiet"))
+                            {
+                                
+                                @Html.CustomRouterLink(permisson, "Bao_kehoachxuatban_new", new { controller = "kehoachxuatban", action = "chitiet", id = itemDy.ThongTinBaoId, idkehoach = itemDy.Id }, "", null, "<span class=\"fa fa-eye\"></span>", "Chi tiết kế hoạch xuất bản")
+                            }
+                            @if (Convert.ToInt32(itemDy.Nam)>=DateTime.Now.Year && (itemDy.quyNew != null && Convert.ToInt32(itemDy.quyNew) >= Convert.ToInt32(itemDy.quyNow) ? Convert.ToInt32(itemDy.quyNew) : Convert.ToInt32(itemDy.quyNow) - 1) + 1 <= 4 && permisson.hasPermisson("DieuChinhKeHoachXuatBan"))
+                            {
+                                @Html.CustomRouterLink(permisson, "Bao_kehoachxuatban_new", new { controller = "kehoachxuatban", action = "DieuChinhKeHoachXuatBan", id = itemDy.ThongTinBaoId, idkehoach = itemDy.Id }, "", null, "<span class=\"fa fa-plus\"></span>", "Điều chỉnh kế hoạch xuất bản")
+                                @Html.CustomRouterLink(permisson, "Bao_kehoachxuatban_edit", new { id = itemDy.ThongTinBaoId, idkehoach = itemDy.Id }, "", null, "<span class=\"fa fa-refresh\"></span>", "Chạy lại")
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+
+        @if (Model.TotalPageCount > 1)
+        {
+            <div class="paginationcustome">
+                @Html.Pager(Model, new PagerOptions
+                       {
+                           PagerItemTemplate = "<li>{0}</li>",
+                           NextPageText = "&gt;",
+                           PrevPageText = "&lt;",
+                           FirstPageText = "Đầu",
+                           LastPageText = "Cuối",
+                           ShowDisabledPagerItems = false,
+                           ContainerTagName = "ul",
+                           CurrentPagerItemTemplate = "<li><a href='#' class='active'>{0}</a></li>"
+                       })
+            </div>
+        }
+    </div>
+</div>
+@section head{
+    <style type="text/css">
+        td {
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+        }
+
+        a[data-toggle] {
+            margin: 0px 5px;
+        }
+    </style>
+}
+@section Scripts {
+    <script type="text/javascript">
+        $('.test').click(function (e) {
+            e.stopPropagation();
+        });
+        $(document).ready(function () {
+            $('#actionForm').submit(function () {
+                window.location.href = "/bao/kehoachxuatban/?keysearch=" + $('#keysearch').val() + '&keyyear=' + $('#keyyear').val();
+                return false;
+            });
+            if ('@Request.QueryString["keyyear"]' == '')
+                $('#keyyear').children('option[value="@DateTime.Now.Year"]').prop('selected', true);
+            else
+                $('#keyyear').children('option[value="@Request.QueryString["keyyear"]"]').prop('selected', true);
+        });
+    </script>
+}
+
+

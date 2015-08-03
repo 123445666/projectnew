@@ -1,0 +1,48 @@
+﻿@model IEnumerable<PHBC.DAO.Models.DMToaSoanModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Print</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryvalunobtrusive")
+    @Scripts.Render("~/bundles/bootstrap")
+    <style>
+        table td, table th {
+            border: none !important;
+        }
+    </style>
+</head>
+<body>   
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-xs-6 text-center">
+                <table class="table table-bordered">
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenToaSoan)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DiaChi)
+                        </td>
+                    </tr>
+
+
+                </table>
+            </div>
+        }
+    </div>
+</body>
+</html>

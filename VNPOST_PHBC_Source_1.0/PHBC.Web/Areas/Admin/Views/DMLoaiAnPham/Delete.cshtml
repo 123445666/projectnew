@@ -1,0 +1,57 @@
+﻿@model PHBC.DAO.Models.DMLoaiAnPhamModel
+@*@model PHBC.DAO.DMLoaiAnPham*@
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = "Xóa danh mục ấn phẩm";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @*Xóa danh mục ấn phẩm*@
+        @Application.ButtonLabel.Delete @ViewBag.TitleName
+        
+    </div>
+    <div class="panel-body">
+        @*<h3>Bạn có muốn xóa tên loại ấn phẩm này không</h3>*@
+        <h3 class="text-danger">@Application.FormMessage.Delete_Confirm</h3>
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.LabelForView(model => model.TenLoaiAnPham, new { @class = "control-label" })
+                    @*@Html.DisplayNameFor(model => model.TenLoaiAnPham) :*@
+                    
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TenLoaiAnPham)
+                </dd>
+
+                <dt>
+                    @Html.LabelForView(model => model.CoKyXuatBan, new { @class = "control-label" })
+                    @*@Html.DisplayNameFor(model => model.CoKyXuatBan) :*@
+                    @*@Html.CheckBox("CoKyXuatBan", true)*@
+
+                </dt>
+                <dd>
+                    @*TODO: cai na la cai gi*@
+                    @Html.ValidationMessage("Có", "Không Có")
+                </dd>
+
+
+
+
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="@Application.ButtonLabel.Delete" class="btn btn-default" /> 
+                    @Html.ActionLink(Application.ButtonLabel.Back, "Index", null, new { @class = "btn btn-default" })
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+﻿@model PHBC.DAO.Models.UserModel
+@using PHBC.Web.Constants;
+@{
+    ViewBag.Title = "Sửa thông tin người dùng";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Sửa thông tin người dùng
+    </div>
+    <div class="panel-body">
+        <div class="form-title">
+            Thông tin chung
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationMessage("Error")
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">
+                        @Html.DisplayNameFor(model => model.UserName):
+                    </label>
+                    <div class="col-md-10">
+                        @Html.DisplayFor(model => model.UserName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">
+                        @Html.DisplayNameFor(model => model.Email):
+                    </label>
+                    <div class="col-md-10">
+                        @Html.DisplayFor(model => model.Email)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">
+                        @Html.DisplayNameFor(model => model.DislayName):
+                    </label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DislayName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DislayName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">
+                        @Html.DisplayNameFor(model => model.PhoneNumber):
+                    </label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">
+                        @Html.DisplayNameFor(model => model.Level):
+                    </label>
+                    <div class=" col-md-10">
+                        @Html.DropDownListFor(model => model.Level, (System.Web.Mvc.SelectList)ViewBag.Level, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Level, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">
+                        @Html.DisplayNameFor(model => model.UnitCode):
+                    </label>
+                    <div class=" col-md-10">
+                        @Html.DropDownListFor(model => model.UnitCode, (System.Web.Mvc.SelectList)ViewBag.UnitCode, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.UnitCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="@Application.ButtonLabel.Save" class="@Application.ButtonClass.Submit" />
+                        @Html.ActionLink(Application.ButtonLabel.Back, "Index", null, new { @class = Application.ButtonClass.Submit })
+                    </div>
+                </div>
+
+            </div>
+        }
+
+        @section Scripts {
+            <script>
+                $("document").ready(function () {
+                    $('#Level').val('@Model.Level');
+                    $('#UnitCode').val('@Model.UnitCode');
+                });
+            </script>
+        }
+    </div>
+</div>

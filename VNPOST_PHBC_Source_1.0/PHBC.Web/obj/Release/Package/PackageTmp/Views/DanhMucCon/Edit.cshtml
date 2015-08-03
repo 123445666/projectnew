@@ -1,0 +1,65 @@
+﻿@model PHBC.DAO.Models.SysDMPublicModel
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = Application.ButtonLabel.ToEdit + ViewBag.TitleName;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @Application.ButtonLabel.ToEdit @ViewBag.TitleName
+    </div>
+    <div class="panel-body">
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true)
+                @Html.ValidationMessage("Error")
+                @Html.HiddenFor(model => model.TypeId)
+                @Html.HiddenFor(model => model.Code)
+
+                <div class="form-group col-md-12">
+                    <label class="col-md-3 control-label">
+                        @Html.DisplayNameFor(model => model.Name):
+                    </label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>     
+
+                <div class="form-group col-md-12">
+                    <label class="col-md-3 control-label">
+                        @Html.DisplayNameFor(model => model.IsLock):
+                    </label>
+                    <div class="col-md-8">
+                        @Html.CheckBoxFor(model => model.bLock)
+                        @Html.ValidationMessageFor(model => model.IsLock)
+                    </div>
+                </div>      
+
+
+                <div class="form-group col-md-12">
+                    <label class="col-md-3 control-label">
+                        @Html.DisplayNameFor(model => model.Description):
+                    </label>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>       
+
+                <div>
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="@Application.ButtonLabel.Save" class="btn btn-default" />
+                        @Html.ActionLink(Application.ButtonLabel.Back, "Index", new { id = Html.DisplayFor(model => model.TypeId) }, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+            </div>
+        }
+</div>
+</div>

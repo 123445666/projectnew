@@ -1,0 +1,36 @@
+﻿@model PHBC.DAO.Models.ThongTinGiaBaoSearchModel
+
+@using (Html.BeginForm("Search", "ThongTinGiaBao", new { Area = "Bao" }, FormMethod.Post, htmlAttributes: new { @class = "form-horizontal  navbar-form navbar-right", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group" id="adv-search">
+                @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control", placeholder = "Giá" } })
+                <div class="input-group-btn">
+                    <div class="btn-group" role="group">
+                        <div class="dropdown dropdown-lg">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" onclick="fncAdvancedSearch()"><span class="caret"></span></button>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                <div class="test">
+                                    <div class="form-group" style="display:block;">
+                                        @Html.LabelFor(model => model._NgayHieuLuc, new { @for = "contain" })
+                                        <input name="NgayHieuLuc" class="form-control" type="text" value="@Html.Raw(Model._NgayHieuLuc)" />
+                                    </div>
+                                    <div class="form-group" style="display:block;">
+                                        @Html.LabelFor(model => model._NgayHetHieuLuc, new { @for = "contain" })
+                                        <input name="NgayHetHieuLuc" class="form-control" type="text" value="@Html.Raw(Model._NgayHetHieuLuc)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

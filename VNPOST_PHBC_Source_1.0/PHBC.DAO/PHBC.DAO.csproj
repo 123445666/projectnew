@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CB244B73-ADEE-467E-A748-4E8AC939FCFF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PHBC.DAO</RootNamespace>
+    <AssemblyName>PHBC.DAO</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyVersionSettings>None.None.DateStamp.Increment</AssemblyVersionSettings>
+    <AssemblyFileVersionSettings>None.None.DateStamp.Increment</AssemblyFileVersionSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.1.3.1, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.1.3.1, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.OOXML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.1.3.1, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.1.3.1, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AspNetRole.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUser.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserClaim.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserLogin.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BDiemTiepNhan.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BDieuChinhKHXB.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BDieuChinhKHXBDetail.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BDieuChinhPhanHuongDistrict.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BDieuChinhPhanHuongUnit.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BKeHoachXuatBan.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BKeHoachXuatBanDetail.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BKyXuatBan.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BPhanHuongNhuCau.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BPhanHuongNhuCauDistrict.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BPhanHuongNhuCauUnit.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BThongTinBao.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BThongTinGiaBao.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Bussiness\BDieuChinhPHNCBussiness.cs" />
+    <Compile Include="Bussiness\BPHNCBussiness.cs" />
+    <Compile Include="Bussiness\Interface\IBDiemTiepNhanBussiness.cs" />
+    <Compile Include="Bussiness\Interface\ISysLibraryBussiness.cs" />
+    <Compile Include="Bussiness\Interface\IUnitBussiness.cs" />
+    <Compile Include="Bussiness\BDiemTiepNhanBussiness.cs" />
+    <Compile Include="Bussiness\ThongTinGiaBaoBussiness .cs" />
+    <Compile Include="Bussiness\DMDiemInBussiness.cs" />
+    <Compile Include="Bussiness\DMLoaiAnPhamBussiness.cs" />
+    <Compile Include="Bussiness\DMToaSoanBussiness.cs" />
+    <Compile Include="Bussiness\Export.cs" />
+    <Compile Include="Bussiness\Interface\IBDieuChinhPHNCBussiness.cs" />
+    <Compile Include="Bussiness\Interface\IThongTinGiaBaoBussiness.cs" />
+    <Compile Include="Bussiness\Interface\IDMDiemInBussiness.cs" />
+    <Compile Include="Bussiness\Interface\IDMLoaiAnPhamBussiness.cs" />
+    <Compile Include="Bussiness\Interface\IBPHNCBussiness.cs" />
+    <Compile Include="Bussiness\Interface\IExport.cs" />
+    <Compile Include="Bussiness\Interface\IDieuChinhKHXBBussiness.cs" />
+    <Compile Include="Bussiness\Interface\IThongTinBaoBussiness.cs" />
+    <Compile Include="Bussiness\Interface\IMenuBussiness.cs" />
+    <Compile Include="Bussiness\Interface\IDMToaSoanBussiness.cs" />
+    <Compile Include="Bussiness\Interface\IRoleBussiness.cs" />
+    <Compile Include="Bussiness\Interface\ISysActionBussiness.cs" />
+    <Compile Include="Bussiness\Interface\ISysDMPublicBussiness.cs" />
+    <Compile Include="Bussiness\Interface\ISysDMTypeBussiness.cs" />
+    <Compile Include="Bussiness\Interface\IKeHoachXuatBanBussiness.cs" />
+    <Compile Include="Bussiness\Interface\IUserBussiness.cs" />
+    <Compile Include="Bussiness\MenuBussiness.cs" />
+    <Compile Include="Bussiness\DieuChinhKHXBBussiness.cs" />
+    <Compile Include="Bussiness\RoleBussiness.cs" />
+    <Compile Include="Bussiness\SysActionBussiness.cs" />
+    <Compile Include="Bussiness\SysDMPublicBussiness.cs" />
+    <Compile Include="Bussiness\SysDMTypeBussiness.cs" />
+    <Compile Include="Bussiness\ThongTinBaoBussiness.cs" />
+    <Compile Include="Bussiness\KeHoachXuatBanBussiness.cs" />
+    <Compile Include="Bussiness\SysLibraryBussiness.cs" />
+    <Compile Include="Bussiness\UnitBussiness.cs" />
+    <Compile Include="Bussiness\UserBusssiness.cs" />
+    <Compile Include="Common\Enums.cs" />
+    <Compile Include="Common\ErrorObject.cs" />
+    <Compile Include="Common\ExcelNpoi.cs" />
+    <Compile Include="Common\ReturnJson.cs" />
+    <Compile Include="Common\Utils.cs" />
+    <Compile Include="Commune.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Commune_MBCSync.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Continent.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Country.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C__MigrationHistory.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="District.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="District_MBCSync.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DMDiemIn.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DMLoaiAnPham.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DMToaSoan.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MailRoute.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MailRoutePOS.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MailRouteSchedule.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MailRouteType.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelsExtend\DB_PHBCEntity.cs" />
+    <Compile Include="ModelsExtend\v_Unit.cs" />
+    <Compile Include="Models\BDieuChinhKHXBDetailModel.cs" />
+    <Compile Include="Models\BDieuChinhPhanHuongModel.cs" />
+    <Compile Include="Models\BPhanHuongNhuCauModel.cs" />
+    <Compile Include="Models\ThongTinGiaBaoModel.cs" />
+    <Compile Include="Models\DefineModel.cs" />
+    <Compile Include="Models\DMDiemInModel.cs" />
+    <Compile Include="Models\DMLoaiAnPhamModel.cs" />
+    <Compile Include="Models\DMToaSoanModel.cs" />
+    <Compile Include="Models\MenuModel.cs" />
+    <Compile Include="Models\ProvinceModel.cs" />
+    <Compile Include="Models\DieuChinhKHXBModel.cs" />
+    <Compile Include="Models\RoleModel.cs" />
+    <Compile Include="Models\ActionDefine.cs" />
+    <Compile Include="Models\SysDMPublicModel.cs" />
+    <Compile Include="Models\SysDMTypeModel.cs" />
+    <Compile Include="Models\SysMenuHModel.cs" />
+    <Compile Include="Models\SysMenuVModel.cs" />
+    <Compile Include="Models\ThongTinBaoModel.cs" />
+    <Compile Include="Models\UnitModel2.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="PHBCEntity.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PHBCEntity.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PHBCEntity.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PHBCEntity.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PHBCEntity.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="POS.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POSLevel.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POSLevel_MBCSync.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POSType.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POSType_MBCSync.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POS_MBCSync.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Province.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Province_MBCSync.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Region.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Region_MBCSync.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SplitString_Result.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SysAction.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SysDBLog.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SysDMPublic.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SysDMType.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SysMenu.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SysMenuH.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SysMenuV.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Transport.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TransportGroup.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Unit.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UnitType.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UnitType_MBCSync.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Unit_MBCSync.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserInfo.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="v_Unit.cs">
+      <DependentUpon>PHBCEntity.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+    <EntityDeploy Include="PHBCEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PHBCEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="PHBCEntity.edmx.diagram">
+      <DependentUpon>PHBCEntity.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PHBCEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PHBCEntity.edmx</DependentUpon>
+      <LastGenOutput>PHBCEntity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="PHBCEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PHBCEntity.edmx</DependentUpon>
+      <LastGenOutput>PHBCEntity.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

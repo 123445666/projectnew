@@ -1,0 +1,54 @@
+﻿@model PHBC.DAO.Models.MenuModel
+
+
+<div class="form-group col-md-12">
+    <label class="col-md-3 control-label">
+        @Html.DisplayNameFor(model => model.Name)
+        (<span class="text-danger">*</span>):
+    </label>
+
+    <div class="col-md-9">
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-12">
+    <label class="col-md-3 control-label">
+        @Html.DisplayNameFor(model => model.ActionCode):
+    </label>
+    <div class="col-md-9">
+        @Html.DropDownListFor(model => model.ActionCode, ViewBag.ActionCode as SelectList, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ActionCode, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-12">
+    <label class="col-md-3 control-label">
+        @Html.DisplayNameFor(model => model.ParentId):
+    </label>
+    <div class="col-md-9">
+        @Html.DropDownListFor(model => model.ParentId, ViewBag.ParentId as SelectList, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ParentId, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-12">
+    <label class="col-md-3 control-label">
+        @Html.DisplayNameFor(model => model.Order):
+    </label>
+    <div class="col-md-9">
+        @Html.TextBoxFor(model => model.Order, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Order, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-12">
+    <label class="col-md-3 control-label">
+        @Html.DisplayNameFor(model => model.Description):
+    </label>
+    <div class="col-md-9">
+        @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<PHBC.DAO.Models.TinhThanh>
+@{
+    int sum = 0;
+    if (TempData["TypeUnit"] == "1")
+    {
+        sum = Model.Sum(t => t.CountDistrictNotMap);
+    }
+    else
+    {
+        sum = Model.Sum(t => t.CountDistrictMap);
+    }
+}
+<div class="cslide-prev-next clearfix">
+    <span class="cslide-prev">Quay lại</span>
+    <span class="cslide-next choose-district">Chọn huyện</span>
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <div class="input-group">
+            <span class="input-group-addon glyphicon glyphicon-search"></span>
+            <input type="text" name="SearchDualList" class="form-control" placeholder="search"  tabindex="-1000" />
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="btn-group">
+            <a class="btn btn-default selector" customs="1" title="select all"><i class="glyphicon glyphicon-unchecked"></i></a>
+        </div>
+    </div>
+</div>
+<br />
+<div class="form-group"><span class="numCountAll">@Model.Count()</span> tỉnh trong bảng @(TempData["TypeUnit"].Equals("1") ? "chưa" : "đã") phân hướng nhu cầu xong. (<span class="numCountChild">@sum</span>  @ViewBag.ProvinceComment)</div>
+
+<ul id="lstMapTinh" class="list-group" style="max-height:400px; overflow:auto;">
+        @foreach (var item in Model)
+        {
+            <li id="@item.ProvinceCode" class="list-group-item @item.ProvinceCode @((ViewBag.CheckPrv != null && (bool)ViewBag.CheckPrv) ? "active" : "") " valname="@item.ProvinceCode @Html.replaceUnicode(item.ProvinceName) ">@item.ProvinceCode - @item.ProvinceName <span class="badge"><span class="numCount">@(TempData["TypeUnit"].Equals("1") ? item.CountDistrictNotMap : item.CountDistrictMap) </span>huyện @(TempData["TypeUnit"].Equals("1") ? "chưa" : "đã") thiết lập phân hướng</span> </li>
+        }
+</ul>

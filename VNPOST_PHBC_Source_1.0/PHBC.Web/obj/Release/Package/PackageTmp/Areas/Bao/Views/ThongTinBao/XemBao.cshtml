@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = "XemBao";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Danh sách báo
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" valname="viewBao" href="#Bao">Thông Tin Báo</a></li>
+            <li><a data-toggle="tab" valname="viewKXB" href="#KXB">Kỳ xuất bản</a></li>
+            <li><a data-toggle="tab" valname="viewDiemIn" href="#DiemIn">Điểm In</a></li>
+            <li><a data-toggle="tab" valname="viewDiemTiepNhan" href="#DiemTiepNhan">Điểm tiếp nhận nhu cầu</a></li>
+            <li><a data-toggle="tab" valname="loadKHXB" href="#KHXB">Kế hoạch xuất bản</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="Bao" class="tab-pane fade in active">
+                <img src="~/Content/icons/loader.gif" />
+            </div>
+            <div id="KXB" class="tab-pane fade">
+                <img src="~/Content/icons/loader.gif" />
+            </div>
+            <div id="DiemIn" class="tab-pane fade">
+                <img src="~/Content/icons/loader.gif" />
+            </div>
+            <div id="DiemTiepNhan" class="tab-pane fade">
+                <img src="~/Content/icons/loader.gif" />
+            </div>
+            <div id="KHXB" class="tab-pane fade">
+                <img src="~/Content/icons/loader.gif" />
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+<div style="display:none;">
+    @Ajax.ActionLink("Thông Tin Báo", "ViewBao", new { id = ViewBag.BaoId }, new AjaxOptions() { InsertionMode = InsertionMode.Replace, UpdateTargetId = "Bao", OnSuccess = "lib.fromcontroler(); fncViewMaBaoCha();" }, new { id = "viewBao" })
+    @Ajax.ActionLink("Kỳ xuất bản", "KyXuatBan", new { id = ViewBag.BaoId }, new AjaxOptions() { InsertionMode = InsertionMode.Replace, UpdateTargetId = "KXB", OnSuccess = "fillKyXuatBan();" }, new { id = "viewKXB" })
+    @Ajax.ActionLink("Điểm In", "ViewDiemIn", new { id = ViewBag.BaoId }, new AjaxOptions() { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DiemIn", OnSuccess = "lib.fromcontroler();" }, new { id = "viewDiemIn" })
+    @Ajax.ActionLink("Điểm tiếp nhận", "Index", "PHNCBao", new { Mabao = ViewBag.BaoId }, new AjaxOptions() { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DiemTiepNhan", OnSuccess = "lib.fromcontroler();" }, new { id = "viewDiemTiepNhan" })
+    @Ajax.ActionLink("Kế hoạch xuất bản", "Add", "KeHoachXuatBan", new { id = ViewBag.BaoId }, new AjaxOptions() { InsertionMode = InsertionMode.Replace, UpdateTargetId = "KHXB", OnBegin = "$('#KHXB').html('<div attr-loading value=\"Xin vui lòng đợi\"><img src=\"" + Url.Content("~/Content/icons/loading_new_gif.gif") + "\" /></div>')", OnSuccess = "lib.fromcontroler();lib.searchtable();objLoaded.splice(objLoaded.indexOf('#loadKHXB'),1);$('#KHXB > .panel-body:eq(0)').remove();$('#KHXB > .panel-body:eq(0) > .form-title').remove();" }, new { id = "loadKHXB" })
+</div>
+
+@section head{
+    <link href="~/Styles/lib/style.css" rel="stylesheet" />
+    <link href="~/Styles/KyXuatBan/fonts.css" rel="stylesheet" />
+    <link href="~/Styles/KyXuatBan/style.css" rel="stylesheet" />
+    <style type="text/css">
+        .dual-list .list-group {
+            margin-top: 8px;
+            max-height: 400px;
+            overflow: auto;
+        }
+
+        .list-left li, .list-right li {
+            cursor: pointer;
+        }
+
+        .list-arrows {
+            padding-top: 100px;
+        }
+
+            .list-arrows button {
+                margin-bottom: 20px;
+            }
+
+        .list-group-item > .badge {
+            float: none !important;
+            position: relative;
+            left: 10px;
+        }
+
+        .tab-content {
+            padding: 20px;
+            border: 1px solid #dddddd;
+            border-top: none;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="~/Scripts/KyXuatBan/script.js"></script>
+    <script>
+        function fillKyXuatBan() {
+            buildKxb();
+            var _dataLoad = JSON.parse($("#KyConfig").val());
+            loadDataKyXuatBan(_dataLoad);
+        }
+        function fnLoading(status) {
+            if (status)
+                objLoading = new jPopup({
+                    show: true,
+                    close: false,
+                    width: 350,
+                    body: '<div style="clear:bold;height:20px;"></div><div attr-loading value="Xin vui lòng đợi"><img src="@Url.Content("~/Content/icons/loading_new_gif.gif")" /></div><div style="clear:bold;height:25px;"></div>'
+                });
+            else
+                objLoading.close();
+
+        }
+        var objLoaded = [];
+        $(document).ready(function () {
+            $("#viewBao").click();
+            objLoaded.push("#viewBao");
+            $(".nav-tabs a").click(function () {
+                var obj = $(this);
+                var tab = "#" + obj.attr("valname");
+                if (objLoaded.indexOf(tab) == -1) {
+                    objLoaded.push(tab);
+                    $(tab).click();
+                }
+                obj.tab('show');
+            });
+            $('.nav-tabs a').on('shown.bs.tab', function (event) {
+                var x = $(event.target).text();         // active tab
+                var y = $(event.relatedTarget).text();  // previous tab
+            });           
+        });
+
+        function fncViewMaBaoCha() {
+            var anPham = $(".TenLoaiAnPham").text().trim();
+            if (anPham == "Ấn phẩm phụ") {
+                $(".lblBaoCha_View").show();
+            }
+            else {
+                $(".lblBaoCha_View").hide();
+            }
+        }
+    </script>
+}

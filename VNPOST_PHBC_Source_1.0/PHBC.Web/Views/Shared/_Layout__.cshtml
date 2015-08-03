@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @Application.Name</title>
+
+    <link rel="shortcut icon" href="/content/icons/favicon.ico">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
+    @RenderSection("head", required: false)
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span aria-hidden="true" class="icon-bar"></span>
+                    <span aria-hidden="true" class="icon-bar"></span>
+                    <span aria-hidden="true" class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @Html.Action("LoadMenu", "UserManager", new { area = "admin" })
+                </ul>
+                    @Html.Partial("_loginPartial")
+            </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryvalunobtrusive")
+    @Scripts.Render("~/bundles/bootstrap")
+    @* Render failover scripts. If a Content Delivery Network (CDN) fails, load a local copy.
+        If you trust the CDN to be available 100% of the time and you prefer better performance
+        you can omit this line and the one for 'failoverrespond' below. *@
+    @Scripts.Render("~/bundles/failovercore")
+    @* Only load respond if we are running IE8 or less. *@
+    <!--[if lt IE 9]>
+      @Scripts.Render("~/bundles/respond")
+      @Scripts.Render("~/bundles/failoverrespond")
+    <![endif]-->
+    @Scripts.Render("~/bundles/appcustem")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

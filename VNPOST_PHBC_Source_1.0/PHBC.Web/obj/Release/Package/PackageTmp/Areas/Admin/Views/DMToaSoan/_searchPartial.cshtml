@@ -1,0 +1,36 @@
+﻿@model PHBC.DAO.Models.DMToaSoanSearchModel
+@using PHBC.Web.Constants
+
+@using (Html.BeginForm("Search", "DMToaSoan", new { Area = "Admin" }, FormMethod.Post, htmlAttributes: new { @class = "form-horizontal navbar-form navbar-right", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group" id="adv-search">
+                <input name="MaToaSoan" type="text" class="form-control" placeholder="Mã tòa soạn" value="@Html.Raw(Model.MaToaSoan)" />
+                <div class="input-group-btn">
+                    <div class="btn-group" role="group">
+                        <div class="dropdown dropdown-lg">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                <div class="test">
+                                    <div class="form-group" style="display:block;">
+                                        @Html.LabelFor(model => model.TenToaSoan, new { @for = "contain" })
+                                        <input name="TenToaSoan" class="form-control" type="text" value="@Html.Raw(Model.TenToaSoan)" />
+                                    </div>
+                                    <div class="form-group" style="display:block;">
+                                        @Html.LabelFor(model => model.SoDienThoai, new { @for = "contain" })
+                                        <input name="SoDienThoai" class="form-control" type="text" value="@Html.Raw(Model.SoDienThoai)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary form-control"><span class="@Application.ButtonIcon.Search" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

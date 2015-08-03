@@ -1,0 +1,220 @@
+﻿@model PHBC.DAO.Models.BDieuChinhPhanHuongUnitModel
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+
+@{
+    ViewBag.Title = "Sửa Cấu hình điểm tiếp nhận ";
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+@section  head{
+
+    <style>
+        /*.list-group-item > .badge {
+            float: none !important;
+            position: relative;
+            left: 10px;
+        }*/
+        .list-group-item .badge .cslide-next.choose-unit2 {
+            color: white !important;
+        }
+         .list-group-item.active .badge .cslide-next.choose-unit2 {
+            color: black !important;
+        }
+    </style>
+
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @ViewBag.TitleName
+    </div>
+    <div class="panel-body">
+        <!-- tree -->
+        @*@Html.Partial("_treeview", Model)*@
+
+        <div class="col-md-12">
+            <div id="MenuContent">
+
+
+                @using (Html.BeginForm("EditDieuChinhPHNC", "DieuChinhPHNC", new { Area = "Bao" }, FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", id = "actionForm", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Units)
+                    <input type="hidden" name="TypeId" id="TypeId" />
+                    <input type="hidden" name="listId" id="listId" />
+                    <div class="form-horizontal">
+                        <h5>Sửa cấu hình phân hướng nhu cầu</h5>
+                        <hr />
+                        @Html.Partial("_inputForm", Model)
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input id="fSubmit" type="button" value="@Application.ButtonLabel.Save" class="btn btn-default" />
+                                @*@Html.ActionLink(Application.ButtonLabel.Back, "Index", new { Mabao = ViewBag.Mabao }, new { @class = "btn btn-default" })*@
+                                @Html.ActionLink(Application.ButtonLabel.Back, "Index" + (string)ViewBag.SubAction, "DieuChinhPHNC", new { Area = "Bao", DieuChinhKHXBDetailId = ViewBag.DieuChinhKHXBDetailId }, new { @class = "btn btn-default" })
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+
+
+    @section Scripts {
+        @*@Scripts.Render("~/bundles/jqueryval")*@
+        <script type="text/javascript">
+            var currentlisttinh = {};
+            var currentlisthuyen = {};
+            $(document).ready(function () {
+                $('.huyen-partition').on('click', '.list-group .list-group-item', function () {
+                    $(this).toggleClass('active');
+                });
+
+                $('.dual-list .selector').click(function () {
+                    var $checkBox = $(this);
+                    var divcontainer;
+                    if ($checkBox.attr("customs") == "1") {
+                        divcontainer = ".tinh-partition";
+                    } else if ($checkBox.attr("customs") == "2") {
+                        divcontainer = ".huyen-partition";
+                    }
+                    else if ($checkBox.attr("customs") == "3") {
+                        divcontainer = ".buucuc-partition";
+                    }
+                    if (!$checkBox.hasClass('selected')) {
+                        $checkBox.addClass('selected').closest('.well ' + divcontainer).find('ul li:not(.active):visible').addClass('active');
+                        $checkBox.children('i').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+                    } else {
+                        $checkBox.removeClass('selected').closest('.well ' + divcontainer).find('ul li.active:visible').removeClass('active');
+                        $checkBox.children('i').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+                    }
+                });
+
+
+
+                $('[name="SearchDualList"]').keyup(function (e) {
+
+                    var code = e.keyCode || e.which;
+                    if (code == '9') return;
+                    if (code == '27') $(this).val(null);
+                    //var $rows = $(this).closest('.dual-list').find('.list-group li');
+                    var $rows = $(this).parents('.cslide-slide').find('.list-group li');
+
+                    var $selector = $(this).parents('.cslide-slide').find('.selector');
+                    $selector.removeClass('selected');
+                    $selector.children('i').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+
+                    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+                    $rows.show().filter(function () {
+
+                        var text = $(this).attr('valname').replace(/\s+/g, ' ').toLowerCase();
+
+                        val = lib.locdau(val);
+                        return !~text.indexOf(val);
+                        return !lib.containstxt($(this).attr('valname'), val);
+
+                    }).hide();
+
+                });
+
+                $("#treeMenu").treed();
+                $("#cslide-slides").cslide();
+                $("#DiemTiepNhanId").removeAttr('disabled');
+                $("#fSubmit").click(function () {
+                    var IDs = [];
+                    $(".cslide-active").children('div').find("li.active").each(function () { IDs.push(this.id); });
+                    if (IDs.length == 0) {
+                        messageErrorShow("Bạn chưa chọn quận huyện hay bưu cục nào !");
+                        return;
+                    }
+                    var typeid = $(".cslide-active").children('div').attr("typediv");
+                    var lstAction = $("#listId");
+                    var objType = $("#TypeId");
+
+                    lstAction.val(IDs);
+                    objType.val(typeid);
+                    //$('#ThongTinBaoId').removeAttr('disabled')
+                    $("#actionForm").submit();
+                })
+            });
+            $('body').unbind('click', '.list-group .list-group-item');
+            htmlloading = "<div attr-loading value='Xin vui lòng đợi'>";
+            htmlloading += "<img src='@Url.Content("~/Content/icons/loading_new_gif.gif")' />";
+            htmlloading += "</div>";
+
+            var dckhid = $('#DieuChinhKHXBDetailId').val();           
+
+            //click chọn bưu cục
+            $(".cslide-next.choose-unit").click(function () {
+                var IDs = [];
+                $("#lstMapHuyen").find("li.active").each(function () { IDs.push(this.id); });
+                if (IDs.length == 0) {
+                    messageErrorShow("Bạn chưa chọn huyện nào !");
+                    return false;
+                }
+                var serviceURL = "@Url.Action("LoadUnitDieuChinhPHNC")";
+                var danhSachHuyen = {};
+                danhSachHuyen = IDs.toString();
+                if (danhSachHuyen != currentlisthuyen) {
+                    $("#lstMapBuuCuc").html(htmlloading);
+                    $(".buucuc-partition .selector").removeClass('selected');
+                    $(".buucuc-partition .selector").children('i').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+                    currentlisthuyen = danhSachHuyen;
+                    $.ajax({
+                        type: "POST",
+                        url: serviceURL,
+                        data: { 'lstUnit': danhSachHuyen, 'DieuChinhKHXBDetailId': dckhid, 'typestr': '2' },
+                        dataType: "json",
+                        success: function (data, status) {
+                            $("#lstMapBuuCuc").html(data.responseText);
+                        },
+                        error: function (request, status, error) {
+                            $("#lstMapBuuCuc").html(request.responseText);
+                        }
+                    });
+                }
+            })
+
+            //click chọn bưu cục 2
+            $(".cslide-next.choose-unit2").click(function () {
+                $('.buucuc-partition').unbind('click');
+                $('.buucuc-partition').on('click', '.list-group .list-group-item', function () {
+                    $(this).toggleClass('active');
+                });
+                
+                var IDs = [];
+                //$("#lstMapHuyen").find("li.active").each(function () { IDs.push(this.id); });
+                IDs.push($(this).data("districtcode"));
+                if (IDs.length == 0) {
+                    messageErrorShow("Bạn chưa chọn huyện nào !");
+                    return false;
+                }
+                var serviceURL = "@Url.Action("LoadUnitDieuChinhPHNC")";
+                var danhSachHuyen = {};
+                danhSachHuyen = IDs.toString();
+                if (danhSachHuyen != currentlisthuyen) {
+                    $("#lstMapBuuCuc").html(htmlloading);
+                    $(".buucuc-partition .selector").removeClass('selected');
+                    $(".buucuc-partition .selector").children('i').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+                    currentlisthuyen = danhSachHuyen;
+                    $.ajax({
+                        type: "POST",
+                        url: serviceURL,
+                        data: { 'lstUnit': danhSachHuyen, 'DieuChinhKHXBDetailId': dckhid, 'typestr': '2' },
+                        dataType: "json",
+                        success: function (data, status) {
+                            $("#lstMapBuuCuc").html(data.responseText);
+                        },
+                        error: function (request, status, error) {
+                            $("#lstMapBuuCuc").html(request.responseText);
+                        }
+                    });
+                }
+            })
+
+        </script>
+    }
+</div>

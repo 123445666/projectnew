@@ -1,0 +1,61 @@
+﻿@model PHBC.DAO.Models.ThongTinGiaBaoModel
+
+<div class="form-group col-md-6">
+    @Html.LabelForView(model => model.MaBao, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.DisplayFor(model => model.MaBao, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+</div>
+
+<div class="form-group col-md-6">
+    @Html.LabelForView(model => model.TenBao, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.DisplayFor(model => model.TenBao, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+</div>
+<div class="form-group col-md-6">
+    @Html.LabelForView(model => model.BaoTrungUongDiaPhuong, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.CheckBoxFor(model => model.BaoTrungUongDiaPhuong, new { @disabled = "disabled", @readonly = "readonly" })
+    </div>
+</div>
+<div class="form-group col-md-6">
+    @Html.LabelForView(model => model.BaoTrongMucLuc, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.CheckBoxFor(model => model.BaoTrongMucLuc, new { @disabled = "disabled", @readonly = "readonly" })
+    </div>
+</div>
+<div class=" form-title">
+    Thông tin giá
+</div>
+
+<div class="form-group col-md-6">
+    @Html.LabelForView(model => model.Value, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.DisplayFor(model => model.Value, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+</div>
+<div class="form-group col-md-6">
+    @Html.LabelForView(model => model.NgayHieuLuc, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.DisplayFor(model => model.NgayHieuLuc, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+</div>
+<div class="form-group col-md-6">
+    @Html.LabelForView(model => model.NgayHetHieuLuc, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.DisplayFor(model => model.NgayHetHieuLuc, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+</div>
+<div class="form-group col-md-6">
+    @Html.LabelForView(model => model.QuyetDinh, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.DisplayFor(model => model.QuyetDinh, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+</div>
+<div class="form-group col-md-6">
+    @Html.LabelForView(model => model.GhiChu, new { @class = "col-md-4 control-label" })
+    <div class="col-md-8">
+        @Html.DisplayFor(model => model.GhiChu, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+</div>

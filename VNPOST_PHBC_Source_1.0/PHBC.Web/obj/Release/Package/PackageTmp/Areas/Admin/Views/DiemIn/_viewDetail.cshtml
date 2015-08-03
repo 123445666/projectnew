@@ -1,0 +1,45 @@
+﻿@model PHBC.DAO.Models.DMDiemInModel
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.LabelForView(model => model.MaDiemIn, new { @class = "control-label" })
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaDiemIn)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.TenDiemIn, new { @class = "control-label" }):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenDiemIn)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.DistrictCode, new { @class = "control-label" }):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DistrictCode)
+        </dd>
+        <dt>
+            @Html.LabelFor(model => model.ProvinceName, new { @class = "control-label" }):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProvinceName)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.DiaChi, new { @class = "control-label" }):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaChi)
+        </dd>
+
+    </dl>
+</div>

@@ -1,0 +1,187 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@model PagedList<PHBC.DAO.Models.DMToaSoanModel>
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = Application.ButtonLabel.List + ViewBag.TitleName;
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @Application.ButtonLabel.List @ViewBag.TitleName
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="btn-toolbar col-md-7">
+                @Html.CustomLink(Application.ButtonLabel.Create + (string)ViewBag.TitleName, ActionType.Create, permisson, null, new { @class = Application.ButtonClass.Default })
+                @*@Html.ActionLink(Application.ButtonLabel.ExportXLS, "ExportExcel", routeValues: new { all = 1 }, htmlAttributes: new { @class = Application.ButtonIcon.Create })*@
+                    @if (permisson.hasPermisson("ExportExcel"))
+                    {
+                        <button type="button" class="@Application.ButtonClass.Default" id="test">Xuất file excel</button> 
+                    }
+                    @if (permisson.hasPermisson("Print"))
+                    {    
+                        @*@Html.ActionLink(Application.ButtonLabel.Print, "PrintAll", routeValues: null, htmlAttributes: new { @class = Application.ButtonIcon.Create })*@
+                        <button type="button" class="@Application.ButtonClass.Default" id="test2">Xuất nhãn tòa soạn</button>
+                    }
+            </div>
+    <div class="col-md-5">
+            @if (permisson.hasPermisson("Search"))
+            {
+                if (ViewBag.SearchModel == null)
+                    {
+                        @Html.Partial("_searchPartial", new PHBC.DAO.Models.DMToaSoanSearchModel())
+                    }
+                    else
+                    {
+                        @Html.Partial("_searchPartial", ViewBag.SearchModel as PHBC.DAO.Models.DMToaSoanSearchModel)
+                    }
+            }
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-custom">
+                <colgroup>
+                    <col style="width: 30px;" />
+                    <col style="width: 120px" />
+                    <col style="width: 150px" />
+                    <col style="width: 150px" />
+                    <col style="width: 100px" />
+                    <col style="width: 50%" />
+                    <col style="width: 50%" />
+                    <col style="width: 95px;" />
+                </colgroup>
+                <tr>
+                    <th>
+                        <input class="checkallts" id="selectall" name="check" type="checkbox">
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MaToaSoan)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TenToaSoan)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DiaChi)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SoDienThoai)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TongBienTap)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NguoiDaiDien)
+                    </th>
+                    <th>Chức năng</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" class="checkts" id="@item.Id" name="option2" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaToaSoan)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenToaSoan)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DiaChi)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SoDienThoai)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TongBienTap)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NguoiDaiDien)
+                        </td>
+                        @*@Html.DisplayFor(Application.checkToaSoanStatus(modelItem => item.Status))*@
+
+                        <td>
+                            @Html.CustomLink("", ActionType.Edit, permisson, new { id = item.Id }, null, Application.ButtonIcon.ToEdit, Application.ButtonLabel.ToEdit)
+                            @Html.CustomLink("", ActionType.Details, permisson, new { id = item.Id }, null, Application.ButtonIcon.Details, Application.ButtonLabel.Details)
+                            @Html.CustomLink("", ActionType.Delete, permisson, new { id = item.Id }, null, Application.ButtonIcon.Delete, Application.ButtonLabel.Delete)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+        @if (Model.TotalPageCount > 1) {
+            <div class="paginationcustome">
+                @Html.Pager(Model, new PagerOptions
+                   {
+                       PagerItemTemplate = "<li>{0}</li>",
+                       NextPageText = "&gt;",
+                       PrevPageText = "&lt;",
+                       FirstPageText = "Đầu",
+                       LastPageText = "Cuối",
+                       ShowDisabledPagerItems = false,
+                       ContainerTagName = "ul",
+                       CurrentPagerItemTemplate = "<li><a href='#' class='active'>{0}</a></li>"
+                   })
+            </div>
+        }
+        </div>
+</div>
+@using (Html.BeginForm("ExportExcel", "DMToaSoan", new { Area = "Admin" }, FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", id = "exportForm", role = "form" }))
+{
+    <input type="hidden" id="LstIdts" name="values" />
+}
+
+@using (Html.BeginForm("Print", "DMToaSoan", new { Area = "Admin" }, FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", id = "printForm", role = "form" }))
+{
+    <input type="hidden" id="LstIdts2" name="values" />
+}
+@*@if (permisson.hasPermisson(ActionType.Create))
+                        {
+                    @Html.ActionLink(Application.ButtonLabel.Create + (string)ViewBag.TitleName, "Create", routeValues: null, htmlAttributes: new { @class = Application.ButtonIcon.Create })
+    }*@
+    @section scripts{
+
+                      <script>
+                          $(document).ready(function () {
+
+
+                              /////////////////////////////////////////////////////////////
+                              // JS for Check/Uncheck all CheckBoxes by Checkbox //
+                              /////////////////////////////////////////////////////////////
+                              $("#selectall").click(function () {
+                                  $(".checkts").prop("checked", $("#selectall").prop("checked"))
+                              });
+
+                              $("#test").click(function () {
+                                  var allVals = [];
+                                  $('.checkts:checked').each(function () {
+                                      allVals.push($(this).attr("id"));
+                                  });
+                                  var postData = { values: allVals };
+                                  var lstAction = $("#LstIdts");
+                                  lstAction.val(allVals);
+                                  $("#exportForm").submit();
+                                  
+                              });
+
+                              $("#test2").click(function () {
+                                  var allVals = [];
+                                  $('.checkts:checked').each(function () {
+                                      allVals.push($(this).attr("id"));
+                                  });
+                                  var postData = { values: allVals };
+                                  var lstAction = $("#LstIdts2");
+                                  lstAction.val(allVals);
+                                  $("#printForm").submit();
+
+                              });
+
+                          });
+                          $('.test').click(function (e) {
+                              e.stopPropagation(); // prevent click in dropdown
+                          });
+                      </script>
+    }

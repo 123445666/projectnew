@@ -1,0 +1,36 @@
+﻿@model PHBC.DAO.Models.DMToaSoanModel
+@using PHBC.Web.Constants
+@using PHBC.DAO.Common
+@{
+    ViewBag.Title = Application.ButtonLabel.Create + ViewBag.TitleName;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading heading-custom">
+        <h4>@Application.ButtonLabel.Create @ViewBag.TitleName</h4>
+    </div>
+    <div class="panel-body">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true)
+                @Html.ValidationMessage("Error")
+
+
+               @Html.Partial("_inputForm", Model)
+
+                <div class="center-block">
+                    <div class="col-md-offset-5 col-md-6">
+                        <input type="submit" value="@Application.ButtonLabel.Save" class="@Application.ButtonClass.Submit" />
+                        @Html.ActionLink(Application.ButtonLabel.Back, "Index", null, new { @class = Application.ButtonClass.Submit })
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

@@ -1,0 +1,65 @@
+﻿@model PHBC.DAO.Models.SysDMPublicModel
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants;
+
+@{
+    ViewBag.Title = Application.ButtonLabel.Delete + ViewBag.TitleName;
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @Application.ButtonLabel.Delete @ViewBag.TitleName
+    </div>
+    <div class="panel-body">
+        <h3 class="text-danger">@Application.FormMessage.Delete_Confirm</h3>
+        <div>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                @if (permisson.RoleAdmin)
+                {
+                    <dt>
+                        @Html.LabelFor(model => model.IsLock, new { @class = "control-label" }):
+                    </dt>
+
+                    <dd>
+                        @if (Model.bLock)
+                        {
+                            @:Có
+                        }
+                        else
+                        {
+                            @:Không
+                        }
+                    </dd>
+                }
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="@Application.ButtonLabel.Delete" class="btn btn-default" /> |
+                    @Html.ActionLink(Application.ButtonLabel.Back, "Index", new { id = Html.DisplayFor(model => model.TypeId) }, new { @class = "btn btn-default" })
+                </div>
+            }
+        </div>
+</div>
+</div>

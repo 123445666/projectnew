@@ -1,0 +1,135 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@model PagedList<PHBC.DAO.Models.UserModel>
+@using PHBC.Web.Constants
+
+@{
+    ViewBag.Title = Application.ButtonLabel.List + " " + ControllerDesc.UserManager;
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @ViewBag.Title
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="btn-toolbar col-md-7">
+                @Html.CustomLink(Application.ButtonLabel.Create + " " + ControllerDesc.UserManager, ActionType.Create, permisson, null, new { @class = Application.ButtonClass.Default })
+            </div>
+            <div class="col-md-5">
+                @if (permisson.hasPermisson("Search"))
+                    {
+                        if (ViewBag.SearchModel == null)
+                        {
+                                @Html.Partial("_searchPartial", new PHBC.DAO.Models.UserSearchModel())
+                        }
+                        else
+                        {
+                                @Html.Partial("_searchPartial", ViewBag.SearchModel as PHBC.DAO.Models.UserSearchModel)
+                        }
+                }
+                </div>
+        </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-custom">
+                            <colgroup>
+                                <col style="width: 100px" />
+                                <col style="width: 120px" />
+                                <col style="width: 120px" />
+                                <col style="width: 100px" />
+                                <col style="width: 50%" />
+                                <col style="width: 50%" />
+                                <col style="width: 110px;" />
+                            </colgroup>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UserName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DislayName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UnitCode)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UnitName)
+                                </th>
+                                <th>Thao tác</th>
+                            </tr>
+
+                            @if (Model != null || Model.Count() > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DislayName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UnitCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UnitName)
+                            </td>
+                            <td>
+                                @Html.CustomLink("", ActionType.Edit, permisson, new { id = item.Id }, null, Application.ButtonIcon.ToEdit, Application.ButtonToltip.Edit)
+                                @Html.CustomLink("", ActionType.Details, permisson, new { id = item.Id }, null, Application.ButtonIcon.Details, Application.ButtonToltip.Details)
+                                @Html.CustomLink("", ActionType.Delete, permisson, new { id = item.Id }, null, Application.ButtonIcon.Delete, Application.ButtonToltip.Delete)
+                                @Html.CustomLink("", "AddRole", permisson, new { id = item.Id }, null, Application.ButtonIcon.AddRole, Application.ButtonToltip.AddRole)
+                                @Html.CustomLink("", "SetPassword", permisson, new { id = item.Id }, null, Application.ButtonIcon.SetPassword, Application.ButtonToltip.SetPassword)
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                                <tr>
+                                    <td colspan="5">
+                                        Không có bản ghi nào !
+                                    </td>
+                                </tr>
+                }
+
+                        </table>
+                    </div>
+                    @if (Model.TotalPageCount > 1)
+            {
+                        <div class="paginationcustome">
+                            @Html.Pager(Model, new PagerOptions
+                   {
+                       PagerItemTemplate = "<li>{0}</li>",
+                       NextPageText = "&gt;",
+                       PrevPageText = "&lt;",
+                       FirstPageText = "Đầu",
+                       LastPageText = "Cuối",
+                       ShowDisabledPagerItems = false,
+                       ContainerTagName = "ul",
+                       CurrentPagerItemTemplate = "<li><a href='#' class='active'>{0}</a></li>"
+                   })
+                        </div>
+            }
+                </div>
+            </div>
+
+            @section Scripts {
+                <script type="text/javascript">
+                    $('.test').click(function (e) {
+                        e.stopPropagation();
+                    });
+                </script>
+            }

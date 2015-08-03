@@ -1,0 +1,28 @@
+﻿@model IEnumerable<PHBC.DAO.v_Unit>
+@using PHBC.Web.Constants
+<table class="table table-hover">
+    <colgroup>
+        <col style="width:30%;" />
+        <col style="width:60%;" />
+        <col style="width:10%;" />
+    </colgroup>
+
+    @foreach (var item in Model)
+    {
+        <tr class="province info">
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitName)
+            </td>
+            <td>
+                <a href="javascript:lib.bindvalueforlib('@TempData["ObjId"]','@TempData["ObjName"]','@Html.RemoveXss(modelItem => item.UnitCode)','@Html.RemoveXss(modelItem => item.UnitName)');" class="abc" data-id="@Html.DisplayFor(modelItem => item.UnitCode)" data-name="@Html.DisplayFor(modelItem => item.UnitName)">
+                    @Html.Raw(Application.ButtonIcon.Choose)
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>
+

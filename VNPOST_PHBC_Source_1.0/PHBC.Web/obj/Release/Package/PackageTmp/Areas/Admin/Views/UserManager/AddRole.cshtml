@@ -1,0 +1,188 @@
+﻿@model PHBC.DAO.Models.UserRoleModel
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = "Thêm vai trò cho người dùng";
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Thêm vai trò cho người dùng
+    </div>
+    <div class="panel-body">
+        <div class="form-title">
+            Thông tin người dùng
+        </div>
+        <dl class="dl-horizontal">
+            <dt>                
+                @Html.LabelFor(model => model.UserName, new { @class = "control-label" }):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UserName)
+            </dd>
+
+            <dt>
+                @Html.LabelFor(model => model.DislayName, new { @class = "control-label" }):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DislayName)
+            </dd>
+
+            <dt>
+                @Html.LabelFor(model => model.UnitName, new { @class = "control-label" }):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UnitName)
+            </dd>
+        </dl>
+        @using (Html.BeginForm("AddRole", "UserManager", new { Area = "Admin" }, FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", id = "actionForm", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.LstRole)
+        }
+
+        <div class="form-title">
+            Thêm vai trò
+        </div>
+            <div class="row">
+                <div class="dual-list list-left col-md-5">
+                    <div class="well text-right">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon glyphicon glyphicon-search"></span>
+                                    <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="btn-group">
+                                    <a class="btn btn-default selector" title="select all"><i class="glyphicon glyphicon-unchecked"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="list-group">
+                            @foreach (var item in Model.Role_NotMap)
+                            {
+                                <li id="@item.Id" class="list-group-item">@item.Name</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="list-arrows col-md-1 text-center">
+                    <button class="btn btn-default btn-sm move-left">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </button>
+
+                    <button class="btn btn-default btn-sm move-right">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </button>
+                </div>
+
+                <div class="dual-list list-right col-md-5">
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="btn-group">
+                                    <a class="btn btn-default selector" title="select all"><i class="glyphicon glyphicon-unchecked"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="input-group">
+                                    <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
+                                    <span class="input-group-addon glyphicon glyphicon-search"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <ul id="lstMap" class="list-group">
+                            @foreach (var item in Model.Role_Current)
+                            {
+                                <li id="@item.Id" class="list-group-item">@item.Name</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="#" onclick="callSave();" class="btn btn-default">Save</a>
+                @Html.ActionLink(Application.ButtonLabel.Back, "Index", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>  
+</div>
+
+
+@section head{
+    <style type="text/css">
+        .dual-list .list-group {
+            margin-top: 8px;
+            max-height:400px;
+            overflow:auto;
+        }
+
+        .list-left li, .list-right li {
+            cursor: pointer;
+        }
+
+        .list-arrows {
+            padding-top: 100px;
+        }
+
+            .list-arrows button {
+                margin-bottom: 20px;
+            }
+    </style>
+}
+
+@section scripts{
+    <script type="text/javascript">
+        function callSave() {
+            var lstRole = $("#LstRole");
+            var IDs = [];
+            $("#lstMap").find("li").each(function () { IDs.push(this.id); });
+            lstRole.val(IDs);
+            $("#actionForm").submit();
+        }
+        $(function () {
+
+            $('body').on('click', '.list-group .list-group-item', function () {
+                $(this).toggleClass('active');
+            });
+            $('.list-arrows button').click(function () {
+                var $button = $(this), actives = '';
+                if ($button.hasClass('move-left')) {
+                    actives = $('.list-right ul li.active');
+                    actives.clone().appendTo('.list-left ul');
+                    actives.remove();
+                } else if ($button.hasClass('move-right')) {
+                    actives = $('.list-left ul li.active');
+                    actives.clone().appendTo('.list-right ul');
+                    actives.remove();
+                }
+            });
+            $('.dual-list .selector').click(function () {
+                var $checkBox = $(this);
+                if (!$checkBox.hasClass('selected')) {
+                    $checkBox.addClass('selected').closest('.well').find('ul li:not(.active)').addClass('active');
+                    $checkBox.children('i').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+                } else {
+                    $checkBox.removeClass('selected').closest('.well').find('ul li.active').removeClass('active');
+                    $checkBox.children('i').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+                }
+            });
+            $('[name="SearchDualList"]').keyup(function (e) {
+                var code = e.keyCode || e.which;
+                if (code == '9') return;
+                if (code == '27') $(this).val(null);
+                var $rows = $(this).closest('.dual-list').find('.list-group li');
+                var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+                $rows.show().filter(function () {
+                    var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                    return !~text.indexOf(val);
+                }).hide();
+            });
+
+        });
+    </script>
+}

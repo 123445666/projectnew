@@ -1,0 +1,41 @@
+﻿
+ @if (ViewBag.PageCount > 1)
+{
+    int start = ViewBag.Page - 2;
+    start = start > 1 ? start : 1;
+    int end = start + 5;
+    end = end > ViewBag.PageCount ? ViewBag.PageCount : end;
+     
+<div class="paginationcustome">
+    <ul>
+        @if (ViewBag.Page > 1)
+        {
+
+            <li>
+                @Html.ActionLink("<<", ViewContext.RouteData.Values["action"] as String, new { page = 1 })
+            </li>
+
+            <li>
+                @Html.ActionLink("< Prev", ViewContext.RouteData.Values["action"] as String, new { page = ViewBag.Page - 1 })
+            </li>
+        }
+        @for (int i = start; i <= end; i++)
+        {
+            <li>
+                @Html.ActionLink(i.ToString(), ViewContext.RouteData.Values["action"] as String, new { page = i })
+            </li>
+        }
+
+        @if (ViewBag.Page < ViewBag.PageCount)
+        {
+            <li>
+                @Html.ActionLink("Next >", ViewContext.RouteData.Values["action"] as String, new { page = ViewBag.Page + 1 })
+            </li>
+            <li>
+                @Html.ActionLink(">>", ViewContext.RouteData.Values["action"] as String, new { page = ViewBag.PageCount })
+            </li>
+        }
+
+    </ul>
+</div>
+}

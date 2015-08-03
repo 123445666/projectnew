@@ -1,0 +1,52 @@
+﻿@using PHBC.Web.Permission;
+@model PHBC.DAO.Models.SysDMPublicModel
+@using PHBC.Web.Constants
+
+@{
+    ViewBag.Title = Application.ButtonLabel.Details + ViewBag.TitleName;
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @Application.ButtonLabel.Details @ViewBag.TitleName
+    </div>
+    <div class="panel-body">
+
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                   @Html.LabelFor(model => model.Name, new { @class = "control-label" }):
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.LabelFor(model => model.IsLock, new { @class = "control-label" }):
+                </dt>
+
+                <dd>
+                    @Html.CheckBoxFor(model => model.bLock, new { disabled = "disabled" })
+                </dd>
+
+                <dt>
+                    @Html.LabelFor(model => model.Description, new { @class = "control-label" }):
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+            @if (permisson.hasPermisson(ActionType.Edit))
+            {
+                <a href="@Url.Action(string.Format("Edit/{0}/{1}", Html.DisplayFor(model => model.TypeId), Html.DisplayFor(model => model.Code)), "danhmuccon", null)" data-toggle="tooltip" title="@Application.ButtonLabel.ToEdit" class="btn btn-default">@Application.ButtonLabel.ToEdit</a>
+            }
+            @Html.ActionLink(Application.ButtonLabel.Back, "Index", new { id = Html.DisplayFor(model => model.TypeId) }, new { @class = "btn btn-default" })
+        </p>
+</div>
+</div>

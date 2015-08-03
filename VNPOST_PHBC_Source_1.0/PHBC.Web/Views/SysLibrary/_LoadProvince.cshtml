@@ -1,0 +1,95 @@
+﻿@model IEnumerable<PHBC.DAO.Models.TinhThanh>
+@*<div class="row">
+        <div class="col-md-9"></div>
+        <div class="col-md-3">
+            <div class="row" style="float:right;margin-right:5px;">
+                <div class="input-group">
+                    <input type="text" id="searchUnit" name="searchUnit" class="form-control" placeholder="Tìm kiếm" />
+                    <div class="input-group-btn">
+                        <div class="btn btn-info searchProvince">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+<div class="table-responsive" style="max-height:400px; overflow:auto; cursor:pointer;">
+    <table class="table table-hover">
+        <colgroup>
+            <col style="width:30%" />
+            <col style="width:70%" />
+        </colgroup>
+        <tr class="info">
+            <th>
+                @Html.DisplayNameFor(model => model.ProvinceCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProvinceName)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="provincetable" data-id="@Html.DisplayFor(modelItem => item.ProvinceCode)">
+                <td>
+                    <span class="icon-table">@Html.Raw(Application.ButtonIcon.TreeClose)</span>
+                    @Html.DisplayFor(modelItem => item.ProvinceCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProvinceName)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="districttable" data-id="@Html.DisplayFor(modelItem => item.ProvinceCode)"></td>
+            </tr>
+        }
+
+    </table>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.districttable').hide();
+    });
+    $(".provincetable").click(function () {
+        var provincecode;
+        var objthis = $(this);
+        lib.fromcontroler();
+        provincecode = $(this).data("id");
+        var row = $('.districttable[data-id="' + provincecode + '"]');
+        if (!row.hasClass("active")) {
+            serviceURL = "@Url.Action("LoadDistrict", "SysLibrary", null)";
+
+            if (!row.hasClass("deactive")) {
+                $.ajax({
+                    type: "POST",
+                    url: serviceURL,
+                    data: { 'provincecode': provincecode },
+                    dataType: "html",
+                    success: function (data, status) {
+                        row.addClass("active");
+                        objthis.find(".icon-table").html("@Html.Raw(Application.ButtonIcon.TreeOpen)");
+                        row.show();
+                        row.html(data);
+                    },
+                    error: function (request, status, error) {
+                        row.html(request.responseText);
+                        console.log("error" + request.responseText);
+                    }
+
+                });
+            } else {
+                row.removeClass("deactive");
+                $(this).find(".icon-table").html("@Html.Raw(Application.ButtonIcon.TreeOpen)");
+                row.addClass("active");
+                row.show();
+            }
+        } else {
+            row.removeClass("active");
+            row.addClass("deactive");
+            $(this).find(".icon-table").html("@Html.Raw(Application.ButtonIcon.TreeClose)");
+            row.hide();
+        }
+    });
+</script>

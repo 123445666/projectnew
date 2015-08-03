@@ -1,0 +1,70 @@
+﻿@model PHBC.DAO.Models.BDiemTiepNhanModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>BDiemTiepNhan</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UnitName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.UnitCode)
+                @Html.EditorFor(model => model.UnitName, new { htmlAttributes = new { @class = "form-control", @readonly="" } })
+                @Ajax.ActionLink("Chọn", "LoadProvince", "SysLibrary", new { Area = "", objid = "UnitCode", objname="UnitName" }, new AjaxOptions() { InsertionMode = InsertionMode.Replace, OnSuccess = "fillDataToListUnit" }, htmlAttributes: new { @class = "btn btn-info", style = "float: right;z-index: 1; position: relative; margin-right: -15px;height: 29px;line-height: 16px;border-radius: 0px;" })
+
+                @Html.ValidationMessageFor(model => model.UnitName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script>
+    function fillDataToListUnit(result) {
+        var content = "<div id='ListUnit'>" + result + "</div>";
+        popupdanhmuc = new jPopup({
+            show: true,
+            close: false,
+            title: '',
+            width: 600,
+            body: content,
+            callbackFalse: function (event) {
+                event.close();
+            },
+            falseTitle: 'Hủy bỏ'
+        });
+    }
+</script>

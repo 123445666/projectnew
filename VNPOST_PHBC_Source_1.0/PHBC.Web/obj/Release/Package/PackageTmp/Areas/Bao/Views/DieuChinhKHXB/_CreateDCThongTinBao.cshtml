@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PHBC.DAO.Models.DCThongTinBaoModel>
+@using (Html.BeginForm("Create", "DieuChinhKHXB", routeValues: new { area = "Bao"}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-title">
+            Thông tin chung
+        </div>
+        @Html.Hidden("id", (string)ViewBag.Id)
+        @Html.Hidden("LoaiDieuChinh", (string)ViewBag.LoaiDieuChinh)
+        @Html.Hidden("Config", (string)ViewBag.Config)
+        @Html.EditorForModel()
+        <div class="form-group col-md-12">
+            <label class="col-md-2 control-label" style="padding-right: 40px;">
+                Ghi Chú
+            </label>
+            <div class="col-md-10">
+                @Html.TextArea("GhiChu", (string)ViewBag.GhiChu, new { @class = "form-control", rows = 3 })
+            </div>
+        </div>
+        <div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+
+    <style type="text/css">
+        .control-label::before {
+            content: " ";
+            position: absolute;
+            width: 30px;
+            height: calc(100% - 4px);
+            background-color: #FFF;
+            top: 2px;
+            right: 2px;
+        }
+    </style>

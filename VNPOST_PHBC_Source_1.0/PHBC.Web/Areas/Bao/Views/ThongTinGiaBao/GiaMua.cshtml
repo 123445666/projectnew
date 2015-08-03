@@ -1,0 +1,37 @@
+﻿@model PHBC.DAO.Models.ThongTinGiaBaoModel
+@using PHBC.Web.Constants
+@using Webdiyer.WebControls.Mvc;
+@{
+    ViewBag.Title = "Thêm giá mua ";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Thông tin giá mua báo
+    </div>
+    <div class="panel-body">
+        <div class="form-title">
+            Thông tin báo
+        </div>       
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal" accs>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.Partial("_inputForm", Model)
+                <div>
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="@Application.ButtonLabel.Save" class="@Application.ButtonClass.Submit" />
+                        @Html.ActionLink(Application.ButtonLabel.Back, "Index", null, new { @class = Application.ButtonClass.Submit })
+                    </div>
+                </div>
+            </div>            
+        }
+    </div>
+</div>
+
+<div style="display:none;">
+
+</div>
+@section Scripts {
+}

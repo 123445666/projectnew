@@ -1,0 +1,52 @@
+﻿@model PHBC.DAO.Models.BPhanHuongNhuCauModel
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+
+@{
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+
+<ul id="treeMenu">
+    @foreach (var item in (IEnumerable<PHBC.DAO.Models.ProvinceWithCount>)ViewBag.DTNBC)
+    {
+        if (!String.IsNullOrEmpty(item.ProvinceCode))
+        {
+            @Html.Raw("<li>");
+        if (permisson.hasPermisson(ActionType.Delete))
+        {
+            @Html.ActionLink(item.ProvinceName + " ( " + item.CountDistrictConfig + " huyện)", "Edit", new { provincecode = item.ProvinceCode, Mabao = ViewBag.MaBao }, new { title = item.CountDistrictConfig + " huyện đã thiết lập" });
+        }
+        else
+        {
+            Html.ActionLink(item.ProvinceName + " ( " + item.CountDistrictConfig + " huyện)", null, new { href = "#" });
+        }
+        @*@Html.Raw("<a href='#' onclick='edit('" + item.Id + "');'>" + item.Name + "</a>");*@
+        }
+        if (item.DistrictWithUnit.Count() > 0)
+        {
+            @Html.Raw("<ul>");
+                             foreach (var childIem in item.DistrictWithUnit)
+                             {
+                                <li>
+                                    @if (permisson.hasPermisson(ActionType.Edit))
+                                    {
+                                        @Html.ActionLink(childIem.DistrictCode + " - " + childIem.DistrictName + " ( " + childIem.ProvinceWithCode.Count() + " bưu cục )", "Edit", new { districtcode = childIem.DistrictCode, Mabao = ViewBag.MaBao }, new { title = childIem.ProvinceWithCode.Count() + " bưu cục đã thiết lập" });
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink(childIem.DistrictCode + " - " + childIem.DistrictName + " ( " + childIem.ProvinceWithCode.Count() + " bưu cục )", null, new { href = "#" }, new { title = childIem.ProvinceWithCode.Count() + " bưu cục đã thiết lập" });
+                                    }
+                                    @*<a href="#" onclick="edit('@childIem.Id');">@childIem.Name</a>*@
+                                </li>
+                             }
+                            @Html.Raw("</ul>");
+        @Html.Raw("</li>");
+        }
+        else
+        {
+            @Html.Raw("</li>");
+        }
+
+    }
+</ul>

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<PHBC.DAO.Models.QuanHuyen>
+@{
+    int sum = 0;
+    string check = "";
+    if (TempData["TypeUnit"] == "1")
+    {
+        sum = Model.Sum(t => t.lstUnitNotMap.Count);
+        check = "chưa thiết lập phân hướng điểm tiếp nhận";
+    }
+    else
+    {
+        sum = Model.Sum(t => t.lstUnitMap.Count);
+        check = "đã thiết lập phân hướng điểm tiếp nhận";
+    }
+}
+<br />
+<div class="form-group"> <span class="numCountAll">@Model.Count()</span> huyện @check. </div>
+@foreach (var item in Model)
+{
+    <li id="@item.DistrictCode" class="col-md-12 list-group-item @item.DistrictCode" data-provincecode="@item.ProvinceCode" valname="@item.DistrictCode @Html.replaceUnicode(item.DistrictName) @Html.replaceUnicode((TempData["TypeUnit"].Equals("1") ? item.ProvinceName : item.DistrictMapPoint2))">
+        <span class="col-md-6"> @item.DistrictCode - @item.DistrictName - @(TempData["TypeUnit"].Equals("1") ? item.ProvinceName : item.DiemTiepNhanName)</span>
+        @if (TempData["TypeUnit"].Equals("2"))
+        { 
+        <span class="badge">
+            <span data-districtcode="@item.DistrictCode" class="cslide-next choose-unit2">Thiết lập phân hướng cho bưu cục</span>
+        </span>
+        }
+    </li>
+}

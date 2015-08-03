@@ -1,0 +1,54 @@
+﻿@model PHBC.DAO.Models.BaoDiemInModel
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = "Index";
+    string provinceCode = "";
+    string maDiemIn = "";
+}
+
+<table class="table table-bordered table-hover table-custom">
+    <tr>
+        <th>
+        </th>
+        <th>
+            Tỉnh
+        </th>
+        <th>
+            Điểm in
+        </th>
+    </tr>
+    @if (Model.DiemIn_Current == null)
+    {
+        <tr>
+            <td colspan="9">Báo chưa được cập nhật điểm in</td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model.DiemIn_Current)
+        {           
+            if (item.MaDiemIn != maDiemIn)
+            {
+                 maDiemIn = item.MaDiemIn;
+                 provinceCode = item.ProvinceCode;
+                 <tr class="warning">
+                    <td colspan="5"><b>@provinceCode - @maDiemIn</b></td>
+                 </tr>
+            }
+            <tr>
+                <td>
+                    @Html.HiddenFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Province.ProvinceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenDiemIn)
+                </td>
+            </tr>
+        }
+    }
+</table>
+

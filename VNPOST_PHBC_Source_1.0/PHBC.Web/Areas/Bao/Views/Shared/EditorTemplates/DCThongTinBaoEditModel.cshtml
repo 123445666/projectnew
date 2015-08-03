@@ -1,0 +1,66 @@
+﻿@model PHBC.DAO.Models.DCThongTinBaoEditModel
+@Html.HiddenFor(model => model.Key)
+@Html.HiddenFor(model => model.Dislay)
+@Html.HiddenFor(model => model.KieuDuLieu)
+<div class="form-group col-md-6">
+    <label class="col-md-4 control-label label-checkbox" style="padding-right: 40px;">
+        @Html.DisplayFor(model => model.Dislay)
+        @Html.CheckBoxFor(model => model.IsActive)
+    </label>
+    <div class="col-md-8">
+        @switch (Model.KieuDuLieu)
+        {
+            case (int)PHBC.DAO.Common.Enums.KieuDuLieu.Interger:
+                @Html.EditorFor(model => model.IntergerValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IntergerValue, "", new { @class = "text-danger" })
+                @*@Html.HiddenFor(model => model.NumericValue, "123")
+                @Html.HiddenFor(model => model.PhoneNumberValue, "+84.123.123")
+                @Html.HiddenFor(model => model.EmailValue, "abc@123.123")
+                @Html.HiddenFor(model => model.StringValue, "123")*@
+                break;
+            case (int)PHBC.DAO.Common.Enums.KieuDuLieu.Numeric:
+                @Html.EditorFor(model => model.NumericValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NumericValue, "", new { @class = "text-danger" })
+                @*@Html.HiddenFor(model => model.StringValue, "123")
+                @Html.HiddenFor(model => model.PhoneNumberValue, "+84.123.123")
+                @Html.HiddenFor(model => model.EmailValue, "abc@123.123")
+                @Html.HiddenFor(model => model.IntergerValue, "123")*@
+
+                break;
+            case (int)PHBC.DAO.Common.Enums.KieuDuLieu.Date:
+                @Html.EditorFor(model => model.DateValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DateValue, "", new { @class = "text-danger" })
+                @*@Html.HiddenFor(model => model.StringValue, "123")
+                @Html.HiddenFor(model => model.PhoneNumberValue, "+84.123.123")
+                @Html.HiddenFor(model => model.EmailValue, "abc@123.123")
+                @Html.HiddenFor(model => model.IntergerValue, "123")*@
+
+                break;
+            case (int)PHBC.DAO.Common.Enums.KieuDuLieu.PhoneNumber:
+                @Html.EditorFor(model => model.PhoneNumberValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumberValue, "", new { @class = "text-danger" })
+                @*@Html.HiddenFor(model => model.NumericValue, "123")
+                @Html.HiddenFor(model => model.IntergerValue, "123")
+                @Html.HiddenFor(model => model.EmailValue, "abc@123.123")
+                @Html.HiddenFor(model => model.StringValue, "123")*@
+                break;
+            case (int)PHBC.DAO.Common.Enums.KieuDuLieu.Email:
+                @Html.EditorFor(model => model.EmailValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EmailValue, "", new { @class = "text-danger" })
+                @*@Html.HiddenFor(model => model.NumericValue, "123")
+                @Html.HiddenFor(model => model.PhoneNumberValue, "+84.123.123")
+                @Html.HiddenFor(model => model.StringValue, "123")
+                @Html.HiddenFor(model => model.IntergerValue, "123")*@
+                break;
+            default:
+                @Html.EditorFor(model => model.StringValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StringValue, "", new { @class = "text-danger" })
+                @*@Html.HiddenFor(model => model.NumericValue, "123")
+                @Html.HiddenFor(model => model.PhoneNumberValue, "+84.123.123")
+                @Html.HiddenFor(model => model.EmailValue, "abc@123.123")
+                @Html.HiddenFor(model => model.IntergerValue, "123")*@
+                break;
+        }
+        @*@Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })*@
+    </div>
+</div>

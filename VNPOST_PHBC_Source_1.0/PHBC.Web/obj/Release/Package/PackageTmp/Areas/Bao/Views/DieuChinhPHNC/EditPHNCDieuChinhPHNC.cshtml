@@ -1,0 +1,72 @@
+﻿@model PHBC.DAO.Models.BPhanHuongNhuCauModel
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = "Sửa Cấu hình điểm tiếp nhận ";
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @ViewBag.TitleName
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h5>Sửa cấu hình phân hướng nhu cầu</h5>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.CreateBy)
+                @Html.HiddenFor(model => model.CreateDate)
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UnitCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("UnitCode", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                        @Html.ValidationMessageFor(model => model.UnitCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @if (!String.IsNullOrEmpty(Model.ThongTinBaoId))
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ThongTinBaoId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("ThongTinBaoId", null, String.Empty, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                            @Html.ValidationMessageFor(model => model.ThongTinBaoId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DiemTiepNhanId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("DiemTiepNhanId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DiemTiepNhanId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="@Application.ButtonLabel.Save" onclick=" return undisabled();" class="btn btn-default" />
+                        @Html.ActionLink(Application.ButtonLabel.Back, "Details", new { Mabao = Model.ThongTinBaoId, districtcode = ViewBag.DistrictCodeDetail }, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+            </div>
+        }
+
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+            <script>
+                function undisabled() {
+                    $("#UnitCode").removeAttr("disabled");
+                    $("#ThongTinBaoId").removeAttr("disabled");
+                }
+            </script>
+        }
+</div>
+</div>

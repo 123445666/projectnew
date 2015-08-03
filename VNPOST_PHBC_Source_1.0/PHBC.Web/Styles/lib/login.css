@@ -1,0 +1,227 @@
+﻿.statusLinkTam
+{
+    display: inline-table;
+    width: 100%;
+    height: 16px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.statusLinkTamTick
+{
+    background-image: url('../Images/tickIcon.png');
+}
+
+.statusLinkTamDis
+{
+    background-image: url('../Images/disIcon.png');
+}
+
+.selectNew
+{
+    position: absolute;
+    right: 28px;
+    top: 9px;
+}
+
+    .selectNew select
+    {
+        padding: 1px 1px 1px 5px;
+        font-size: 12px;
+        color: #333;
+        border: 1px solid #FFF;
+    }
+
+    .selectNew input[type=text]
+    {
+        border: 1px solid #FFFFFF;
+        color: #333333;
+        font-size: 12px;
+        padding: 2px;
+    }
+
+    .selectNew input[type=submit]
+    {
+        background-color: #FFF;
+        border: 1px solid #FFFFFF;
+        color: #333333;
+        font-size: 12px;
+        padding: 2px 8px;
+        margin-left: 10px;
+    }
+
+        .selectNew input[type=submit]:hover
+        {
+            background-color: #333333;
+            border: 1px solid #333333;
+            color: #FFF;
+        }
+
+.checkBoxNew
+{
+}
+
+    .checkBoxNew label
+    {
+        font-weight: normal;
+        margin-right: 25px;
+    }
+
+.iconAdmin
+{
+    border: 1px solid #CCCCCC !important;
+    border-radius: 70px;
+    display: inline-block;
+    height: 70px;
+    padding: 2px;
+    width: 70px;
+}
+
+.form-group input[type="file"]
+{
+    display: inline-block !important;
+}
+
+.head-login
+{
+    position: fixed;
+    height: 40px;
+    width: 100%;
+    background-color: #333;
+    top: 0px;
+    left: 0px;
+}
+
+.head-login-content
+{
+    background-image: url('http://sirenchat.com/cat-anh.htm?url=linktamchat/images/logo_siren.png&width=150&color=FFFFFF');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 900px;
+    max-width: calc(100% - 20px);
+    margin: 0px auto;
+    position: relative;
+    height: 100%;
+    text-transform: uppercase;
+    font-size: 15px;
+    text-align: center;
+    line-height: 40px;
+    color: #FFF;
+}
+
+.body-panel-head
+{
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    color: #999;
+    font-size: 21px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: auto;
+    padding: 15px 0 5px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 415px;
+}
+
+.body-panel-login, .body-panel-status
+{
+    background-color: #fff;
+    box-sizing: padding-box;
+    margin: auto;
+    padding: 30px 30px 30px;
+    width: 415px;
+    position: relative;
+}
+
+.body-panel-status
+{
+    padding: 0px;
+}
+
+.btn-login-new
+{
+    background-color: #fd6700;
+    color: #fff;
+    padding: 4px 15px;
+    box-sizing: content-box;
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: absolute;
+    right: 30px;
+    bottom: 38px;
+    font-size:15px;
+}
+
+    .btn-login-new:hover
+    {
+        background-color: #ff7e2e;
+    }
+
+.btn-quen-pass
+{
+    bottom: 5px;
+    color: #555;
+    font-size: 13px;
+    position: absolute;
+    right: 30px;
+    cursor: pointer;
+}
+
+    .btn-quen-pass:hover
+    {
+        text-decoration: underline;
+    }
+
+.body-login[loading]:after
+{
+    content:" ";
+    background-color:rgba(255,255,255,0.5);
+    position:absolute;
+    width:100%;
+    height:100%;
+    z-index:10;
+    top:0px;
+    left:0px;
+}
+.body-login[valtype="0"]
+{
+}
+
+    .body-login[valtype="0"] .body-panel-head:after
+    {
+        content: "Đăng nhập";
+    }
+
+    .body-login[valtype="1"] .body-panel-head:after, .body-login[valtype="0"] .btn-quen-pass:after
+    {
+        content: "Quên mật khẩu";
+    }
+.body-login[valtype="2"] .body-panel-head:after
+{
+    content: "Xác nhận Email";
+}
+.body-login[valtype="1"] .btn-quen-pass:after,.body-login[valtype="2"] .btn-quen-pass:after
+{
+    content: "Quay lại đăng nhập";
+}
+.body-login[valtype="1"] .btn-quen-pass,.body-login[valtype="2"] .btn-quen-pass
+{
+    right: calc(100% - 142px);
+}
+
+*[aaa-step0],*[aaa-step1],*[aaa-step2]
+{
+    display: none;
+}
+
+.body-login[valtype="0"] *[aaa-step0],.body-login[valtype="1"] *[aaa-step1],.body-login[valtype="2"] *[aaa-step2]
+{
+    display: block;
+}
+.btn-login-new[aaa-step1],.btn-login-new[aaa-step2]
+{
+    bottom:10px;
+}

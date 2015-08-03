@@ -1,0 +1,42 @@
+﻿@model PHBC.DAO.Models.UserSearchModel
+    
+@using (Html.BeginForm("Search", "UserManager", new { Area = "Admin" }, FormMethod.Post, htmlAttributes: new { @class = "form-horizontal  navbar-form navbar-right", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+       
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group" id="adv-search">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", placeholder = "Tên user" } })
+                    <div class="input-group-btn">
+                        <div class="btn-group" role="group">
+                            <div class="dropdown dropdown-lg">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <div class="test">
+                                        <div class="form-group" style="display:block;">
+                                            @Html.LabelFor(model => model.Email)
+                                            <input name="Email" class="form-control" type="text" value="@Html.Raw(Model.Email)" />
+                                        </div>
+                                        <div class="form-group" style="display:block;">
+                                            @Html.LabelFor(model => model.UnitCode)
+                                            <input name="UnitCode" class="form-control" type="text" value="@Html.Raw(Model.UnitCode)" />
+                                        </div>
+                                        <div class="form-group" style="display:block;">
+                                            @Html.LabelFor(model => model.DislayName)
+                                            <input name="DislayName" class="form-control" type="text" value="@Html.Raw(Model.DislayName)" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<PHBC.DAO.Models.TinhThanh>
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = Application.ButtonLabel.List + ViewBag.TitleName;
+    string curProvinceCode = "";
+    PHBC.DAO.BDieuChinhKHXBDetail objDetail = new PHBC.DAO.BDieuChinhKHXBDetail();
+    if (ViewBag.ThongTinBao != null)
+    {
+        objDetail = (PHBC.DAO.BDieuChinhKHXBDetail)ViewBag.ThongTinDetail;
+    }
+
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @Application.ButtonLabel.List @ViewBag.TitleName
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="btn-toolbar col-md-7">
+                @Html.CustomLink(Application.ButtonLabel.Create + (string)ViewBag.TitleName, ActionType.Create + (string)ViewBag.SubAction, permisson, new { DieuChinhKHXBDetailId = (string)ViewBag.DieuChinhKHXBDetailId }, new { @class = Application.ButtonClass.Default })
+                
+            </div>
+            
+            </div>
+        <br/>
+        <div>
+            @if (@objDetail.DieuChinhKHXBId != null)
+            {
+                <p>
+                    <label>Mã điều chỉnh : </label>
+                    <label>@objDetail.DieuChinhKHXBId</label>
+                </p>
+            }
+        </div>
+
+        <br/>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <colgroup>
+                    <col style="width: 20px;" />
+                    <col style="width: 20px;" />
+                </colgroup>
+                <tr>
+                    <td colspan="3">Tổng số tỉnh : @Model.Count() ( Số huyện đã thiết lập: @Model.Sum(t => t.CountDistrictMap2) / Tổng số huyện: @Model.Sum(t => t.lstQuanHuyen.Count))</td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    if (item.ProvinceCode != curProvinceCode)
+                    {
+                        curProvinceCode = item.ProvinceCode;
+                        bool check = item.CountDistrictMap2 == item.lstQuanHuyen.Count;
+                        <tr class="@(check ? "active" : "info")">
+                            <td><b>@item.ProvinceName</b> - <span title="số huyện đã thiết lập/ tổng số huyện">(@item.CountDistrictMap2 / @item.lstQuanHuyen.Count huyện) </span></td>
+                            <td>@item.ProvinceMapPoint</td>
+                            <td>
+                                @if (item.CountDistrictMap2 > 0)
+                                {
+                                    if (item.CountDistrictMap2 < item.lstQuanHuyen.Count)
+                                    {
+                                        @Html.CustomLink("", ActionType.Create + (string)ViewBag.SubAction, permisson, new { provincecode = item.ProvinceCode, DieuChinhKHXBDetailId = ViewBag.DieuChinhKHXBDetailId }, null, Application.ButtonIcon.Create, "Thiết lập phân hướng")@:
+                                    }
+                                    @Html.CustomLink("", ActionType.Edit + (string)ViewBag.SubAction, permisson, new { provincecode = item.ProvinceCode, DieuChinhKHXBDetailId = ViewBag.DieuChinhKHXBDetailId }, null, Application.ButtonIcon.ToEdit, "Sửa huyện đã thiết lập") @:
+                                    @Html.CustomLink("", ActionType.Details + (string)ViewBag.SubAction, permisson, new { provincecode = item.ProvinceCode, DieuChinhKHXBDetailId = ViewBag.DieuChinhKHXBDetailId }, null, Application.ButtonIcon.Details, Application.ButtonLabel.Details) @:
+                                    
+                                }
+
+                                else
+                                {
+                                    @Html.CustomLink("", ActionType.Create + (string)ViewBag.SubAction, permisson, new { provincecode = item.ProvinceCode, DieuChinhKHXBDetailId = ViewBag.DieuChinhKHXBDetailId }, null, Application.ButtonIcon.Create, "Thiết lập phân hướng")
+                                }
+                            </td>
+
+                        </tr>
+                    }
+
+                }
+
+            </table>
+            @*@Html.ActionLink(Application.ButtonLabel.Back, "Index", "ThongTinBao", null, new { @class = "btn btn-default" })*@
+        </div>
+
+    </div>
+</div>

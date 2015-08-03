@@ -1,0 +1,53 @@
+﻿@model PHBC.DAO.Models.BDieuChinhPhanHuongUnitModel
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+
+@{
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+@section  head{
+
+    <style>
+        .list-group-item > .badge {
+            float: none !important;
+            position: relative;
+            left: 10px;
+        }
+    </style>
+
+}
+    <div class="panel-body">
+
+    <!-- tree -->
+    @*@Html.Partial("_treeview", Model)*@
+        
+    <div class="col-md-12">
+        <div id="MenuContent">
+            @using (Ajax.BeginForm("CreateDieuChinhPHNC", "DieuChinhPHNC", new { Area = "Bao" }, new AjaxOptions() { OnSuccess = "successPHNC" }, htmlAttributes: new { @class = "form-horizontal", id = "actionFormPHNC", role = "form" }))
+                {
+                <div class="form-horizontal">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Units)
+                    <input type="hidden" name="TypeId" id="TypeId" />
+                    <input type="hidden" name="listId" id="listId" />
+                    <input type="hidden" name="Mabao" id="Mabao" />
+                    <div class="form-horizontal">
+                        <h5>Cấu hình phân hướng nhu cầu</h5>
+                        <hr />
+                        @Html.Partial("_inputForm", Model)
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input id="fSubmit" type="button" value="@Application.ButtonLabel.Save" class="btn btn-default" />
+                                @Html.ActionLink(Application.ButtonLabel.Back, "Index" + (string)ViewBag.SubAction, new { Area = "Bao", DieuChinhKHXBDetailId = ViewBag.DieuChinhKHXBDetailId }, new { @class = "btn btn-default" })
+
+
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+                }
+            </div>
+        </div>
+    </div>

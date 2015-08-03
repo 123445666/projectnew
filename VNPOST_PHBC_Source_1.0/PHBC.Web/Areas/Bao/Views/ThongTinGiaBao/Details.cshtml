@@ -1,0 +1,27 @@
+﻿@model PHBC.DAO.Models.ThongTinGiaBaoModel
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = Application.ButtonLabel.Details + ViewBag.TitleName;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @Application.ButtonLabel.Details @ViewBag.TitleName
+    </div>
+    <div class="panel-body">
+        <div class="form-title">
+            Thông tin báo
+        </div>
+        @Html.Partial("_viewDetail", Model)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink(Application.ButtonLabel.ToEdit, "Edit", new { id = Model.Id }, new { @class = "btn btn-default" })
+                @Html.ActionLink(Application.ButtonLabel.Back, "Index", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

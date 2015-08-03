@@ -1,0 +1,58 @@
+﻿@model IEnumerable<PHBC.DAO.Models.MenuModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+                      <div class="panel-body">
+                          <div class="col-md-4">
+                              <!-- tree -->
+                              <ul id="treeMenu">
+                                  @foreach (var item in Model)
+                                  {
+                                      if (String.IsNullOrEmpty(item.ParentId))
+                                      {
+                                          @Html.Raw("<li>");
+                                      @Html.ActionLink(item.Name, "Edit", new { id = item.Id })
+                                      @*@Html.Raw("<a href='#' onclick='edit('" + item.Id + "');'>" + item.Name + "</a>");*@
+                                      }
+                                      if (item.SysMenu1.Count > 0)
+                                      {
+                                          @Html.Raw("<ul>");
+                                   foreach (var childIem in item.SysMenu1)
+                                   {
+                                       <li>
+                                           @Html.ActionLink(childIem.Name, "Edit", new { id = item.Id })
+                                          @*<a href="#" onclick="edit('@childIem.Id');">@childIem.Name</a>*@
+                                        </li>
+                                   }
+                                  @Html.Raw("</ul>");
+                                      @Html.Raw("</li>");
+                                      }
+                                      else
+                                      {
+                                          @Html.Raw("</li>");
+                                      }
+
+                                  }
+                              </ul>
+                          </div>
+                      </div>
+                      <div class="col-md-8">
+                          <div id="MenuContent">
+
+                          </div>
+                      </div>
+
+
+@section scripts{
+                      <script type="text/javascript">
+                          $("#treeMenu").treed();
+                      </script>
+}

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<PHBC.DAO.Models.DMLoaiAnPhamModel>
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = "Danh sách loại ấn phẩm";
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Danh sách loại ấn phẩm
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="btn-toolbar col-md-9">
+                @Html.CustomLink(Application.ButtonLabel.Create + (string)ViewBag.TitleName, ActionType.Create, permisson, null, new { @class = Application.ButtonClass.Default })
+            </div>
+            <div class="col-md-3">
+                @using (Html.BeginForm("Search", "DMLoaiAnPham", new { Area = "Admin" }, FormMethod.Post, htmlAttributes: new { dmap = "form", @class = "navbar-form navbar-right" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="input-group">
+                        <input type="text" name="TenLoaiAnPham" class="form-control" placeholder="Tìm kiếm" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-info" type="submit">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TenLoaiAnPham)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CoKyXuatBan)
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenLoaiAnPham)
+                    </td>
+                    <td>
+                        @if (item.CoKyXuatBan)
+                        {
+                            @:Có
+                         }
+                        else
+                        {
+                            @:không có
+                         }
+
+                    </td>
+
+                    <td>
+                        @Html.CustomLink("", ActionType.Edit, permisson, new { id = item.Id }, null, Application.ButtonIcon.ToEdit, Application.ButtonLabel.ToEdit)
+                        @Html.CustomLink("", ActionType.Details, permisson, new { id = item.Id }, null, Application.ButtonIcon.Details, Application.ButtonLabel.Details)
+                        @Html.CustomLink("", ActionType.Delete, permisson, new { id = item.Id }, null, Application.ButtonIcon.Delete, Application.ButtonLabel.Delete)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>                  

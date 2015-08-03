@@ -1,0 +1,92 @@
+﻿@model PHBC.DAO.Models.BaoDiemInModel
+
+@using (Ajax.BeginForm("UpdateDiemIn", "ThongTinBao", new { Area = "Bao" }, new AjaxOptions() { OnSuccess = "successMsg" }, htmlAttributes: new { @class = "form-horizontal", id = "actionForm", thongtin = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.lstDiemIn)
+}
+
+<div class="form-title">
+    Xác Định Điểm In Của Báo
+</div>
+<div class="row">
+    <div class="dual-list list-left col-md-5">
+        <div class="well text-right">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="input-group">
+                        <span class="input-group-addon glyphicon glyphicon-search"></span>
+                        <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="btn-group">
+                        <a class="btn btn-default selector" title="select all"><i class="glyphicon glyphicon-unchecked"></i></a>
+                    </div>
+                </div>
+            </div>
+            <ul class="list-group">
+                @foreach (var item in Model.DiemIn_NoMap)
+                {
+                    <li id="@item.Id" class="list-group-item"> @if (item.Province != null)
+                    {@item.Province.ProvinceName} - @item.TenDiemIn</li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="list-arrows col-md-1 text-center">
+        <button class="btn btn-default btn-sm move-right">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </button>
+        <button class="btn btn-default btn-sm move-left">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+
+        
+    </div>
+
+    <div class="dual-list list-right col-md-5">
+        <div class="well">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="btn-group">
+                        <a class="btn btn-default selector" title="select all"><i class="glyphicon glyphicon-unchecked"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="input-group">
+                        <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
+                        <span class="input-group-addon glyphicon glyphicon-search"></span>
+                    </div>
+                </div>
+            </div>
+            <ul id="lstMap" class="list-group">
+                @foreach (var item in Model.DiemIn_Current)
+                {
+                    <li id="@item.Id" class="list-group-item"> @item.Province.ProvinceName - @item.TenDiemIn</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <a href="#" onclick="callSave();" class="btn btn-default">@PHBC.Web.Constants.Application.ButtonLabel.Save</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function callSave() {
+        var lstAction = $("#lstDiemIn");
+        var IDs = [];
+        $("#lstMap").find("li").each(function () { IDs.push(this.id); });
+        lstAction.val(IDs);
+        $("#actionForm").submit();
+    }
+</script>
+
+
+

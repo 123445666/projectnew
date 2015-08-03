@@ -1,0 +1,54 @@
+﻿@model PHBC.DAO.Models.SysDMPublicModel
+@using PHBC.Web.Constants
+
+@{
+    ViewBag.Title = Application.ButtonLabel.Delete + ViewBag.TitleName;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @Application.ButtonLabel.Delete @ViewBag.TitleName
+    </div>
+    <div class="panel-body">
+        <h3 class="text-danger">@Application.FormMessage.Delete_Confirm</h3>
+        <div>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsLock)
+                </dt>
+
+                <dd>
+                    @Html.CheckBoxFor(model => model.bLock, new { disabled = "disabled" })
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="@Application.ButtonLabel.Delete" class="btn btn-default" /> |
+                    @Html.ActionLink(Application.ButtonLabel.Back, "Index", new { id = Html.DisplayFor(model => model.TypeId) }, new { @class = "btn btn-default" })
+                </div>
+            }
+        </div>
+</div>
+</div>

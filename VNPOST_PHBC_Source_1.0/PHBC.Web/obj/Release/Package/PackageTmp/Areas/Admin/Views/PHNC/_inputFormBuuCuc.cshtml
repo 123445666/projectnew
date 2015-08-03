@@ -1,0 +1,8 @@
+﻿@model IEnumerable<PHBC.DAO.v_Unit>
+
+<br />
+<div class="form-group">Có <span class="numCountAll">@Model.Count() </span> bưu cục trong bảng.</div>
+@foreach (var item in Model)
+{
+    <li id="@item.UnitCode" class="list-group-item @item.UnitCode" data-districtcode="@item.DistrictCode" valname="@item.UnitCode @Html.replaceUnicode(item.UnitName) @Html.replaceUnicode(item.DistrictName)">@item.UnitCode - @item.UnitName - <b>@item.DistrictName</b></li>
+}

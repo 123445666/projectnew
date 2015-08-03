@@ -1,0 +1,686 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_PHBCModelStoreContainer" CdmEntityContainer="DB_PHBCEntities">
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="DB_PHBCModel.AspNetRole">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="DB_PHBCModel.AspNetUserClaim">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="DB_PHBCModel.AspNetUserLogin">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="DB_PHBCModel.AspNetUser">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Communes">
+      <EntityTypeMapping TypeName="DB_PHBCModel.Commune">
+        <MappingFragment StoreEntitySet="Commune">
+          <ScalarProperty Name="CommuneCode" ColumnName="CommuneCode" />
+          <ScalarProperty Name="CommuneName" ColumnName="CommuneName" />
+          <ScalarProperty Name="DistrictCode" ColumnName="DistrictCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Continents">
+      <EntityTypeMapping TypeName="DB_PHBCModel.Continent">
+        <MappingFragment StoreEntitySet="Continent">
+          <ScalarProperty Name="ContinentCode" ColumnName="ContinentCode" />
+          <ScalarProperty Name="ContinentName" ColumnName="ContinentName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Countries">
+      <EntityTypeMapping TypeName="DB_PHBCModel.Country">
+        <MappingFragment StoreEntitySet="Country">
+          <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+          <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+          <ScalarProperty Name="ContinentCode" ColumnName="ContinentCode" />
+          <ScalarProperty Name="isPrintedCN23" ColumnName="isPrintedCN23" />
+          <ScalarProperty Name="isPostalParcels" ColumnName="isPostalParcels" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Districts">
+      <EntityTypeMapping TypeName="DB_PHBCModel.District">
+        <MappingFragment StoreEntitySet="District">
+          <ScalarProperty Name="DistrictCode" ColumnName="DistrictCode" />
+          <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ProvinceCode" ColumnName="ProvinceCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DMDiemIns">
+      <EntityTypeMapping TypeName="DB_PHBCModel.DMDiemIn">
+        <MappingFragment StoreEntitySet="DMDiemIn">
+          <ScalarProperty Name="DistrictCode" ColumnName="DistrictCode" />
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MaDiemIn" ColumnName="MaDiemIn" />
+          <ScalarProperty Name="TenDiemIn" ColumnName="TenDiemIn" />
+          <ScalarProperty Name="ProvinceCode" ColumnName="ProvinceCode" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DMLoaiAnPhams">
+      <EntityTypeMapping TypeName="DB_PHBCModel.DMLoaiAnPham">
+        <MappingFragment StoreEntitySet="DMLoaiAnPham">
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TenLoaiAnPham" ColumnName="TenLoaiAnPham" />
+          <ScalarProperty Name="CoKyXuatBan" ColumnName="CoKyXuatBan" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DMToaSoans">
+      <EntityTypeMapping TypeName="DB_PHBCModel.DMToaSoan">
+        <MappingFragment StoreEntitySet="DMToaSoan">
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MaToaSoan" ColumnName="MaToaSoan" />
+          <ScalarProperty Name="TenToaSoan" ColumnName="TenToaSoan" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Web" ColumnName="Web" />
+          <ScalarProperty Name="MaSoThue" ColumnName="MaSoThue" />
+          <ScalarProperty Name="TaiKhoan" ColumnName="TaiKhoan" />
+          <ScalarProperty Name="NganHang" ColumnName="NganHang" />
+          <ScalarProperty Name="TongBienTap" ColumnName="TongBienTap" />
+          <ScalarProperty Name="NguoiDaiDien" ColumnName="NguoiDaiDien" />
+          <ScalarProperty Name="CoQuanChuQuan" ColumnName="CoQuanChuQuan" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="KieuToaSoan" ColumnName="KieuToaSoan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MailRoutes">
+      <EntityTypeMapping TypeName="DB_PHBCModel.MailRoute">
+        <MappingFragment StoreEntitySet="MailRoute">
+          <ScalarProperty Name="MailRouteCode" ColumnName="MailRouteCode" />
+          <ScalarProperty Name="TransportTypeCode" ColumnName="TransportTypeCode" />
+          <ScalarProperty Name="MailRouteName" ColumnName="MailRouteName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="MailRouteTypeCode" ColumnName="MailRouteTypeCode" />
+          <ScalarProperty Name="FromPOSCode" ColumnName="FromPOSCode" />
+          <ScalarProperty Name="MailTripFrequencePerDay" ColumnName="MailTripFrequencePerDay" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MailRoutePOS">
+      <EntityTypeMapping TypeName="DB_PHBCModel.MailRoutePOS">
+        <MappingFragment StoreEntitySet="MailRoutePOS">
+          <ScalarProperty Name="MailRouteCode" ColumnName="MailRouteCode" />
+          <ScalarProperty Name="FromPOSCode" ColumnName="FromPOSCode" />
+          <ScalarProperty Name="OnMailRoutePOSCode" ColumnName="OnMailRoutePOSCode" />
+          <ScalarProperty Name="POSOrder" ColumnName="POSOrder" />
+          <ScalarProperty Name="MailRouteScheduleCode" ColumnName="MailRouteScheduleCode" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="IncomingTime" ColumnName="IncomingTime" />
+          <ScalarProperty Name="OutgoingTime" ColumnName="OutgoingTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MailRouteSchedules">
+      <EntityTypeMapping TypeName="DB_PHBCModel.MailRouteSchedule">
+        <MappingFragment StoreEntitySet="MailRouteSchedule">
+          <ScalarProperty Name="MailRouteScheduleCode" ColumnName="MailRouteScheduleCode" />
+          <ScalarProperty Name="MailRouteCode" ColumnName="MailRouteCode" />
+          <ScalarProperty Name="FromPOSCode" ColumnName="FromPOSCode" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="MailRouteScheduleName" ColumnName="MailRouteScheduleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MailRouteTypes">
+      <EntityTypeMapping TypeName="DB_PHBCModel.MailRouteType">
+        <MappingFragment StoreEntitySet="MailRouteType">
+          <ScalarProperty Name="MailRouteTypeCode" ColumnName="MailRouteTypeCode" />
+          <ScalarProperty Name="MailRouteTypeName" ColumnName="MailRouteTypeName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="POS">
+      <EntityTypeMapping TypeName="DB_PHBCModel.POS">
+        <MappingFragment StoreEntitySet="POS">
+          <ScalarProperty Name="POSCode" ColumnName="POSCode" />
+          <ScalarProperty Name="POSName" ColumnName="POSName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="AddressCode" ColumnName="AddressCode" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="IP" ColumnName="IP" />
+          <ScalarProperty Name="DatabaseServer" ColumnName="DatabaseServer" />
+          <ScalarProperty Name="DatabaseUsername" ColumnName="DatabaseUsername" />
+          <ScalarProperty Name="DatabasePassword" ColumnName="DatabasePassword" />
+          <ScalarProperty Name="POSTypeCode" ColumnName="POSTypeCode" />
+          <ScalarProperty Name="ProvinceCode" ColumnName="ProvinceCode" />
+          <ScalarProperty Name="ServiceServer" ColumnName="ServiceServer" />
+          <ScalarProperty Name="ServicePort" ColumnName="ServicePort" />
+          <ScalarProperty Name="POSLevelCode" ColumnName="POSLevelCode" />
+          <ScalarProperty Name="CommuneCode" ColumnName="CommuneCode" />
+          <ScalarProperty Name="IsOffline" ColumnName="IsOffline" />
+          <ScalarProperty Name="UnitCode" ColumnName="UnitCode" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="POSLevels">
+      <EntityTypeMapping TypeName="DB_PHBCModel.POSLevel">
+        <MappingFragment StoreEntitySet="POSLevel">
+          <ScalarProperty Name="POSLevelCode" ColumnName="POSLevelCode" />
+          <ScalarProperty Name="POSLevelName" ColumnName="POSLevelName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="POSTypes">
+      <EntityTypeMapping TypeName="DB_PHBCModel.POSType">
+        <MappingFragment StoreEntitySet="POSType">
+          <ScalarProperty Name="POSTypeCode" ColumnName="POSTypeCode" />
+          <ScalarProperty Name="POSTypeName" ColumnName="POSTypeName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Provinces">
+      <EntityTypeMapping TypeName="DB_PHBCModel.Province">
+        <MappingFragment StoreEntitySet="Province">
+          <ScalarProperty Name="ProvinceCode" ColumnName="ProvinceCode" />
+          <ScalarProperty Name="ProvinceName" ColumnName="ProvinceName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="RegionCode" ColumnName="RegionCode" />
+          <ScalarProperty Name="ProvinceListCode" ColumnName="ProvinceListCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Regions">
+      <EntityTypeMapping TypeName="DB_PHBCModel.Region">
+        <MappingFragment StoreEntitySet="Region">
+          <ScalarProperty Name="RegionCode" ColumnName="RegionCode" />
+          <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SysActions">
+      <EntityTypeMapping TypeName="DB_PHBCModel.SysAction">
+        <MappingFragment StoreEntitySet="SysAction">
+          <ScalarProperty Name="AreaDesc" ColumnName="AreaDesc" />
+          <ScalarProperty Name="ComponentDesc" ColumnName="ComponentDesc" />
+          <ScalarProperty Name="ControllerDesc" ColumnName="ControllerDesc" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="Component" ColumnName="Component" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Controller" ColumnName="Controller" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Params" ColumnName="Params" />
+          <ScalarProperty Name="IsMenu" ColumnName="IsMenu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SysDMPublics">
+      <EntityTypeMapping TypeName="DB_PHBCModel.SysDMPublic">
+        <MappingFragment StoreEntitySet="SysDMPublic">
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IsLock" ColumnName="IsLock" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SysDMTypes">
+      <EntityTypeMapping TypeName="DB_PHBCModel.SysDMType">
+        <MappingFragment StoreEntitySet="SysDMType">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SysMenus">
+      <EntityTypeMapping TypeName="DB_PHBCModel.SysMenu">
+        <MappingFragment StoreEntitySet="SysMenu">
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ActionCode" ColumnName="ActionCode" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="Controller" ColumnName="Controller" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="Params" ColumnName="Params" />
+          <ScalarProperty Name="Pram1" ColumnName="Pram1" />
+          <ScalarProperty Name="Pram2" ColumnName="Pram2" />
+          <ScalarProperty Name="Pram3" ColumnName="Pram3" />
+          <ScalarProperty Name="QuerryString" ColumnName="QuerryString" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="MenuType" ColumnName="MenuType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SysMenuHs">
+      <EntityTypeMapping TypeName="DB_PHBCModel.SysMenuH">
+        <MappingFragment StoreEntitySet="SysMenuH">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ActionCode" ColumnName="ActionCode" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="Controller" ColumnName="Controller" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="Pram1" ColumnName="Pram1" />
+          <ScalarProperty Name="Pram2" ColumnName="Pram2" />
+          <ScalarProperty Name="Pram3" ColumnName="Pram3" />
+          <ScalarProperty Name="QuerryString" ColumnName="QuerryString" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SysMenuVs">
+      <EntityTypeMapping TypeName="DB_PHBCModel.SysMenuV">
+        <MappingFragment StoreEntitySet="SysMenuV">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ActionCode" ColumnName="ActionCode" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="Controller" ColumnName="Controller" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="Pram1" ColumnName="Pram1" />
+          <ScalarProperty Name="Pram2" ColumnName="Pram2" />
+          <ScalarProperty Name="Pram3" ColumnName="Pram3" />
+          <ScalarProperty Name="QuerryString" ColumnName="QuerryString" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="sys_MenuH_Id" ColumnName="sys_MenuH_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transports">
+      <EntityTypeMapping TypeName="DB_PHBCModel.Transport">
+        <MappingFragment StoreEntitySet="Transport">
+          <ScalarProperty Name="TransportCode" ColumnName="TransportCode" />
+          <ScalarProperty Name="TransportGroup" ColumnName="TransportGroup" />
+          <ScalarProperty Name="TotalLoad" ColumnName="TotalLoad" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="POSCode" ColumnName="POSCode" />
+          <ScalarProperty Name="StartYear" ColumnName="StartYear" />
+          <ScalarProperty Name="EndYear" ColumnName="EndYear" />
+          <ScalarProperty Name="Partner" ColumnName="Partner" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TransportGroups">
+      <EntityTypeMapping TypeName="DB_PHBCModel.TransportGroup">
+        <MappingFragment StoreEntitySet="TransportGroup">
+          <ScalarProperty Name="TransportGroupCode" ColumnName="TransportGroupCode" />
+          <ScalarProperty Name="TransportGroupName" ColumnName="TransportGroupName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Units">
+      <EntityTypeMapping TypeName="DB_PHBCModel.Unit">
+        <MappingFragment StoreEntitySet="Unit">
+          <ScalarProperty Name="UnitCode" ColumnName="UnitCode" />
+          <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+          <ScalarProperty Name="ParentUnitCode" ColumnName="ParentUnitCode" />
+          <ScalarProperty Name="CommuneCode" ColumnName="CommuneCode" />
+          <ScalarProperty Name="UnitTypeCode" ColumnName="UnitTypeCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UnitTypes">
+      <EntityTypeMapping TypeName="DB_PHBCModel.UnitType">
+        <MappingFragment StoreEntitySet="UnitType">
+          <ScalarProperty Name="UnitTypeCode" ColumnName="UnitTypeCode" />
+          <ScalarProperty Name="UnitTypeName" ColumnName="UnitTypeName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserInfoes">
+      <EntityTypeMapping TypeName="DB_PHBCModel.UserInfo">
+        <MappingFragment StoreEntitySet="UserInfo">
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DislayName" ColumnName="DislayName" />
+          <ScalarProperty Name="UnitCode" ColumnName="UnitCode" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="DB_PHBCModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetRoles">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+      <EndProperty Name="AspNetUsers">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SysRoleActions" TypeName="DB_PHBCModel.SysRoleActions" StoreEntitySet="SysRoleActions">
+      <EndProperty Name="AspNetRoles">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+      <EndProperty Name="SysAction">
+        <ScalarProperty Name="Code" ColumnName="ActionCode" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="BDiemTiepNhans">
+      <EntityTypeMapping TypeName="DB_PHBCModel.BDiemTiepNhan">
+        <MappingFragment StoreEntitySet="BDiemTiepNhan">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UnitCode" ColumnName="UnitCode" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BKyXuatBans">
+      <EntityTypeMapping TypeName="DB_PHBCModel.BKyXuatBan">
+        <MappingFragment StoreEntitySet="BKyXuatBan">
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="ChiTiet" ColumnName="ChiTiet" />
+          <ScalarProperty Name="LoaiKy" ColumnName="LoaiKy" />
+          <ScalarProperty Name="ThongTinBaoId" ColumnName="ThongTinBaoId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BPhanHuongNhuCaus">
+      <EntityTypeMapping TypeName="DB_PHBCModel.BPhanHuongNhuCau">
+        <MappingFragment StoreEntitySet="BPhanHuongNhuCau">
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="DiemTiepNhanId" ColumnName="DiemTiepNhanId" />
+          <ScalarProperty Name="ThongTinBaoId" ColumnName="ThongTinBaoId" />
+          <ScalarProperty Name="UnitCode" ColumnName="UnitCode" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BThongTinBaos">
+      <EntityTypeMapping TypeName="DB_PHBCModel.BThongTinBao">
+        <MappingFragment StoreEntitySet="BThongTinBao">
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="BaoCongIch" ColumnName="BaoCongIch" />
+          <ScalarProperty Name="UnitCode" ColumnName="UnitCode" />
+          <ScalarProperty Name="MaToaSoan" ColumnName="MaToaSoan" />
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+          <ScalarProperty Name="GiaBia" ColumnName="GiaBia" />
+          <ScalarProperty Name="GiaVon" ColumnName="GiaVon" />
+          <ScalarProperty Name="GiayPhep" ColumnName="GiayPhep" />
+          <ScalarProperty Name="TrongLuong" ColumnName="TrongLuong" />
+          <ScalarProperty Name="KichThuoc" ColumnName="KichThuoc" />
+          <ScalarProperty Name="SoTrang" ColumnName="SoTrang" />
+          <ScalarProperty Name="BaoNgoaiVan" ColumnName="BaoNgoaiVan" />
+          <ScalarProperty Name="LoaiAnPham" ColumnName="LoaiAnPham" />
+          <ScalarProperty Name="BaoTrungUongDiaPhuong" ColumnName="BaoTrungUongDiaPhuong" />
+          <ScalarProperty Name="MucThue" ColumnName="MucThue" />
+          <ScalarProperty Name="CoThue" ColumnName="CoThue" />
+          <ScalarProperty Name="BaoTrongMucLuc" ColumnName="BaoTrongMucLuc" />
+          <ScalarProperty Name="TenBao" ColumnName="TenBao" />
+          <ScalarProperty Name="MaBao" ColumnName="MaBao" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="BBaoDiemIn" TypeName="DB_PHBCModel.BBaoDiemIn" StoreEntitySet="BBaoDiemIn">
+      <EndProperty Name="DMDiemIn">
+        <ScalarProperty Name="Id" ColumnName="DiemInId" />
+      </EndProperty>
+      <EndProperty Name="BThongTinBao">
+        <ScalarProperty Name="Id" ColumnName="ThongTinBaoId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="BKeHoachXuatBans">
+      <EntityTypeMapping TypeName="DB_PHBCModel.BKeHoachXuatBan">
+        <MappingFragment StoreEntitySet="BKeHoachXuatBan">
+          <ScalarProperty Name="ChiTietKy" ColumnName="ChiTietKy" />
+          <ScalarProperty Name="LoaiKy" ColumnName="LoaiKy" />
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="SoBatDau" ColumnName="SoBatDau" />
+          <ScalarProperty Name="Nam" ColumnName="Nam" />
+          <ScalarProperty Name="ThongTinBaoId" ColumnName="ThongTinBaoId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BKeHoachXuatBanDetails">
+      <EntityTypeMapping TypeName="DB_PHBCModel.BKeHoachXuatBanDetail">
+        <MappingFragment StoreEntitySet="BKeHoachXuatBanDetail">
+          <ScalarProperty Name="KichThuoc" ColumnName="KichThuoc" />
+          <ScalarProperty Name="SoTrang" ColumnName="SoTrang" />
+          <ScalarProperty Name="TrongLuong" ColumnName="TrongLuong" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="DiemTiepNhanId" ColumnName="DiemTiepNhanId" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="DonSo" ColumnName="DonSo" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="GiaBao" ColumnName="GiaBao" />
+          <ScalarProperty Name="Thu" ColumnName="Thu" />
+          <ScalarProperty Name="Ngay" ColumnName="Ngay" />
+          <ScalarProperty Name="Thang" ColumnName="Thang" />
+          <ScalarProperty Name="Quy" ColumnName="Quy" />
+          <ScalarProperty Name="SoBao" ColumnName="SoBao" />
+          <ScalarProperty Name="Nam" ColumnName="Nam" />
+          <ScalarProperty Name="ThongTinBaoId" ColumnName="ThongTinBaoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="v_Unit">
+      <EntityTypeMapping TypeName="DB_PHBCModel.v_Unit">
+        <MappingFragment StoreEntitySet="v_Unit">
+          <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+          <ScalarProperty Name="ProvinceCode" ColumnName="ProvinceCode" />
+          <ScalarProperty Name="DistrictCode" ColumnName="DistrictCode" />
+          <ScalarProperty Name="UnitTypeCode" ColumnName="UnitTypeCode" />
+          <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+          <ScalarProperty Name="UnitCode" ColumnName="UnitCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BDieuChinhKHXBs">
+      <EntityTypeMapping TypeName="DB_PHBCModel.BDieuChinhKHXB">
+        <MappingFragment StoreEntitySet="BDieuChinhKHXB">
+          <ScalarProperty Name="ChiTietKy" ColumnName="ChiTietKy" />
+          <ScalarProperty Name="LoaiKy" ColumnName="LoaiKy" />
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Quy" ColumnName="Quy" />
+          <ScalarProperty Name="Nam" ColumnName="Nam" />
+          <ScalarProperty Name="ThongTinBaoId" ColumnName="ThongTinBaoId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SplitString" FunctionName="DB_PHBCModel.Store.SplitString">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DB_PHBCModel.SplitString_Result">
+          <ScalarProperty Name="zeroBasedOccurance" ColumnName="zeroBasedOccurance" />
+          <ScalarProperty Name="s" ColumnName="s" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="BDieuChinhKHXBDetails">
+      <EntityTypeMapping TypeName="DB_PHBCModel.BDieuChinhKHXBDetail">
+        <MappingFragment StoreEntitySet="BDieuChinhKHXBDetail">
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="Config" ColumnName="Config" />
+          <ScalarProperty Name="KichThuoc" ColumnName="KichThuoc" />
+          <ScalarProperty Name="SoTrang" ColumnName="SoTrang" />
+          <ScalarProperty Name="TrongLuong" ColumnName="TrongLuong" />
+          <ScalarProperty Name="GiaBao" ColumnName="GiaBao" />
+          <ScalarProperty Name="SoBao" ColumnName="SoBao" />
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="LoaiDieuChinh" ColumnName="LoaiDieuChinh" />
+          <ScalarProperty Name="DieuChinhKHXBId" ColumnName="DieuChinhKHXBId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BDieuChinhPhanHuongDistricts">
+      <EntityTypeMapping TypeName="DB_PHBCModel.BDieuChinhPhanHuongDistrict">
+        <MappingFragment StoreEntitySet="BDieuChinhPhanHuongDistrict">
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Quy" ColumnName="Quy" />
+          <ScalarProperty Name="Nam" ColumnName="Nam" />
+          <ScalarProperty Name="DistrictCode" ColumnName="DistrictCode" />
+          <ScalarProperty Name="DiemTiepNhanId" ColumnName="DiemTiepNhanId" />
+          <ScalarProperty Name="DieuChinhKHXBDetailId" ColumnName="DieuChinhKHXBDetailId" />
+          <ScalarProperty Name="SoBao" ColumnName="SoBao" />
+          <ScalarProperty Name="ThongTinBaoId" ColumnName="ThongTinBaoId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BDieuChinhPhanHuongUnits">
+      <EntityTypeMapping TypeName="DB_PHBCModel.BDieuChinhPhanHuongUnit">
+        <MappingFragment StoreEntitySet="BDieuChinhPhanHuongUnit">
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Quy" ColumnName="Quy" />
+          <ScalarProperty Name="Nam" ColumnName="Nam" />
+          <ScalarProperty Name="UnitCode" ColumnName="UnitCode" />
+          <ScalarProperty Name="DiemTiepNhanId" ColumnName="DiemTiepNhanId" />
+          <ScalarProperty Name="DieuChinhKHXBDetailId" ColumnName="DieuChinhKHXBDetailId" />
+          <ScalarProperty Name="SoBao" ColumnName="SoBao" />
+          <ScalarProperty Name="ThongTinBaoId" ColumnName="ThongTinBaoId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BThongTinGiaBaos">
+      <EntityTypeMapping TypeName="DB_PHBCModel.BThongTinGiaBao">
+        <MappingFragment StoreEntitySet="BThongTinGiaBao">
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="ValueType" ColumnName="ValueType" />
+          <ScalarProperty Name="QuyetDinh" ColumnName="QuyetDinh" />
+          <ScalarProperty Name="ProvinceCode" ColumnName="ProvinceCode" />
+          <ScalarProperty Name="NgayHetHieuLuc" ColumnName="NgayHetHieuLuc" />
+          <ScalarProperty Name="NgayHieuLuc" ColumnName="NgayHieuLuc" />
+          <ScalarProperty Name="ThongTinBaoId" ColumnName="ThongTinBaoId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SysDBLogs">
+      <EntityTypeMapping TypeName="DB_PHBCModel.SysDBLog">
+        <MappingFragment StoreEntitySet="SysDBLog">
+          <ScalarProperty Name="RecordNew" ColumnName="RecordNew" />
+          <ScalarProperty Name="RecordOld" ColumnName="RecordOld" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="DateChange" ColumnName="DateChange" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

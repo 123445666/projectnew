@@ -1,0 +1,83 @@
+﻿@model PHBC.DAO.Models.MenuModel
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = Application.ButtonLabel.ToEdit + ViewBag.TitleName;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2>@Application.ButtonLabel.List @ViewBag.TitleName</h2>
+    </div>
+        <div class="panel-body">
+            <div class="col-md-4">
+                <!-- tree -->
+                <ul id="treeMenu">
+                    @foreach (var item in ViewBag.AllMenu)
+                    {
+                        if (String.IsNullOrEmpty(item.ParentId))
+                        {
+                            @Html.Raw("<li>");
+                        @*@Html.ActionLink(item.Name, "Edit", new { id = item.Id })*@
+                        @Html.Raw("<a href='" + Url.Action("Edit", new { id = item.Id }) + "'>" + item.Name + "</a>");
+                        }
+                        if (item.SysMenu1.Count > 0)
+                        {
+                            @Html.Raw("<ul>");
+                                     foreach (var childIem in item.SysMenu1)
+                                     {
+                                        <li>
+                                            @*@Html.ActionLink(childIem.Name, "Edit", new { id = item.Id })*@
+                                            <a href="@Url.Action("Edit", new { id = @childIem.Id })">@childIem.Name</a>
+                                            @*<a href="#" onclick="edit('@childIem.Id');">@childIem.Name</a>*@
+                                        </li>
+                                     }
+                                    @Html.Raw("</ul>");
+                        @Html.Raw("</li>");
+                        }
+                        else
+                        {
+                            @Html.Raw("</li>");
+                        }
+
+                    }
+                </ul>
+            </div>
+
+
+
+            <div class="col-md-8">
+                <div id="MenuContent">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            <h4>@Application.ButtonLabel.ToEdit @ViewBag.TitleName</h4>
+                            @Html.ValidationSummary(true)
+                            @Html.HiddenFor(model => model.Id)
+
+                            @Html.Partial("_inputForm", Model)
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="@Application.ButtonLabel.Save" class="btn btn-default" />
+                                    @Html.Raw("<a href='" + Url.Action("Delete", new { id = Model.Id }) + "' class='btn btn-default'>" + Application.ButtonLabel.Delete + "</a>")
+                                    @Html.Raw("<a href='" + Url.Action("Details", new { id = Model.Id }) + "' class='btn btn-default'>" + Application.ButtonLabel.Details + "</a>")
+                                    @Html.ActionLink(Application.ButtonLabel.Back, "Index", null, new { @class = "btn btn-default" })
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                    @section Scripts {
+                        @Scripts.Render("~/bundles/jqueryval")
+                        <script type="text/javascript">
+                            $("#treeMenu").treed();
+                        </script>
+                    }
+                </div>
+            </div>
+        </div>
+</div>
+</div>

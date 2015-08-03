@@ -1,0 +1,184 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+@model PagedList<PHBC.DAO.Models.BThongTinGiaBaoModel>
+@{
+    ViewBag.Title = Application.ButtonLabel.List + ViewBag.TitleName;
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @Application.ButtonLabel.List @ViewBag.TitleName
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="btn-toolbar col-md-7">
+                @Html.CustomLink(Application.ButtonLabel.Create + (string)ViewBag.TitleName, ActionType.Create, permisson, null, new { @class = Application.ButtonClass.Default })
+            </div>
+            <div class="col-md-5">
+                     @if (permisson.hasPermisson("Search"))
+                        { 
+                            if(ViewBag.SearchModel==null)
+                               {
+                                     @Html.Partial("_searchPartial", new PHBC.DAO.Models.DMDiemInSearchModel())
+                               }
+                            else { 
+                                     @Html.Partial("_searchPartial", ViewBag.SearchModel as PHBC.DAO.Models.DMDiemInSearchModel)
+                                 }
+                        }
+            </div>
+            </div>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaBao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Value)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.QuyetDinh)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NgayHieuLuc)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NgayHetHieuLuc)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GhiChu)
+                </th>
+                <th></th>
+            </tr>
+            @if (Model != null || Model.Count() > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaBao)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Value)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.QuyetDinh)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NgayHieuLuc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NgayHetHieuLuc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GhiChu)
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+
+
+
+</div>
+    </div>
+
+    @*@model IEnumerable<PHBC.DAO.BThongTinGiaBao>
+
+        @{
+            ViewBag.Title = "Index";
+        }
+
+        <h2>Index</h2>
+
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NgayHieuLuc)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NgayHetHieuLuc)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.QuyetDinh)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ValueType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Value)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreateBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreateDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModifyBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModifyDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BThongTinBao.MaBao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Province.ProvinceName)
+                </th>
+                <th></th>
+            </tr>
+
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayHieuLuc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayHetHieuLuc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuyetDinh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValueType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifyBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifyDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BThongTinBao.MaBao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Province.ProvinceName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                </td>
+            </tr>
+        }
+
+        </table>*@

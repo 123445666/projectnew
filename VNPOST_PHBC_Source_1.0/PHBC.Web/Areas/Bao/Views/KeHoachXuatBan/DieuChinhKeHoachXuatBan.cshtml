@@ -1,0 +1,119 @@
+﻿@model PHBC.DAO.Models.KeHoachXuatBanModel
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = "Thêm điều chỉnh kế hoạc xuất bản năm " + @Model.Nam;
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Thêm điều chỉnh kế hoạc xuất bản năm @Model.Nam
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.LabelForView(model => model.MaBao, null)
+
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MaBao)
+            </dd>
+            <dt>
+                @Html.LabelForView(model => model.TenBao, null)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenBao)
+            </dd>
+        </dl>
+        @using (Html.BeginForm("UpdateDieuChinhKeHoachXuatBan", "KeHoachXuatBan", new { Area = "Bao" }, FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", id = "actionForm", thongtin = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.IdKeHoachXuatBan)
+            @Html.HiddenFor(model => model.Nam)
+            @Html.Hidden("Copy", 0)
+            <input id="Quy" type="hidden" value="-1" name="Quy">
+            <input id="urlReturn" type="hidden" value="@Request.UrlReferrer" name="urlReturn">
+        }
+
+        <div class="form-title">
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group col-md-7" style="margin-left:-15px;">
+                <label class="col-md-5 control-label">
+                    Quý điều chỉnh
+                </label>
+                <div class="col-md-7">
+                    <select class="form-control" attr-quy>
+                        @foreach (int quy in ((List<int>)Model.data["arrayquy"]))
+                        {
+                            <option value="@quy">Quý @quy</option>
+                        }
+                    </select>
+                    <span data-valmsg-replace="true" data-valmsg-for="ParentId" class="text-danger field-validation-valid"></span>
+                </div>
+            </div>
+            <div  class="col-md-5"></div>
+            <div class="form-group col-md-7" style="margin-left:-15px;">
+                <label class="col-md-5 control-label">
+                    Copy cùng ký năm trước
+                </label>
+                <div class="col-md-7">
+                   <input type="checkbox" id="CopyNamTruoc" />
+                </div>
+            </div>
+            <div class="col-md-5"></div>
+
+            <div style="clear:both;"></div>
+            <div class="form-group col-md-5" style="margin-left:-15px;">
+                <div class="col-md-offset-5 col-md-7">
+                    <input type="button" value="Lưu" class="btn btn-default" attr-submit />
+                    <a class="btn btn-default" href="@Request.UrlReferrer">Quay lại</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section head{
+    <link href="~/Styles/KyXuatBan/fonts.css" rel="stylesheet" />
+    <link href="~/Styles/KyXuatBan/style.css" rel="stylesheet" />
+    <link href="~/Styles/lib/popup.css" rel="stylesheet" />
+
+
+}
+
+@section scripts{
+    <script src="~/Scripts/KyXuatBan/script.js"></script>
+    <script src="~/Scripts/lib/popup.js"></script>
+    <script type="text/javascript">
+        var arQuy = @(Newtonsoft.Json.JsonConvert.SerializeObject(Model.data["arrayquy"]));
+        $(document).ready(function () {
+            if(arQuy.length<=0){
+                new jPopup({
+                    show: true,
+                    close:false,
+                    title: 'Thông báo',
+                    width: 350,
+                    body: '<div style="text-align:center;margin:5px 0px;">Không còn Quý nào để điều chỉnh kế hoạch xuất bản năm @Model.Nam</div>',
+                    callbackTrue:function(){
+                        window.location.href = '/bao/kehoachxuatban';
+                    },
+                    trueTitle:'Quay lại'
+                });
+            }
+            $('[attr-submit]').click(function(){
+                $('#Quy').val($('select[attr-quy]').val());
+
+                var copy=$('#CopyNamTruoc').prop('checked')?1:0;
+                $('#Copy').val(copy);
+                $("#actionForm").submit();
+            });
+
+        });
+    </script>
+}
+
+

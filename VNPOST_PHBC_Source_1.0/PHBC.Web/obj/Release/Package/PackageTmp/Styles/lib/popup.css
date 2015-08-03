@@ -1,0 +1,278 @@
+@font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: normal;
+    src: url("http://sirenchat.com/fonts/Roboto-Regular-webfont.eot#iefix") format("embedded-opentype"), url("http://sirenchat.com/fonts/Roboto-Regular-webfont.woff") format("woff"), url("http://sirenchat.com/fonts/Roboto-Regular-webfont.ttf") format("truetype"), url("http://sirenchat.com/fonts/Roboto-Regular-webfont.svg#RobotoRegular") format("svg");
+}
+@font-face {
+    font-family: "Roboto";
+    font-style: italic;
+    font-weight: normal;
+    src: url("http://sirenchat.com/fonts/Roboto-Italic-webfont.eot#iefix") format("embedded-opentype"), url("http://sirenchat.com/fonts/Roboto-Italic-webfont.woff") format("woff"), url("http://sirenchat.com/fonts/Roboto-Italic-webfont.ttf") format("truetype"), url("http://sirenchat.com/fonts/Roboto-Italic-webfont.svg#RobotoItalic") format("svg");
+}
+@font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: bold;
+    src: url("http://sirenchat.com/fonts/Roboto-Bold-webfont.eot#iefix") format("embedded-opentype"), url("http://sirenchat.com/fonts/Roboto-Bold-webfont.woff") format("woff"), url("http://sirenchat.com/fonts/Roboto-Bold-webfont.ttf") format("truetype"), url("http://sirenchat.com/fonts/Roboto-Bold-webfont.svg#RobotoBold") format("svg");
+}
+@font-face {
+    font-family: "Roboto";
+    font-style: italic;
+    font-weight: bold;
+    src: url("http://sirenchat.com/fonts/Roboto-BoldItalic-webfont.eot#iefix") format("embedded-opentype"), url("http://sirenchat.com/fonts/Roboto-BoldItalic-webfont.woff") format("woff"), url("http://sirenchat.com/fonts/Roboto-BoldItalic-webfont.ttf") format("truetype"), url("http://sirenchat.com/fonts/Roboto-BoldItalic-webfont.svg#RobotoBoldItalic") format("svg");
+}
+@font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 200;
+    src: url("http://sirenchat.com/fonts/Roboto-Thin-webfont.eot#iefix") format("embedded-opentype"), url("http://sirenchat.com/fonts/Roboto-Thin-webfont.woff") format("woff"), url("http://sirenchat.com/fonts/Roboto-Thin-webfont.ttf") format("truetype"), url("http://sirenchat.com/fonts/Roboto-Thin-webfont.svg#RobotoThin") format("svg");
+}
+@font-face {
+    font-family: "Roboto";
+    font-style: italic;
+    src: url("http://sirenchat.com/fonts/Roboto-ThinItalic-webfont.eot#iefix") format("embedded-opentype"), url("http://sirenchat.com/fonts/Roboto-ThinItalic-webfont.woff") format("woff"), url("http://sirenchat.com/fonts/Roboto-ThinItalic-webfont.ttf") format("truetype"), url("http://sirenchat.com/fonts/Roboto-ThinItalic-webfont.svg#RobotoThinItalic") format("svg");
+}
+@font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 100;
+    src: url("http://sirenchat.com/fonts/Roboto-Light-webfont.eot#iefix") format("embedded-opentype"), url("http://sirenchat.com/fonts/Roboto-Light-webfont.woff") format("woff"), url("http://sirenchat.com/fonts/Roboto-Light-webfont.ttf") format("truetype"), url("http://sirenchat.com/fonts/Roboto-Light-webfont.svg#RobotoLight") format("svg");
+}
+@font-face {
+    font-family: "Roboto";
+    font-style: italic;
+    font-weight: 100;
+    src: url("http://sirenchat.com/fonts/Roboto-LightItalic-webfont.eot#iefix") format("embedded-opentype"), url("http://sirenchat.com/fonts/Roboto-LightItalic-webfont.woff") format("woff"), url("http://sirenchat.com/fonts/Roboto-LightItalic-webfont.ttf") format("truetype"), url("http://sirenchat.com/fonts/Roboto-LightItalic-webfont.svg#RobotoLightItalic") format("svg");
+}
+@font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 300;
+    src: url("http://sirenchat.com/fonts/Roboto-Medium-webfont.eot#iefix") format("embedded-opentype"), url("http://sirenchat.com/fonts/Roboto-Medium-webfont.woff") format("woff"), url("http://sirenchat.com/fonts/Roboto-Medium-webfont.ttf") format("truetype"), url("http://sirenchat.com/fonts/Roboto-Medium-webfont.svg#RobotoMedium") format("svg");
+}
+@font-face {
+    font-family: "Roboto";
+    font-style: italic;
+    font-weight: 300;
+    src: url("http://sirenchat.com/fonts/Roboto-MediumItalic-webfont.eot#iefix") format("embedded-opentype"), url("http://sirenchat.com/fonts/Roboto-MediumItalic-webfont.woff") format("woff"), url("http://sirenchat.com/fonts/Roboto-MediumItalic-webfont.ttf") format("truetype"), url("http://sirenchat.com/fonts/Roboto-MediumItalic-webfont.svg#RobotoMediumItalic") format("svg");
+}
+
+
+#confirmLinkTam
+{
+    position: fixed;
+    z-index: 10000;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.1);
+}
+
+    #confirmLinkTam .confirm_content
+    {
+        background-color: #fff;
+        border-radius: 4px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        max-width: calc(100% - 20px);
+        position: fixed;
+        z-index: 1;
+        overflow: hidden;
+        -ms-transform: scale(0);
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 0;
+        /*transition: -ms-transform 0.2s ease-out 0s,-webkit-transform 0.2s ease-out 0s,transform 0.2s ease-out 0s,opacity 0.2s ease-out 0s;*/
+    }
+
+        #confirmLinkTam .confirm_content .confirm_content_loading
+        {
+            position: absolute;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            left: 0px;
+            /*right: 0px;*/
+            top:0px;
+            display: none;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+            #confirmLinkTam .confirm_content .confirm_content_loading span
+            {
+                /*position: absolute;
+                height: 40px;
+                width: 40px;
+                left: calc(50% - 20px);
+                top: calc(50% - 20px);
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+                -webkit-animation: xoaytron 1s infinite linear;
+                animation: xoaytron 1s infinite linear;
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-image: url('../linktamchat/images/loading128px.png');
+                background-size: contain;
+                opacity: 0.5;*/
+                color: #333;
+                font-size: 12px;
+                left: 50%;
+                letter-spacing: 2px;
+                position: absolute;
+                top: calc(50%);
+                -webkit-transform: translateX(-50%) translateY(-50%);
+                transform: translateX(-50%) translateY(-50%);
+                text-align: center;
+                width: 100%;
+                padding-bottom:7px;
+                background-image: url("../linktamchat/images/loading_new_gif.gif");
+                background-position: center calc(100%);
+                background-repeat: no-repeat;
+                background-size: 132px auto;
+            }
+
+    
+
+    #confirmLinkTam .confirm-Title
+    {
+        color: #777;
+        font-size: 16px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin: 10px 0 5px;
+        text-align: center;
+    }
+
+    #confirmLinkTam .confirm-Body
+    {
+        color: #5c5c5c;
+        line-height: 20px;
+        padding: 5px 10px;
+    }
+
+        #confirmLinkTam .confirm-Body *
+        {
+            letter-spacing: 1px;
+        }
+
+    #confirmLinkTam .confirm-Btn
+    {
+        background-color: #f4f4f4;
+        border-top: 1px solid #dbdbdb;
+        text-align: right;
+    }
+
+        #confirmLinkTam .confirm-Btn span
+        {
+            border-radius: 3px;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 12px;
+            margin: 8px;
+            padding: 3px 10px;
+        }
+
+            #confirmLinkTam .confirm-Btn span:first-child
+            {
+                /*background-color: #0b80c1;*/
+                background-color: #555;
+            }
+
+                #confirmLinkTam .confirm-Btn span:first-child:hover
+                {
+                    box-shadow: 0 0 2px #555;
+                }
+
+            #confirmLinkTam .confirm-Btn span:last-child
+            {
+                /*background-color: #e44b4b;*/
+                background-color: #999;
+            }
+
+                #confirmLinkTam .confirm-Btn span:last-child:hover
+                {
+                    box-shadow: 0 0 2px #999;
+                }
+
+    #confirmLinkTam .confirm-Close
+    {
+        background-image: url("../linktamchat/images/close-popupnew.png");
+        background-size: contain;
+        cursor: pointer;
+        height: 13px;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        width: 13px;
+        z-index: 1;
+    }
+
+.confirmLinkTamAbsolute
+{
+    position: absolute !important;
+}
+
+    .confirmLinkTamAbsolute .confirm_content
+    {
+        top: 10px !important;
+        position: absolute !important;
+    }
+
+.bg-danger-lintam
+{
+    background-color: #f2dede;
+}
+
+.bg-success-lintam
+{
+    background-color: #dff0d8;
+}
+
+.alertmessage-lintam
+{
+    padding: 20px;
+    color: #555;
+    font-family: 'Roboto-Regular';
+    font-size: 15px;
+}
+
+    .alertmessage-lintam *
+    {
+        font-family: 'Roboto-Regular';
+        font-size: 15px;
+    }
+
+
+
+
+@-webkit-keyframes xoaytron
+{
+    from
+    {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to
+    {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes xoaytron
+{
+    from
+    {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to
+    {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}

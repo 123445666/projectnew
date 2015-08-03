@@ -1,0 +1,322 @@
+﻿body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+/* Set padding to keep content from hitting the edges. */
+.body-content {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+/* Allow only vertical resizing of textareas. */
+textarea {
+  resize: vertical;
+}
+/* DropDow Search*/
+.dropdown.dropdown-lg .dropdown-menu {
+    margin-top: -1px;
+    padding: 6px 20px;
+}
+.input-group-btn .btn-group {
+    display: flex !important;
+}
+.btn-group .btn {
+    border-radius: 0;
+    margin-left: -1px;
+}
+.btn-group .btn:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.btn-group .form-horizontal .btn[type="submit"] {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+.form-group .form-control:last-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.search-right {
+    float: right !important;
+    margin-right: -4px;
+}
+
+@media screen and (min-width: 768px) {
+    #adv-search {
+        width:250px;
+    }
+    .dropdown.dropdown-lg {
+        position: static !important;
+    }
+    .dropdown.dropdown-lg .dropdown-menu {
+        min-width:250px;
+    }
+}
+/*End DropDow Search*/
+
+/* custom-search*/
+#custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 23px;
+}
+/*End custom-search*/
+
+.form-title {
+    display: block;
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(0, 0, 0, .2);
+    font-size: 15px;
+    font-weight: 300;
+    color: #262626;
+    margin-bottom: 15px;
+}
+
+/*tree*/
+.tree, .tree ul {
+    margin:0;
+    padding:0;
+    list-style:none
+}
+.tree ul {
+    margin-left:1em;
+    position:relative
+}
+.tree ul ul {
+    margin-left:.5em
+}
+.tree ul:before {
+    content:"";
+    display:block;
+    width:0;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    border-left:1px solid
+}
+.tree li {
+    margin:0;
+    padding:0 1em;
+    line-height:2em;
+    color:#369;
+    font-weight:700;
+    position:relative
+}
+.tree ul li:before {
+    content:"";
+    display:block;
+    width:10px;
+    height:0;
+    border-top:1px solid;
+    margin-top:-1px;
+    position:absolute;
+    top:1em;
+    left:0
+}
+.tree ul li:last-child:before {
+    background:#fff;
+    height:auto;
+    top:1em;
+    bottom:0
+}
+.indicator {
+    margin-right:5px;
+}
+.tree li a {
+    text-decoration: none;
+    color:#369;
+}
+.tree li button, .tree li button:active, .tree li button:focus {
+    text-decoration: none;
+    color:#369;
+    border:none;
+    background:transparent;
+    margin:0px 0px 0px 0px;
+    padding:0px 0px 0px 0px;
+    outline: 0;
+}
+/*end tree*/
+
+/*custom*/
+.paginationcustome{
+    height: 40px;
+    text-align: center;
+    background-image:none;
+    background-attachment: scroll;
+    background-repeat: repeat;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-size: auto;
+    background-origin: padding-box;
+    background-clip: border-box;
+    background-color:rgb(242,242,242);
+}
+.paginationcustome ul li{
+    margin-top: 0px;
+    margin-right: 2px;
+    margin-bottom: 0px;
+    margin-left: 2px;
+    display: inline-block;
+}
+.paginationcustome ul li a{
+    line-height: 40px;
+    padding-top: 0px;
+    padding-right: 15px;
+    padding-bottom: 0px;
+    padding-left: 15px;
+    display: block;
+}
+.paginationcustome a{
+    line-height: 40px;
+    padding-top: 0;
+    padding-right: 15px;
+    padding-bottom: 0;
+    padding-left: 15px;
+    display: block;
+}
+.paginationcustome ul li a.active, .paginationcustome ul li a:hover{
+    color: white;
+    background-image: none;
+    background-attachment: scroll;
+    background-repeat: repeat;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-size: auto;
+    background-origin: padding-box;
+    background-clip: border-box;
+    background-color: rgb(52, 73, 94);
+}
+
+/*.table-responsive .table.table-custom > thead > tr > th,
+  .table-responsive .table.table-custom > tbody > tr > th,
+  .table-responsive .table.table-custom > tfoot > tr > th,
+  .table-responsive .table.table-custom > thead > tr > td,
+  .table-responsive .table.table-custom > tbody > tr > td,
+  .table-responsive .table.table-custom > tfoot > tr > td {
+    white-space: normal !important;
+  }*/
+
+.table-responsive .table.table-custom{
+    table-layout:fixed !important; 
+}
+/*end custom*/
+
+/*cslide css*/
+$color:rgb(70,130,180);
+
+
+#cslide-slides h2 {
+	margin-bottom:10px;
+	font-weight: 700;
+}
+/*=Slides
+----------------------------------------------- */
+#cslide-slides {
+	
+}
+.cslide-slides-master {
+	overflow: hidden;
+	margin-bottom:60px;
+}
+.cslide-slides-master:last-child {
+	margin-bottom:0;
+}
+.cslide-slides-container {
+	visibility: hidden;
+}
+.cslide-slide {
+	float:left;
+	padding:10px;
+	border:solid 5px darken($color, 10%);
+	background-color:$color;
+}
+.cslide-slide h2,
+.cslide-slide p {
+	color:#fff;
+}
+/* prev next buttons */
+.cslide-prev-next {
+	margin-bottom: 10px;
+	display: none;
+	text-align: right;
+
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.cslide-prev,.cslide-next {
+	display:inline-block;
+	background:$color;
+	color:#000;
+	padding:0 20px;
+	
+	border-bottom:solid 5px darken($color, 10%);
+
+	cursor: pointer;
+}
+.cslide-prev:hover,
+.cslide-next:hover {
+	background:darken($color, 10%);
+}
+.cslide-prev.cslide-disabled:hover,
+.cslide-next.cslide-disabled:hover {
+	background:$color;
+}
+.cslide-disabled {
+	opacity: 0.3;
+}
+/*end cslide css*/
+
+
+.label-checkbox::before {
+    content: " ";
+    position: absolute;
+    width: 30px;
+    height: calc(100% - 4px);
+    background-color: #FFF;
+    top: 2px;
+    right: 2px;
+}
+.label-checkbox input{
+    position: absolute;
+    z-index: 1;
+    right: 10px;
+    top: calc(50% - 10px);
+}
+.nav-tabs > li > a{
+    font-weight: bold;
+}

@@ -1,0 +1,231 @@
+﻿@model PHBC.DAO.Models.KeHoachXuatBanModel
+@using PHBC.Web.Constants
+@using PHBC.Web.Permission;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "Kế hoạch xuất bản";
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @(Model.SoBatDau == -1 ? "Thêm kế hoạch xuất bản cho báo " + Model.TenBao : "Chạy lại kế hoạch xuất bản")
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.LabelForView(model => model.MaBao, null)
+
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MaBao)
+            </dd>
+            <dt>
+                @Html.LabelForView(model => model.TenBao, null)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenBao)
+            </dd>
+        </dl>
+        @using (Html.BeginForm("UpdateKeHoachXuatBan", "KeHoachXuatBan", new { Area = "Bao" }, FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", id = "actionForm", thongtin = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.IdKeHoachXuatBan)
+            @Html.HiddenFor(model => model.LoaiKy)
+            @Html.HiddenFor(model => model.Nam)
+            @Html.HiddenFor(model => model.SoBatDau)
+            <input id="urlReturn" type="hidden" value="@Request.UrlReferrer" name="urlReturn">
+        }
+
+        <div class="form-title">
+            @(Model.SoBatDau == -1 ? "Thêm kế hoạch xuất bản" : "Chạy lại kế hoạch xuất bản")
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group col-md-5" style="margin-left:-15px;">
+                <label class="col-md-5 control-label">
+                    Năm
+                </label>
+                <div class="col-md-7">
+                    <select class="form-control" attr-year>
+                        <option value="@Model.Nam">@Model.Nam</option>
+                    </select>
+                    <span data-valmsg-replace="true" data-valmsg-for="ParentId" class="text-danger field-validation-valid"></span>
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+            <div class="form-group col-md-5" attr-start style="margin-left:-15px;">
+                <label class="col-md-5 control-label">
+                    Tiếp từ năm trước
+                </label>
+                <div class="col-md-7" att-event-new-checkbox>
+                    <input type="checkbox">
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+            <div class="form-group col-md-5" attr-start style="margin-left:-15px;">
+                <label class="col-md-5 control-label">
+                    Số báo bắt đầu
+                </label>
+                <div class="col-md-7" att-event-new>
+                    <input type="number" class="form-control" placeholder="Số báo bắt đầu">
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+            <div class="form-group col-md-5" style="margin-left:-15px;">
+                <div class="col-md-offset-5 col-md-7">
+                    <input type="button" value="Lưu" class="btn btn-default" attr-submit />
+                    <a class="btn btn-default" href="@Request.UrlReferrer">Quay lại</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="form-title">
+            Danh sách kế hoạch xuất bản
+        </div>
+        <div class=" table-responsive">
+            <div table-search>
+                <table class="table table-bordered table-hover table-custom" attr-top-scroll>
+                    <colgroup>
+                        <col style="width: 100px" />
+                        <col style="width: 200px" />
+                        <col style="width: 200px" />
+                        <col style="width: 200px" />
+                        <col style="width: 200px" />
+
+                    </colgroup>
+                    <tr>
+                        <th>
+                            Năm
+                        </th>
+                        <th>
+                            Số bắt đầu
+                        </th>
+                        <th>
+                            Người cập nhật
+                        </th>
+                        <th>
+                            Ngày cập nhật
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                </table>
+                <table class="table table-bordered table-hover table-custom">
+                    <colgroup>
+                        <col style="width: 100px" />
+                        <col style="width: 200px" />
+                        <col style="width: 200px" />
+                        <col style="width: 200px" />
+                        <col style="width: 200px" />
+                    </colgroup>
+                    @foreach (var item in Model.khxb)
+                    {
+                        dynamic itemDy = JsonConvert.DeserializeObject<System.Dynamic.ExpandoObject>(JsonConvert.SerializeObject(item));
+
+                        <tr>
+                            <td>
+                                Năm @itemDy.Nam
+                            </td>
+                            <td>
+                                Số @itemDy.SoBatDau
+                            </td>
+                            <td title="@itemDy.DislayName">
+                                @itemDy.DislayName
+                            </td>
+                            <td title="@Convert.ToDateTime(itemDy.ModifyDate).ToString("dd/MM/yyy, HH:mm")">
+                                @Convert.ToDateTime(itemDy.ModifyDate).ToString("dd/MM/yyy, HH:mm")
+                            </td>
+                            <td style="text-align:right;">
+                                @if (permisson.hasPermisson("ChiTiet"))
+                                {
+
+                                    @Html.CustomRouterLink(permisson, "Bao_kehoachxuatban_new", new { controller = "kehoachxuatban", action = "chitiet", id = itemDy.ThongTinBaoId, idkehoach = itemDy.Id }, "", null, "<span class=\"fa fa-eye\"></span>", "Chi tiết kế hoạch xuất bản")
+                                }
+                                @if (Convert.ToInt32(itemDy.Nam) >= DateTime.Now.Year && (itemDy.quyNew != null && Convert.ToInt32(itemDy.quyNew) >= Convert.ToInt32(itemDy.quyNow) ? Convert.ToInt32(itemDy.quyNew) : Convert.ToInt32(itemDy.quyNow) - 1) + 1 <= 4 && permisson.hasPermisson("DieuChinhKeHoachXuatBan"))
+                                {
+                                    @Html.CustomRouterLink(permisson, "Bao_kehoachxuatban_new", new { controller = "kehoachxuatban", action = "DieuChinhKeHoachXuatBan", id = itemDy.ThongTinBaoId, idkehoach = itemDy.Id }, "", null, "<span class=\"fa fa-plus\"></span>", "Điều chỉnh kế hoạch xuất bản")
+                                    @Html.CustomRouterLink(permisson, "Bao_kehoachxuatban_edit", new { id = itemDy.ThongTinBaoId, idkehoach = itemDy.Id }, "", null, "<span class=\"fa fa-refresh\"></span>", "Chạy lại")
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section head{
+    <link href="~/Styles/lib/style.css" rel="stylesheet" />
+}
+
+@section scripts{
+    <script type="text/javascript">
+        var year = @Model.Nam;
+        var sobatdau = @Model.SoBatDau;
+        $(document).ready(function () {
+            if (parseInt($("#LoaiKy").val()) == -1) {
+                new jPopup({
+                    show: true,
+                    close:false,
+                    title: 'Thông báo',
+                    width: 350,
+                    body: '<div style="text-align:center;margin:5px 0px;">Vui lòng cập nhật cấu hình <b>Kỳ Xuất Bản</b></div>',
+                    callbackTrue:function(){
+                        window.location.href = '/bao/thongtinbao/kyxuatban/' + $("#Id").val();
+                    },
+                    trueTitle:'Đến cấu hình Kỳ xuất bản'
+                });
+
+
+            } else {
+
+                $('[att-event-new-checkbox]').find('input:checkbox').click(function () {
+                    if($(this).prop('checked'))
+                        $('[att-event-new]').find('input[type="number"]').attr('disabled', 'disabled');
+                    else
+                        $('[att-event-new]').find('input[type="number"]').removeAttr('disabled');
+                }).click();
+                if(sobatdau==-1){
+                    $('[att-event-new-checkbox]').find('input:checkbox').prop('checked',true);
+                    $('[att-event-new]').find('input[type="number"]').attr('disabled', 'disabled');
+                }
+                else if(sobatdau>-1)
+                    $('[attr-start]').css({'display':'none'});
+                $('select[attr-year]').children('option[value="'+year+'"]').prop('selected',true);
+                $('select[attr-year]').change(function(){
+                    window.location.href='/bao/thongtinbao/kehoachxuatban/'+$('#Id').val()+'/'+$(this).val();
+                });
+                $('[att-event-new]').find('input[type="number"]').val(sobatdau==-1?0:sobatdau);
+                $('[attr-submit]').click(function(){
+                    if(!$('[att-event-new-checkbox]').find('input:checkbox').prop('checked') && $.trim($('[att-event-new]').find('input[type="number"]').val()).length==0){
+                        new jPopup({
+                            show: true,
+                            title: 'Thông báo',
+                            width: 350,
+                            body: '<div style="text-align:center;margin:5px 0px;"><b>Số báo bắt đầu</b> phải là số.</div>'
+                        });
+                    }else{
+                        $('#Nam').val(year);
+                        var number = parseInt($.trim($('[att-event-new]').find('input[type="number"]').val()));
+                        number = number<1?1:number;
+                        $('#SoBatDau').val(!$('[att-event-new-checkbox]').find('input:checkbox').prop('checked')?number:-1);
+                        $("#actionForm").submit();
+                    }
+
+                });
+                if(sobatdau>-1)
+                    $('[attr-submit]').val('Chạy lại')
+            }
+        });
+    </script>
+}
+
+

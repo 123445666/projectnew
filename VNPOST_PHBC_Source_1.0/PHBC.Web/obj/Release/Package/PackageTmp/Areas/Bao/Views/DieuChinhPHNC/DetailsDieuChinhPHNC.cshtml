@@ -1,0 +1,57 @@
+﻿@model IEnumerable<PHBC.DAO.Models.QuanHuyen>
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = Application.ButtonLabel.List + ViewBag.TitleName;
+
+    PHBC.DAO.BThongTinBao objBao = new PHBC.DAO.BThongTinBao();
+    if (ViewBag.ThongTinBao != null)
+    {
+        objBao = (PHBC.DAO.BThongTinBao)ViewBag.ThongTinBao;
+    }
+
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @Application.ButtonLabel.List @ViewBag.TitleName
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="btn-toolbar col-md-7">
+                @if (ViewBag.UnitForm != null && ViewBag.UnitForm == "0")
+                {
+                    @Html.CustomLink("Thiết lập lại phân hướng nhu cầu", ActionType.Edit, permisson, new { provincecode = ViewBag.ProvinceCode, MaBao = objBao.Id }, new { @class = Application.ButtonClass.Default })
+                }
+
+            </div>
+
+        </div>
+        <br />
+        <div>
+            @if (@objBao.TenBao != null)
+            {
+                <p>
+                    <label>Tên Báo: </label>
+                    <label>@objBao.TenBao</label>
+                </p>
+            }
+        </div>
+
+        <br />
+        @if (ViewBag.UnitForm != null && ViewBag.UnitForm == "0")
+        {
+            @Html.Partial("_viewDetailDistricts", Model)
+            @Html.ActionLink(Application.ButtonLabel.Back, "XemBao","ThongTinBao", new { Area ="Bao",id = ViewBag.Mabao }, new { @class = "btn btn-default" })
+        }
+        else if (ViewBag.UnitForm != null && ViewBag.UnitForm == "1")
+        {
+            @Html.Partial("_viewDetailUnit", Model)
+            @Html.ActionLink(Application.ButtonLabel.Back, "Details", new { Mabao = ViewBag.Mabao, provincecode = ViewBag.ProvinceCodeDetail }, new { @class = "btn btn-default" })
+        }
+
+        @*<button id="back" class="btn btn-default" onclick="window.history.go(-1); return false;">@Application.ButtonLabel.Back</button>*@
+    </div>
+</div>

@@ -1,0 +1,29 @@
+﻿@model PHBC.DAO.Models.ThongTinGiaBaoModel
+@using PHBC.Web.Constants;
+@{
+    ViewBag.Title = "Xóa thông tin báo";
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Xóa thông tin giá báo
+    </div>
+    <div class="panel-body">
+        <h3>Bạn muốn xóa thông tin giá báo?</h3>
+        <div>
+            <hr />
+            @Html.Partial("_viewDetail", Model)
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="@Application.ButtonLabel.Delete" class="@Application.ButtonClass.Submit" />
+                        @Html.ActionLink(Application.ButtonLabel.Back, "Index", null, new { @class = Application.ButtonClass.Submit })
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

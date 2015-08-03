@@ -1,0 +1,391 @@
+﻿#main {
+    margin-top: 30px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.navbar .container {
+    width: 1100px;
+    max-width: calc(100% - 20px);
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.navbar .navbar-right {
+    margin-right: 0px;
+}
+
+.panel-primary {
+    border: 1px solid #ccc !important;
+    border-radius: 0;
+    margin: 0 auto;
+    max-width: calc(100% - 20px);
+    width: 1100px;
+}
+
+    .panel-primary .panel-heading {
+        background-color: #0b80c1;
+        border-color: transparent;
+        border-radius: 0 !important;
+        color: #fff;
+        font-weight: bold;
+        margin: -1px 0 0 -1px;
+        text-transform: uppercase;
+        width: calc(100% + 2px);
+    }
+
+.navbar-inverse {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #555;
+    }
+
+        .navbar-inverse .navbar-nav > li > a:hover {
+            color: #333;
+        }
+
+    .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+        background-color: #ddd;
+        color: #333;
+    }
+
+.dropdown-menu {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-top: 1px solid transparent;
+}
+
+    .dropdown-menu > li > a {
+        padding: 4px 20px;
+    }
+
+        .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+            background-color: #ededed;
+            color: #262626;
+            text-decoration: none;
+        }
+
+.navbar-inverse .navbar-toggle {
+    border-color: #DDD;
+}
+
+    .navbar-inverse .navbar-toggle .icon-bar {
+        color: #555;
+    }
+
+    .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+        background-color: #ddd;
+    }
+
+    .navbar-inverse .navbar-toggle .icon-bar {
+        background-color: #555;
+    }
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    border-color: #ccc;
+}
+
+.navbar-collapse[aria-expanded="true"] {
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+}
+.navbar-inverse .navbar-brand {
+    color: #555;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.navbar-inverse .navbar-brand:hover{
+    color:#333;
+}
+.dl-horizontal dt {
+    background-color: #DDD;
+    color: #555;
+    margin: 4px 0;
+    padding: 4px 10px;
+    text-align: left;
+    width:160px;
+    display: inline-block;
+    clear:left;
+    overflow:hidden;
+    min-height:25px;
+}
+.dl-horizontal dt label {
+    font-weight: normal;
+    margin-bottom: 5px;
+    font-size: 12px;
+    text-transform:uppercase;
+    margin-bottom:0px;
+}
+.dl-horizontal dd{
+    border: 1px solid #DDD;
+    margin: 4px 0 4px -5px;
+    padding: 3px 10px 3px 20px;
+    width: calc(100% - 160px);
+    display: inline-block;
+    max-width:100%;
+    min-height:25px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.table td{
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+.table td .fa{
+    font-size:15px;
+    margin-left:2px;
+    margin-right:2px;
+}
+.form-title{
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+    color: #555;
+    display: block;
+    font-size: 15px;
+    margin-bottom: 15px;
+    padding: 0 !important;
+    text-transform: uppercase;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus{
+    color:#333;
+}
+#adv-search > input[type="text"].form-control{
+    width:calc(100% - 100x);
+}
+.input-group-btn .btn {
+        display: block;
+        width: auto !important;
+        margin: 0px !important;
+    }
+.table{
+    table-layout:fixed !important; 
+}
+.table td[attr-title]{
+    position:relative;
+    overflow-y: visible !important;
+}
+.table td[attr-title]::before{
+    background-color: rgba(255, 255, 255, 1);
+    border:2px solid rgba(51, 51, 51, 0.9);
+    bottom: calc(100% + 5px);
+    content: attr(attr-title);
+    left: 50%;
+    max-width: 200px;
+    min-width: 150px;
+    position: absolute;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    width: 200px;
+    z-index:2;
+    text-align:center;
+    font-size:12px;
+    padding:5px;
+    border-radius:3px;
+    color:#333;
+    white-space: normal;
+    display:none;
+}
+.table td[attr-title]::after{
+    background-image: url("/Content/icons/icon-tamgiac.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    bottom: 100%;
+    content: " ";
+    height: 9px;
+    position: absolute;
+    width: 10px;
+    left:50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    display:none;
+    z-index:1;
+}
+.table td[attr-title]:hover::before,.table td[attr-title]:hover::after{
+    display:block;
+}
+
+
+
+
+/*from input*/
+.form-group{
+    position:relative;
+}
+.control-label {
+    background-color: #ddd;
+    font-size: 11px !important;
+    font-weight: normal !important;
+    letter-spacing: 0px;
+    line-height: 19px;
+    margin-bottom: 0;
+    min-height: 31px;
+    padding: 7px 10px 5px;
+    text-align: left;
+    text-transform: uppercase;
+    position:relative;
+    z-index:1;
+    vertical-align: middle;
+    /*max-width: calc(100% - 50px);*/
+    max-width: calc(100%);
+}
+.form-group[panelcheckbox] .control-label{
+    width:100%;
+    padding-right:50px;
+}
+
+
+
+.form-group > .control-label + div[class*="col"]{
+    border: 1px solid #ddd;
+    clear: both;
+    height: 100%;
+    line-height: 31px;
+    min-height: 31px;
+    position: absolute;
+    right: 0;
+    z-index:0;
+}
+.form-group > .control-label + div[class*="col"][checkbox]{
+    position: absolute;
+    right: 0;
+    top: 0;
+    vertical-align: middle;
+    width: 50px;
+    z-index: 1;
+    background-color:#FFF;
+}
+.form-group > .control-label + div[class*="col"] .field-validation-error:empty{
+    display:none;
+}
+.form-group > .control-label + div[class*="col"] .field-validation-error{
+    bottom: 100%;
+    color: #d83732;
+    max-width: 100%;
+    padding: 5px 10px 15px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    width: 200px;
+    z-index: 2;
+    line-height:20px;
+}
+.form-group > .control-label + div[class*="col"] .field-validation-error:before{
+    content:" ";
+    background-color: rgba(255, 255, 255, 1);
+    border:2px solid rgba(51, 51, 51, 0.9);
+    position:absolute;
+    z-index:-1;
+    left:0px;
+    width:100%;
+    height:100%;
+    border-radius:3px;
+    bottom:5px;
+}
+.form-group > .control-label + div[class*="col"] .field-validation-error:after{
+    background-image: url("/Content/icons/icon-tamgiac.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    bottom:0px;
+    content: " ";
+    height: 9px;
+    position: absolute;
+    width: 10px;
+    right:10px;
+    z-index:-2;
+}
+.form-group[style-textarea] > .control-label{
+    height: 77px;
+}
+.form-group[style-textarea] > div[class*="col"]{
+    height:77px;
+}
+.form-group[style-textarea] > div[class*="col"] textarea{
+    resize: none;
+}
+.form-group > div[class*="col"] input[type="text"]
+,.form-group > div[class*="col"] input[type="email"]
+,.form-group > div[class*="col"] input[type="number"]
+,.form-group > div[class*="col"] input[type="password"]
+,.form-group > div[class*="col"] input[type="tel"]
+,.form-group > div[class*="col"] textarea{
+    border: medium none !important;
+    border-radius: 0 !important;
+    box-sizing: border-box;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    -webkit-text-size-adjust: none;
+    outline: none;
+    -moz-appearance: none; /* Firefox */
+    -webkit-appearance: none; /* Safari and Chrome */
+}
+.form-group > div[class*="col"] input[type="text"]:focus
+,.form-group > div[class*="col"] input[type="email"]:focus
+,.form-group > div[class*="col"] input[type="number"]:focus
+,.form-group > div[class*="col"] input[type="password"]:focus
+,.form-group > div[class*="col"] textarea:focus
+,.form-group > div[class*="col"] select:focus
+{
+    box-shadow: 0 0 3px #0b80c1 inset;
+}
+.form-group > div[class*="col"] select{
+    position:absolute;
+    left:0px;
+    top:0px;
+    height:100%;
+    width:100%;
+    box-sizing:border-box;
+    -webkit-text-size-adjust: none;
+    outline: none;
+    -moz-appearance: none; /* Firefox */
+    -webkit-appearance: none; /* Safari and Chrome */
+    border:none;
+    border-radius:0px !important;
+    padding-right:20px;
+    background-image: url("/Content/icons/icon-tamgiac.png");
+    background-position:calc(100% - 10px) center;
+    background-repeat:no-repeat;
+    background-size:10px;
+}
+.form-group > div[class*="col"] select::-ms-expand{
+    display: none;
+}
+.form-group > div[class*="col"] input[type="checkbox"]{
+    height: 15px;
+    left: 0;
+    position: absolute;
+    text-align: left;
+    top: calc(50% - 11px);
+    width: 100%;
+}
+
+div[attr-loading]{
+    height:30px;
+    position:relative;
+    text-align:center;
+}
+div[attr-loading]:before{
+    color: #333;
+    content: attr(value);
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+div[attr-loading] img{
+    max-width:170px;
+    width:100%;
+    height:auto;
+}
+div[disabled]
+{
+  pointer-events: none;
+  opacity: 0.5;
+}

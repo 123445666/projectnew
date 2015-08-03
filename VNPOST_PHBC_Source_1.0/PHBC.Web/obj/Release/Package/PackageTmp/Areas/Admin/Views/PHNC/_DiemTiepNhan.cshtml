@@ -1,0 +1,41 @@
+﻿@model PHBC.DAO.Models.BPhanHuongNhuCauModel
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+
+@{
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+    <div class="panel-body">
+
+    <!-- tree -->
+    @*@Html.Partial("_treeview", Model)*@
+        
+    <div class="col-md-12">
+        <div id="MenuContent">
+            
+            @using (Ajax.BeginForm(TempData["TypeUnit"].Equals("1") ? "Create" : "Edit", "PHNC", new { Area = "Admin" }, new AjaxOptions() { OnSuccess = "successPHNC" }, htmlAttributes: new { @class = "form-horizontal", id = "actionForm", role = "form" }))
+                {
+                <div class="form-horizontal">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Units)
+                    <input type="hidden" name="TypeId" id="TypeId" />
+                    <input type="hidden" name="listId" id="listId" />
+                    <input type="hidden" name="Mabao" id="Mabao" />
+                    <div class="form-horizontal">
+                        <h5>Cấu hình phân hướng nhu cầu</h5>
+                        <hr />
+                        @Html.Partial("_inputForm", Model)
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input id="fSubmit" type="button" value="@Application.ButtonLabel.Save" class="btn btn-default" />
+                                @Html.ActionLink(Application.ButtonLabel.Back, "Index", "PHNC", null, new { @class = "btn btn-default" })
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+                }
+            </div>
+        </div>
+    </div>

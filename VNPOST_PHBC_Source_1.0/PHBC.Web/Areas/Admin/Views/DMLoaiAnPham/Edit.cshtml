@@ -1,0 +1,52 @@
+﻿@model PHBC.DAO.Models.DMLoaiAnPhamModel
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = "Cập Nhật Danh Mục Loại Ấn Phẩm";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Cập Nhật Danh Mục Loại Ấn Phẩm
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="form-group">
+                    @*<label class="col-md-2 control-label">
+                        @Html.DisplayNameFor(model => model.TenLoaiAnPham)
+                        (<span class="text-danger">*</span>):
+                    </label>*@
+                    @Html.LabelForEdit(model => model.TenLoaiAnPham, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TenLoaiAnPham, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TenLoaiAnPham, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @*<label class="col-md-2 control-label">
+                        @Html.DisplayNameFor(model => model.CoKyXuatBan):
+                    </label>*@
+                    @Html.LabelForView(model => model.CoKyXuatBan, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.CheckBoxFor(model=>model.CoKyXuatBan)
+                        @Html.ValidationMessageFor(model => model.CoKyXuatBan, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="@Application.ButtonLabel.Save" class="btn btn-default" /> 
+                        @Html.ActionLink(Application.ButtonLabel.Back, "Index", null, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    </div>

@@ -1,0 +1,141 @@
+﻿@model PHBC.DAO.Models.ThongTinGiaBaoModel
+@using Webdiyer.WebControls.Mvc;
+@{
+    ViewBag.Title = "Thêm thông tin giá báo";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Giá Báo
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" valname="loadGiaBan" href="#GiaBan">Thông tin giá bán</a></li>
+            <li><a data-toggle="tab" valname="loadGiaMua" href="#GiaMua">Thông tin giá mua</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="GiaBan" class="tab-pane fade in active">
+                <div attr-loading value="Xin vui lòng đợi">
+                    <img src="~/Content/icons/loading_new_gif.gif" />
+                </div>
+            </div>
+            <div id="GiaMua" class="tab-pane fade">
+                <div attr-loading value="Xin vui lòng đợi">
+                    <img src="~/Content/icons/loading_new_gif.gif" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display:none;">
+    @Ajax.ActionLink("Thông tin giá bán", "GiaBan", new { id = ViewBag.BaoId }, new AjaxOptions() { InsertionMode = InsertionMode.Replace, UpdateTargetId = "GiaBan", OnSuccess = "" }, new { id = "loadGiaBan" })
+    @Ajax.ActionLink("Thông tin giá mua", "GiaMua", new { id = ViewBag.BaoId }, new AjaxOptions() { InsertionMode = InsertionMode.Replace, UpdateTargetId = "GiaMua", OnSuccess = "" }, new { id = "loadGiaMua" })    
+</div>
+
+@section head{
+
+    <link href="~/Styles/lib/style.css" rel="stylesheet" />
+    <link href="~/Styles/KyXuatBan/fonts.css" rel="stylesheet" />
+    <link href="~/Styles/KyXuatBan/style.css" rel="stylesheet" />
+    <style type="text/css">
+        .dual-list .list-group {
+            margin-top: 8px;
+            max-height: 400px;
+            overflow: auto;
+        }
+
+        .list-left li, .list-right li {
+            cursor: pointer;
+        }
+
+        .list-arrows {
+            padding-top: 100px;
+        }
+
+            .list-arrows button {
+                margin-bottom: 20px;
+            }
+
+        .list-group-item > .badge {
+            float: none !important;
+            position: relative;
+            left: 10px;
+        }
+
+        .tab-content {
+            padding: 20px;
+            border: 1px solid #dddddd;
+            border-top: none;
+        }
+    </style>
+}
+
+@section Scripts {
+    @{Html.RegisterMvcPagerScriptResource();}
+    <script src="~/Scripts/KyXuatBan/script.js"></script>
+
+    <script>
+
+        var objLoaded = [];
+        var objLoading;
+
+        $(document).ready(function () {
+            $("#loadGiaBan").click();
+
+            objLoaded.push("#loadGiaBan");
+            $(".nav-tabs a").click(function () {
+                var obj = $(this);
+                var tab = "#" + obj.attr("valname");
+                if (objLoaded.indexOf(tab) == -1) {
+                    objLoaded.push(tab);
+                    $(tab).click();
+                }
+                obj.tab('show');
+            });
+            $('.nav-tabs a').on('shown.bs.tab', function (event) {
+                var x = $(event.target).text();         // active tab
+                var y = $(event.relatedTarget).text();  // previous tab
+            });
+
+            @*$.ajax({
+                type: "GET",
+                url: '@Url.Action("Edit", "ThongTinBao", new { area="Bao" })',
+                data: { 'id': '@ViewBag.BaoId' },
+                dataType: "json",
+                success: successFunc,
+                error: errorFunc
+            });*@
+        });
+        function fnLoading(status) {
+            if (status)
+                objLoading = new jPopup({
+                    show: true,
+                    close: false,
+                    width: 350,
+                    body: '<div style="clear:bold;height:20px;"></div><div attr-loading value="Xin vui lòng đợi"><img src="@Url.Content("~/Content/icons/loading_new_gif.gif")" /></div><div style="clear:bold;height:25px;"></div>'
+                });
+            else
+                objLoading.close();
+
+        }
+        function successBao(result) {
+            if (result.MSG) {
+                new jPopup({
+                    show: true,
+                    close: true,
+                    title: 'Thông báo',
+                    width: 350,
+                    body: '<div style="text-align:center;margin:5px 0px;">' + result.MSG + '</div>'
+                });
+            } else {
+                $('#GiaBan').html(result);                
+            }
+        }        
+    </script>
+}
+
+
+
+

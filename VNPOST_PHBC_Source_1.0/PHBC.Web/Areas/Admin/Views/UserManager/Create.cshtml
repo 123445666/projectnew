@@ -1,0 +1,47 @@
+﻿@model PHBC.DAO.Models.UserModel
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = "Tạo người dùng";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Tạo người dùng
+    </div>
+    <div class="panel-body">
+        <div class="form-title">
+            Thông tin chung
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                @Html.Partial("_inputForm", Model)
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="@Application.ButtonLabel.Save" class="@Application.ButtonClass.Submit" />
+                        @Html.ActionLink(Application.ButtonLabel.Back, "Index", null, new { @class = Application.ButtonClass.Submit })
+                    </div>
+
+                </div>
+            </div>
+        }
+              
+    </div>
+</div>
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+            @if (Model != null)
+            {
+                <script>
+                    $("document").ready(function () {
+                            $('#Level').val('@Model.Level');
+                            $('#UnitCode').val('@Model.UnitCode');
+                    });
+                </script>
+            }
+        }

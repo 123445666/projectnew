@@ -1,0 +1,105 @@
+﻿@model PHBC.DAO.Models.BPhanHuongNhuCauModel
+@{
+    //PHBC.DAO.BThongTinBao objBao = (PHBC.DAO.BThongTinBao)ViewBag.ThongTinBaoId;
+}
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-group">
+    @Html.LabelFor(model => model.DiemTiepNhanId, htmlAttributes: new { @class = "control-label col-md-3 text-left" })
+    <div class="col-md-9">
+        @Html.DropDownListFor(model => model.DiemTiepNhanId, null, htmlAttributes: new { @class = "form-control", disabled = "none" })
+        @Html.ValidationMessageFor(model => model.DiemTiepNhanId, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+@if (ViewBag.MaBao != null)
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.TenBao, htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="col-md-9">
+            @Html.HiddenFor(model => model.ThongTinBaoId)
+            @Html.TextBoxFor(model => model.TenBao, htmlAttributes: new { @class = "form-control col-md-3", @readonly ="readonly" })
+            @*@Html.DropDownList("ThongTinBaoId", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })*@
+
+            @Html.ValidationMessageFor(model => model.ThongTinBaoId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+}
+
+<div class="form-group dual-list">
+    <div class="well text-left">
+        @Html.ValidationMessage("Error", new { @class="text-danger" })
+        <section id="cslide-slides" class="cslide-slides-master clearfix">
+
+            <div class="cslide-slides-container clearfix">
+                @if (TempData["TypeUnit"] == "1")
+                {
+                    if (!(ViewBag.CheckPrv != null && (bool)ViewBag.CheckPrv))
+                    { 
+                        <div class="cslide-slide">
+                            <div class="tinh-partition" typediv="1">
+                                @Html.Partial("_inputFormTinh", (List<PHBC.DAO.Models.TinhThanh>)ViewBag.Province)
+                            </div>
+                        </div>
+                    }
+                }
+                <div class="cslide-slide">
+                    <div class="huyen-partition" typediv="2">
+                        <div class="cslide-prev-next clearfix" style="display: block;">
+                            <span class="cslide-prev">Quay lại</span>
+                            <span class="cslide-next choose-unit">Chọn bưu cục</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon glyphicon glyphicon-search"></span>
+                                    <input type="text" name="SearchDualList" class="form-control" placeholder="search" tabindex="-1001" />
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="btn-group">
+                                    <a class="btn btn-default selector" customs="2" title="select all"><i class="glyphicon glyphicon-unchecked"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <ul id="lstMapHuyen" class="list-group" style="max-height:400px; overflow:auto;">
+@if (TempData["TypeUnit"] == "2" || (ViewBag.CheckPrv != null && (bool)ViewBag.CheckPrv))
+                {
+                            @Html.Partial("_inputFormHuyen", (List<PHBC.DAO.Models.QuanHuyen>)ViewBag.QuanHuyen)
+}
+                        </ul>
+                    </div>
+                </div>
+                <div class="cslide-slide">
+                    <div class="buucuc-partition" typediv="3">
+                        <div class="cslide-prev-next clearfix" style="display: block;">
+                            <span class="cslide-prev">Quay lại</span>
+                            <span class="cslide-next choose-unit">Chọn bưu cục</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon glyphicon glyphicon-search"></span>
+                                    <input type="text" name="SearchDualList" class="form-control" placeholder="search" tabindex="-1002" />
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="btn-group">
+                                    <a class="btn btn-default selector" customs="3" title="select all"><i class="glyphicon glyphicon-unchecked"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <ul id="lstMapBuuCuc" class="list-group" style="max-height:400px; overflow:auto;"></ul>
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- /sliding content section -->
+
+    </div>
+    @*@Html.LabelFor(model => model.UnitCode, "UnitCode", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("UnitCode", null, String.Empty, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.UnitCode, "", new { @class = "text-danger" })
+        </div>*@
+</div>

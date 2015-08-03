@@ -1,0 +1,28 @@
+﻿@model IEnumerable<PHBC.DAO.Models.MenuView>
+
+@foreach (var item in Model)
+{
+    if (item.ChildMenu.Count > 0)
+    {
+        <li class="dropdown">
+            @*href="@Url.Action(item.action, item.controller, new { area=item.area})"*@
+            <a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown">@Html.Raw(item.MenuName) <span aria-hidden="true" class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                @foreach (var child in item.ChildMenu)
+            {
+                    <li>@Html.ActionLink(child.MenuName, child.Action, child.Controller, new { area = child.Area }, htmlAttributes: new { })</li>
+                }
+            </ul>
+        </li>
+    }
+    else
+    {
+        @*Su dung Font Awesome
+            <li>
+                <a href="@Url.Action(item.action, item.controller, new { area=item.area})">
+                    <span aria-hidden="true" class="fa fa-users"></span> @Html.DisplayFor(modelItem=>item.Dislay)
+                </a>
+            </li>*@
+        <li>@Html.ActionLink(item.MenuName, item.Action, item.Controller, new { area = item.Area }, htmlAttributes: new { })</li>
+    }
+}

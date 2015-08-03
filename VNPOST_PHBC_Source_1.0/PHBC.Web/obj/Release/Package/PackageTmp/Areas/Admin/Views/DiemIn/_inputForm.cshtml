@@ -1,0 +1,50 @@
+﻿@model PHBC.DAO.Models.DMDiemInModel
+
+
+<div class="form-group col-md-12">
+    @Html.LabelForEdit(model => model.MaDiemIn, new { @class = "col-md-3 control-label" })
+    <div class="col-md-9">
+        @Html.TextBoxFor(model => model.MaDiemIn, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.MaDiemIn, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-12">
+    @Html.LabelForEdit(model => model.TenDiemIn, new { @class = "col-md-3 control-label" })
+    <div class="col-md-9">
+        @Html.TextBoxFor(model => model.TenDiemIn, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.TenDiemIn, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-12">
+    @Html.LabelForEdit(model => model.ProvinceCode, new { @class = "col-md-3 control-label" })
+    <div class="col-md-9">
+        @Html.DropDownListFor(model => model.ProvinceCode, (IEnumerable<SelectListItem>)ViewBag.Provinces, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ProvinceCode, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-12">
+    @Html.LabelForEdit(model => model.DistrictCode, new { @class = "col-md-3 control-label" })
+    <div class="col-md-9">
+        @Html.DropDownListFor(model => model.DistrictCode, (IEnumerable<SelectListItem>)ViewBag.Districts, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.DistrictCode, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+
+
+<div class="form-group col-md-12">
+    @Html.LabelForEdit(model => model.DiaChi, new { @class = "col-md-3 control-label" })
+    <div class="col-md-9">
+        @Html.TextAreaFor(model => model.DiaChi, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+
+
+
+
+

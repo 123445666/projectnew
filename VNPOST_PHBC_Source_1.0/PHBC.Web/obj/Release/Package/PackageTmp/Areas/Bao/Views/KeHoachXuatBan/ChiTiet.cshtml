@@ -1,0 +1,200 @@
+﻿@model PHBC.DAO.Models.KeHoachXuatBanModel
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = "Chi tiết kế hoạch xuất bản năm @Model.Nam";
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Chi tiết kế hoạch xuất bản năm @Model.Nam
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.LabelForView(model => model.MaBao, null)
+
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MaBao)
+            </dd>
+            <dt>
+                @Html.LabelForView(model => model.TenBao, null)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenBao)
+            </dd>
+        </dl>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="javascript:;">Dánh sách điều chỉnh kế hoạch xuất bản</a></li>
+            <li><a href="javascript:;">Chi tiết kế hoạch xuất bản</a></li>
+        </ul>
+        <div item-panel show>
+            <div class=" table-responsive">
+                <div table-search>
+                    <table class="table table-bordered table-hover table-custom" attr-top-scroll>
+                        <colgroup>
+                            <col style="width: 100px" />
+                            <col style="width: 200px" />
+                            <col style="width: 200px" />
+                            <col style="width: 100px" />
+
+                        </colgroup>
+                        <tr>
+                            <th>
+                                Quý
+                            </th>
+                            <th>
+                                Người cập nhật
+                            </th>
+                            <th>
+                                Ngày cập nhật
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered table-hover table-custom">
+                        <colgroup>
+                            <col style="width: 100px" />
+                            <col style="width: 200px" />
+                            <col style="width: 200px" />
+                            <col style="width: 100px" />
+
+                        </colgroup>
+
+                        @foreach (var item in (List<Dictionary<string, object>>)Model.data["BDieuChinhKHXB"])
+                        {
+                            <tr>
+
+                                <td>
+                                    Quý @item["Quy"]
+                                </td>
+                                <td>
+                                    @item["ModifyBy"]
+                                </td>
+                                <td>
+                                    @(Convert.ToDateTime(item["ModifyDate"]).ToString("dd/MM/yyyy, HH:mm:ss"))
+                                </td>
+                                <td style="text-align:right;">
+                                    <a title="Chỉnh sửa Điều chỉnh KHXB" href="/bao/kehoachxuatban/dieuchinh/@item["ThongTinBaoId"]/@item["Id"]" data-toggle="tooltip"><span class="fa fa-pencil-square"></span></a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div item-panel>
+            <div class=" table-responsive">
+                <div table-search>
+                    <table class="table table-bordered table-hover table-custom" attr-top-scroll>
+                        <colgroup>
+                            <col style="width: 120px" />
+                            <col style="width: 200px" />
+                            <col style="width: 100px" />
+                            <col style="width: 100px" />
+
+                        </colgroup>
+                        <tr>
+
+                            <th>
+                                Số
+                            </th>
+                            <th>
+                                Ngày phát hành
+                            </th>
+                            <th>
+                                Quý
+                            </th>
+                            <th>
+                                Thứ
+                            </th>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered table-hover table-custom">
+                        <colgroup>
+                            <col style="width: 120px" />
+                            <col style="width: 200px" />
+                            <col style="width: 100px" />
+                            <col style="width: 100px" />
+
+                        </colgroup>
+                        @foreach (var item in Model.detailKHXB)
+                        {
+                            <tr>
+
+                                <td>
+                                    Số @item.Number
+                                </td>
+                                <td>
+                                    @(item.Ngay + "/" + item.Thang + "/" + item.Nam)
+                                </td>
+                                <td>
+                                    Quý @item.Quy
+                                </td>
+                                <td>
+                                    @(item.Thu == 8 ? "Chủ nhật" : "Thứ " + item.Thu)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both;height:20px;"></div>
+        <div class="form-group" style="margin-left:0px !important;">
+            <a class="btn btn-default" href="@Request.UrlReferrer">Quay lại</a>
+        </div>
+    </div>
+</div>
+
+<div ac></div>
+
+@section head{
+    @*<link href="~/Styles/KyXuatBan/fonts.css" rel="stylesheet" />
+    <link href="~/Styles/KyXuatBan/style.css" rel="stylesheet" />
+    <link href="~/Styles/lib/popup.css" rel="stylesheet" />
+    <link href="~/Styles/lib/style.css" rel="stylesheet" />*@
+<link href="~/Styles/lib/style.css" rel="stylesheet" />
+    <style type="text/css">
+        [item-panel] {
+            border: 1px solid #dddddd;
+            border-top: none;
+            padding: 0px 0px;
+            margin-top: -1px;
+            display: none;
+        }
+
+            [item-panel][show] {
+                display: block;
+            }
+            .form-group{
+                margin-left:0px !important;
+            }
+    </style>
+
+}
+
+@section scripts{
+    @*<script src="~/Scripts/KyXuatBan/script.js"></script>
+    <script src="~/Scripts/lib/scripts.js"></script>
+    <script src="~/Scripts/lib/popup.js"></script>*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.nav-tabs li').click(function () {
+                $('.nav-tabs li').removeClass('active');
+                var _index = $('.nav-tabs li').index($(this));
+                $(this).addClass('active');
+                $('[item-panel]').removeAttr('show');
+                $('[item-panel]').eq(_index).attr('show', '');
+            });
+            
+            
+        });
+    </script>
+}
+
+

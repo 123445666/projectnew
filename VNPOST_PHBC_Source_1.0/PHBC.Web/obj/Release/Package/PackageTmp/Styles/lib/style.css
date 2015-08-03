@@ -1,0 +1,56 @@
+﻿[table-search] {
+    position: relative;
+    padding-top: 34px;
+    margin: 0px 10px;
+    position: relative;
+    overflow: auto;
+    max-height: 500px;
+}
+
+[attr-top-scroll] {
+    margin-bottom: 0px;
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    background-color: #fff;
+    margin-top: 0px;
+}
+
+[table-seach-input] {
+    margin: 10px;
+    text-align: right;
+    background-color: #FFF;
+    position: relative;
+}
+
+    [table-seach-input]:before {
+        content: "\f002";
+        font-family: FontAwesome;
+        font-size: 15px;
+        position: absolute;
+        right: 10px;
+        top: calc(50% - 11px);
+    }
+
+    [table-seach-input] input[type="text"] {
+        border: 1px solid #ccc;
+        max-width: 100%;
+        padding: 3px 30px 3px 10px;
+        width: 300px;
+        background-color: transparent;
+    }
+
+[table-row-checkbox] {
+    position: relative;
+}
+
+    [table-row-checkbox] input[type="checkbox"] {
+        cursor: pointer;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+    }

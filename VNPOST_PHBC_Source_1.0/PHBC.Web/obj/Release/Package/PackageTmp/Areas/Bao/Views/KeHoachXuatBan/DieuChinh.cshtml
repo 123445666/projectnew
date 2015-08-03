@@ -1,0 +1,289 @@
+﻿@model PHBC.DAO.Models.KeHoachXuatBanModel
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = "Điều chỉnh kế hoạch xuất bản Năm " + Model.Nam + " Quý " + Model.Quy;
+    PHBC.Web.Permission.PermissonController permisson = ViewBag.Permisson as PHBC.Web.Permission.PermissonController;
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Điều chỉnh kế hoạch xuất bản Năm @Model.Nam Quý @Model.Quy
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.LabelForView(model => model.MaBao, null)
+
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MaBao)
+            </dd>
+            <dt>
+                @Html.LabelForView(model => model.TenBao, null)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenBao)
+            </dd>
+            <dt>
+                @Html.LabelForView(model => model.Nam, null)
+
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Nam)
+            </dd>
+            <dt>
+                @Html.LabelForView(model => model.Quy, null)
+
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Quy)
+            </dd>
+        </dl>
+    </div>
+    <div class="panel-body">
+        <div attr-btn-ac>
+            @*@Html.CustomRouterLink(permisson, "Bao_kehoachxuatban_dieuchinhquy", new { controller = "kehoachxuatban", action = "dieuchinh", type = "baonghi", id = Model.Id, idkehoach = Model.IdKeHoachXuatBan }, "", null, "<span class=\"btn btn-info\">Báo nghỉ</span>", "Báo nghỉ")*@
+
+            <a href="/bao/kehoachxuatban/dieuchinh/baonghi/@Model.Id/@Model.IdKeHoachXuatBan"><span class="btn btn-info">Báo nghỉ</span></a>
+            <a href="/bao/kehoachxuatban/dieuchinh/donso/@Model.Id/@Model.IdKeHoachXuatBan"><span class="btn btn-info">Dồn số</span></a>
+            <a href="/bao/kehoachxuatban/dieuchinh/baorarieng/@Model.Id/@Model.IdKeHoachXuatBan"><span class="btn btn-info">Báo ra riêng</span></a>
+            <a href="/bao/kehoachxuatban/dieuchinh/dieuchinhthongtinbao/@Model.Id/@Model.IdKeHoachXuatBan"><span class="btn btn-info">Điều chỉnh thông tin báo</span></a>
+        </div>
+        @*<div item-panel show>
+            <div class="table-responsive">
+                <div table-search>
+                    <table class="table table-bordered table-hover" attr-top-scroll>
+                        <colgroup>
+                            <col style="width: 20px" action-number-dieuchinh none />
+                            <col style="width: 120px" />
+                            <col style="width: 200px" />
+                            <col style="width: 100px" />
+
+                        </colgroup>
+                        <tr>
+                            <th action-number-dieuchinh none>
+                            </th>
+                            <th>
+                                Số
+                            </th>
+                            <th>
+                                Ngày phát hành
+                            </th>
+                            <th>
+                                Thứ
+                            </th>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered table-hover">
+                        <colgroup>
+                            <col style="width: 20px;" action-number-dieuchinh none />
+                            <col style="width: 120px" />
+                            <col style="width: 200px" />
+                            <col style="width: 100px" />
+
+                        </colgroup>
+                        @foreach (var item in Model.detailKHXB)
+                        {
+                            <tr>
+                                <td table-row-checkbox action-number-dieuchinh none>
+                                    <input type="checkbox" />
+                                </td>
+                                <td>
+                                    Số @item.Number
+                                </td>
+                                <td>
+                                    @(item.Ngay + "/" + item.Thang + "/" + item.Nam)
+                                </td>
+                                <td>
+                                    @(item.Thu == 8 ? "Chủ nhật" : "Thứ " + item.Thu)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both;height:20px;"></div>
+        <div class="form-group">
+            <a class="btn btn-default" href="@Request.UrlReferrer">Quay lại</a>
+        </div>*@
+    </div>
+</div>
+
+<div attr-loading value="Xin vui lòng đợi" loading-new>
+    <img src="~/Content/icons/loading_new_gif.gif" />
+</div>
+
+@section head{
+    <link href="~/Styles/KyXuatBan/fonts.css" rel="stylesheet" />
+    <link href="~/Styles/KyXuatBan/style.css" rel="stylesheet" />
+    <link href="~/Styles/lib/popup.css" rel="stylesheet" />
+    <link href="~/Styles/lib/style.css" rel="stylesheet" />
+    <style type="text/css">
+        [item-panel] {
+            border: 1px solid #dddddd;
+            padding: 0px 0px;
+            margin-top: -1px;
+            display: none;
+        }
+
+            [item-panel][show] {
+                display: block;
+            }
+
+        [attr-btn-ac] span {
+            margin: 5px 30px 10px 0;
+        }
+        /*[attr-btn-ac] span {
+            background-color: #ddd;
+            border-radius: 3px;
+            color: #777;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 12px;
+            margin: 5px 30px 10px 0;
+            padding: 5px 15px;
+            text-transform: uppercase;
+        }
+        [attr-btn-ac] span:hover{
+            background-color:#333;
+            color:#FFF;
+        }*/
+        .confirm-Btn[style-new-btn-popup] {
+            text-align: left !important;
+        }
+
+            .confirm-Btn[style-new-btn-popup] span {
+                width: calc(50% - 20px) !important;
+                text-align: center !important;
+                background-color: #555 !important;
+                padding: 5px 10px !important;
+            }
+
+                .confirm-Btn[style-new-btn-popup] span:hover {
+                    box-shadow: 0 0 2px #555 !important;
+                }
+
+        [action-number-dieuchinh][none] {
+            opacity: 0;
+        }
+
+        [loading-new] {
+            background-color: rgba(255, 255, 255, 0.8);
+            height: 100% !important;
+            left: 0;
+            position: fixed !important;
+            top: 0;
+            width: 100%;
+            z-index: 100000;
+            display:none;
+        }
+
+            [loading-new]::before {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translateX(-50%) translateY(-50%);
+                -ms-transform: translateX(-50%) translateY(-50%);
+                -webkit-transform: translateX(-50%) translateY(-50%);
+            }
+
+            [loading-new] img {
+                position: absolute;
+                left: 50%;
+                top: calc(50% + 20px);
+                transform: translateX(-50%) translateY(-50%);
+                -ms-transform: translateX(-50%) translateY(-50%);
+                -webkit-transform: translateX(-50%) translateY(-50%);
+            }
+            [input-dieuchinh-kxb]{
+                border:1px solid #CCC;
+                padding:3px 10px;
+                margin:3px 10px;
+            }
+    </style>
+
+}
+
+@section scripts{
+    <script src="~/Scripts/KyXuatBan/script.js"></script>
+    <script src="~/Scripts/lib/popup.js"></script>
+    <script src="~/Scripts/lib/scripts.js"></script>
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+
+            $('[ attr-btn-dieuchinh]').click(function () {
+                new jPopup({
+                    show: true,
+                    close: false,
+                    width: 350,
+                    body: '<div ace style="text-transform: uppercase;text-align:center;margin:15px 0px;font-size: 15px;">Bạn muốn chỉnh sửa theo?</div>',
+                    callbackTrue: function (ev) {
+                        $('[action-number-dieuchinh]').children('input:checkbox').prop('checked', false);
+                        $('[action-number-dieuchinh]').removeAttr('none');
+                        ev.close();
+                    },
+                    trueTitle: 'Số xuất bản',
+                    callbackFalse: function (ev) {
+                        $('[action-number-dieuchinh]').children('input:checkbox').prop('checked', false);
+                        $('[action-number-dieuchinh]').attr('none', '');
+                        getKXB();
+                        ev.close();
+
+                    },
+                    falseTitle: 'Kỳ xuất bản'
+                });
+                $('[ace]').parent().next().attr('style-new-btn-popup', '');
+            });
+        });
+        function getKXB() {
+            $.ajax({
+                type: "GET",
+                url: "/bao/kehoachxuatban/getkyxuatban/@Model.Id",
+                data: "",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                beforeSend: function () {
+                },
+                success: function (message) {
+                    var nData = message;
+                    new jPopup({
+                        show: true,
+                        close: false,
+                        title: '<span style=" font-size: 15px;font-weight: normal;text-transform: uppercase;">Chọn Thứ điều chỉnh</span>',
+                        width: 500,
+                        body: '<div panel-kkakaak style="text-align:center;margin:15px 0px;font-size: 13px;">' + getHTMLKXB(nData) + '</div>',
+                        callbackTrue: function (ev) {
+                            
+                            ev.close();
+                        },
+                        trueTitle: 'Chấp nhận',
+                        callbackFalse: function (ev) {
+                            ev.close();
+
+                        },
+                        falseTitle: 'Hủy bỏ'
+                    });
+                },
+                error: function (errormessage) {
+                    
+                }
+            });
+        }
+        function getHTMLKXB(data) {
+            var html = '';
+            if (data.id == 0) {
+                for (var i = 2; i <= 7; i++) {
+                    html += '<input type="button" value="Thứ ' + i + '" valid="' + i + '" valindex="' + (i - 2) + '" input-dieuchinh-kxb/>';
+                }
+            } else if (data.id == 1) {
+                $.each(data.data, function (index, value) {
+                    html += '<input type="button" value="Thứ ' + value + '" valid="' + value + '" valindex="' + index + '" input-dieuchinh-kxb/>';
+                });
+            }
+            return html;
+        }
+    </script>*@
+}
+
+

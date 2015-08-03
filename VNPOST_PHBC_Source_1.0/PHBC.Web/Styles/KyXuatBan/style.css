@@ -1,0 +1,313 @@
+﻿.parent-kxb {
+    max-width: calc(100% - 20px);
+    width: 750px;
+    margin: 0px auto 0px;
+    padding: 15px 20px 0px;
+    border: 1px solid #CCC;
+    position: relative;
+    min-height: 320px;
+    font-size: 12px;
+}
+
+    .parent-kxb > .parent-kxb-title {
+        background-color: #eee;
+        border-bottom: 1px solid #ccc;
+        box-sizing: border-box;
+        color: #333;
+        font-size: 15px;
+        height: 30px;
+        left: 0;
+        line-height: 30px;
+        margin-left: 170px;
+        position: relative;
+        text-align: center;
+        text-transform: uppercase;
+        top: -15px;
+        width: calc(100% - 150px);
+    }
+
+    .parent-kxb[valselect="0"] > .parent-kxb-title::after {
+        content: "Ngày xuất bản";
+    }
+
+    .parent-kxb[valselect="1"] > .parent-kxb-title::after {
+        content: "Ngày xuất bản";
+    }
+
+    .parent-kxb[valselect="2"] > .parent-kxb-title::after {
+        content: "Ngày xuất bản dự kiến";
+    }
+
+    .parent-kxb[valselect="3"] > .parent-kxb-title::after {
+        content: "Ngày xuất bản dự kiến";
+    }
+
+    .parent-kxb[valselect="4"] > .parent-kxb-title::after {
+        content: "Ngày xuất bản dự kiến";
+    }
+
+    .parent-kxb[valselect="5"] > .parent-kxb-title::after {
+        content: "Ngày xuất bản dự kiến";
+    }
+
+    .parent-kxb[valselect="6"] > .parent-kxb-title::after {
+        content: "Ngày xuất bản dự kiến";
+    }
+
+    .parent-kxb > .parent-kxb-btn {
+        width: 150px;
+        text-align: left;
+        position: absolute;
+        z-index: 2;
+        left: 20px;
+        top: 24px;
+    }
+
+        .parent-kxb > .parent-kxb-btn > [btn-select] {
+            box-sizing: border-box;
+            display: block;
+            height: 100%;
+            margin: 5px 0px;
+            padding: 8px 0;
+            text-align: center;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            border: 1px solid #CCC;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            vertical-align: top;
+            left: 0px;
+            transition: left 0.1s ease-out 0s;
+        }
+
+            .parent-kxb > .parent-kxb-btn > [btn-select][active][valid="4"], .parent-kxb > .parent-kxb-btn > [btn-select][active][valid="5"], .parent-kxb > .parent-kxb-btn > [btn-select][active][valid="6"] {
+                text-overflow: initial;
+                white-space: normal;
+                overflow: visible;
+                /*padding: 8px 0 0px ;*/
+            }
+
+            .parent-kxb > .parent-kxb-btn > [btn-select] > [input-enter] {
+                background-color: #fff;
+                border: 1px solid #0b80c1;
+                box-sizing: border-box;
+                display: none;
+                left: -1px;
+                margin: 8px 0 0;
+                position: absolute;
+                top: calc(100% - 9px);
+                width: calc(100% + 2px);
+                z-index: 1;
+            }
+
+            .parent-kxb > .parent-kxb-btn > [btn-select][active] > [input-enter] {
+                display: block;
+            }
+
+            .parent-kxb > .parent-kxb-btn > [btn-select] > [input-enter] > input[type="text"] {
+                box-sizing: border-box;
+                font-size: 12px;
+                text-align: center;
+                text-transform: uppercase;
+                width: 100%;
+                border-bottom: 1px solid #CCC;
+                border-left: none;
+                border-right: none;
+                border-top: none;
+                padding: 3px;
+                letter-spacing: 1px;
+            }
+
+                .parent-kxb > .parent-kxb-btn > [btn-select] > [input-enter] > input[type="text"]:last-child {
+                    border-bottom: none;
+                }
+
+            .parent-kxb > .parent-kxb-btn > [btn-select]:hover, .parent-kxb > .parent-kxb-btn > [btn-select][active] {
+                background-color: #0b80c1;
+                border: 1px solid #0b80c1;
+                color: #FFF;
+            }
+
+            .parent-kxb > .parent-kxb-btn > [btn-select][active] {
+                left: 20px;
+            }
+
+    .parent-kxb > .parent-kxb-box {
+        box-sizing: border-box;
+        left: 0;
+        margin-left: 190px;
+        position: relative;
+    }
+
+        .parent-kxb > .parent-kxb-box > [box-kxb] {
+            width: 100%;
+            display: none;
+            padding: 0px 20px;
+            width: calc(100% + 40px);
+            left: -20px;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+    .parent-kxb[valselect="4"] .parent-kxb-box > [box-kxb][valid="4"], .parent-kxb[valselect="5"] .parent-kxb-box > [box-kxb][valid="5"], .parent-kxb[valselect="6"] .parent-kxb-box > [box-kxb][valid="6"] {
+        /*padding-top: 40px;*/
+    }
+
+    .parent-kxb[valselect="0"] .parent-kxb-box > [box-kxb][valid="0"], .parent-kxb[valselect="1"] .parent-kxb-box > [box-kxb][valid="1"], .parent-kxb[valselect="2"] .parent-kxb-box > [box-kxb][valid="2"], .parent-kxb[valselect="3"] .parent-kxb-box > [box-kxb][valid="3"], .parent-kxb[valselect="4"] .parent-kxb-box > [box-kxb][valid="4"], .parent-kxb[valselect="5"] .parent-kxb-box > [box-kxb][valid="5"], .parent-kxb[valselect="6"] .parent-kxb-box > [box-kxb][valid="6"] {
+        display: block;
+    }
+
+    .parent-kxb .parent-kxb-box > [box-kxb] {
+        text-align: left;
+    }
+
+        .parent-kxb .parent-kxb-box > [box-kxb][valid="0"] > span, .parent-kxb .parent-kxb-box > [box-kxb][valid="1"] > span, .parent-kxb .parent-kxb-box > [box-kxb][valid="2"] > span, .parent-kxb .parent-kxb-box > [box-kxb][valid="3"] > span {
+            display: inline-block;
+            box-sizing: border-box;
+            padding: 5px 8px;
+            border: 1px solid #CCC;
+            margin: 10px;
+            cursor: pointer;
+            text-align: center;
+            min-width: 90px;
+        }
+
+            /*.parent-kxb .parent-kxb-box > [box-kxb][valid="0"] > span:first-child
+    ,.parent-kxb .parent-kxb-box > [box-kxb][valid="1"] > span:first-child 
+    ,.parent-kxb .parent-kxb-box > [box-kxb][valid="2"] > span:first-child
+    ,.parent-kxb .parent-kxb-box > [box-kxb][valid="3"] > span:first-child{
+        margin:10px 10px 10px 0px;
+    }
+    .parent-kxb .parent-kxb-box > [box-kxb][valid="0"] > span:last-child
+    ,.parent-kxb .parent-kxb-box > [box-kxb][valid="1"] > span:last-child 
+    ,.parent-kxb .parent-kxb-box > [box-kxb][valid="2"] > span:last-child
+    ,.parent-kxb .parent-kxb-box > [box-kxb][valid="3"] > span:last-child{
+        margin:10px 0px 10px 10px;
+    }
+
+    
+
+
+.parent-kxb .parent-kxb-box > [box-kxb][valid="1"] > span{
+    width: calc(25% - 20px);
+}
+.parent-kxb .parent-kxb-box > [box-kxb][valid="2"] > span
+,.parent-kxb .parent-kxb-box > [box-kxb][valid="3"] > span{
+    width: calc(16.6% - 20px);
+}*/
+
+
+            .parent-kxb .parent-kxb-box > [box-kxb][valid="0"] > span:hover, .parent-kxb .parent-kxb-box > [box-kxb][valid="0"] > span[active], .parent-kxb .parent-kxb-box > [box-kxb][valid="1"] > span:hover, .parent-kxb .parent-kxb-box > [box-kxb][valid="1"] > span[active], .parent-kxb .parent-kxb-box > [box-kxb][valid="2"] > span:hover, .parent-kxb .parent-kxb-box > [box-kxb][valid="2"] > span[active], .parent-kxb .parent-kxb-box > [box-kxb][valid="3"] > span:hover, .parent-kxb .parent-kxb-box > [box-kxb][valid="3"] > span[active] {
+                color: #333;
+                background-color: #ccc;
+            }
+
+        .parent-kxb .parent-kxb-box > [box-kxb] [select-option] {
+            display: inline-block;
+            box-sizing: border-box;
+            padding: 5px 8px;
+            border: 1px solid #CCC;
+            margin: 20px 10px;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            width: calc(50% - 20px);
+        }
+
+            .parent-kxb .parent-kxb-box > [box-kxb] [select-option]:before {
+                background-color: #ccc;
+                border: 1px solid #ccc;
+                bottom: 100%;
+                color: #fff;
+                content: attr(valtitle);
+                left: -1px;
+                padding: 2px 0;
+                position: absolute;
+                text-align: center;
+                text-transform: uppercase;
+                width: calc(100% + 2px);
+            }
+
+            .parent-kxb .parent-kxb-box > [box-kxb] [select-option] select {
+                border: none;
+                font-size: 12px;
+                width: 100%;
+            }
+
+        .parent-kxb .parent-kxb-box > [box-kxb] [attr-ky] {
+            padding-left: 30px;
+            position: relative;
+        }
+
+            .parent-kxb .parent-kxb-box > [box-kxb] [attr-ky]::before {
+                content: attr(valtitle);
+                font-size: 13px;
+                left: 0;
+                position: absolute;
+                text-transform: uppercase;
+                top: calc(50% - 15px);
+            }
+
+        .parent-kxb .parent-kxb-box > [box-kxb] [append-data-box] {
+            padding-top: 20px;
+        }
+
+[box-kxb] > [box-kxb-input] {
+    border-bottom: 1px dashed #ccc;
+    box-sizing: border-box;
+    left: -20px;
+    padding: 0 10px 10px;
+    position: relative;
+    top: -5px;
+    width: calc(100% + 40px);
+}
+
+    [box-kxb] > [box-kxb-input] > input[type="text"] {
+        background-color: transparent;
+        border: 1px solid #ddd;
+        font-size: 12px;
+        margin-right: 20px;
+        max-width: 140px;
+        padding: 3px 60px 3px 10px;
+        position: relative;
+        text-transform: uppercase;
+        z-index: 1;
+    }
+
+    [box-kxb] > [box-kxb-input] > input[type=button] {
+        border: 1px solid #ddd;
+        box-sizing: border-box;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 12px;
+        height: 23px;
+        line-height: 22px;
+        padding: 0 20px;
+        text-transform: uppercase;
+        vertical-align: top;
+    }
+
+        [box-kxb] > [box-kxb-input] > input[type=button]:hover,[box-kxb] > [box-kxb-input] > input[type=button]:focus {
+            border: 1px solid #ddd;
+            background-color: #DDD;
+            color: #333;
+        }
+        
+
+[att-acefff] {
+    background-color: #ddd;
+    height: 24px;
+    line-height: 24px;
+    margin-left: -66px;
+    position: absolute;
+    text-align: center;
+    width: 45px;
+    z-index: 0;
+}
+
+    [att-acefff]::after {
+        content: attr(valtitle);
+    }

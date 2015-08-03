@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5881e821063d41c3b6935dfe658f31a8" Name="Diagram1" ZoomLevel="63">
+        <EntityTypeShape EntityType="DB_PHBCModel.AspNetRole" Width="1.5" PointX="0.75" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.AspNetUser" Width="1.5" PointX="3" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.Commune" Width="1.5" PointX="7.5" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.Continent" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.Country" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.District" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.DMDiemIn" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.DMLoaiAnPham" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.DMToaSoan" Width="1.5" PointX="7.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.MailRoute" Width="1.5" PointX="14.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.MailRoutePOS" Width="1.5" PointX="14.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.MailRouteSchedule" Width="1.5" PointX="16.5" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.MailRouteType" Width="1.5" PointX="12" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.POS" Width="1.5" PointX="12" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.POSLevel" Width="1.5" PointX="9.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.POSType" Width="1.5" PointX="9.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.Province" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.Region" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.SysAction" Width="1.5" PointX="3" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.SysDMPublic" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.SysDMType" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.SysMenu" Width="1.5" PointX="5.25" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.SysMenuH" Width="1.5" PointX="14.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.SysMenuV" Width="1.5" PointX="9.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.Transport" Width="1.5" PointX="18.875" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.TransportGroup" Width="1.5" PointX="16.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.Unit" Width="1.5" PointX="9.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.UnitType" Width="1.5" PointX="7.5" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_PHBCModel.UserInfo" Width="1.5" PointX="12" PointY="13.875" IsExpanded="true" />
+        <AssociationConnector Association="DB_PHBCModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_Commune_District" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_Unit_Commune" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_Country_Continent" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_District_ProvinceCode" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_DMDiemIn_Province" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_MailRoute_MailRouteType" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_MailRoute_POS" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_MailRouteSchedule_MailRoute" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_MailRoutePOS_POS1" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_POS_POSLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_POS_POSType" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_POS_Unit" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_Transport_POS" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_Province_Region" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_SysMenu_SysAction" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_SysMenu_SysMenu" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_Transport_TransportGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_Unit_Unit" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_Unit_UnitType" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.FK_UserInfo_Unit" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.AspNetUserRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_PHBCModel.SysRoleActions" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DB_PHBCModel.BDiemTiepNhan" Width="1.5" PointX="14.75" PointY="19.875" />
+        <EntityTypeShape EntityType="DB_PHBCModel.BKyXuatBan" Width="1.5" PointX="3" PointY="11.25" />
+        <EntityTypeShape EntityType="DB_PHBCModel.BPhanHuongNhuCau" Width="1.5" PointX="17" PointY="19.875" />
+        <EntityTypeShape EntityType="DB_PHBCModel.BThongTinBao" Width="1.5" PointX="0.625" PointY="11.75" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BDiemTiepNhan_Unit" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BPhanHuongNhuCau_BDiemTiepNhan" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BKyXuatBan_BKyXuatBan" />
+        <AssociationConnector Association="DB_PHBCModel.BBaoDiemIn" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BPhanHuongNhuCau_BThongTinBao" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BPhanHuongNhuCau_Unit" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BThongTinBao_DMLoaiAnPham" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BThongTinBao_DMToaSoan" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BThongTinBao_Unit" />
+        <EntityTypeShape EntityType="DB_PHBCModel.BKeHoachXuatBan" Width="1.5" PointX="3" PointY="24.25" />
+        <EntityTypeShape EntityType="DB_PHBCModel.BKeHoachXuatBanDetail" Width="1.5" PointX="3" PointY="4" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BKeHoachXuatBan_BThongTinBao" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BKeHoachXuatBanDetail_BThongTinBao" />
+        <EntityTypeShape EntityType="DB_PHBCModel.v_Unit" Width="1.5" PointX="17.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_PHBCModel.BDieuChinhKHXB" Width="1.5" PointX="3" PointY="28.25" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BDieuChinhKHXB_BThongTinBao" />
+        <EntityTypeShape EntityType="DB_PHBCModel.BDieuChinhKHXBDetail" Width="1.5" PointX="17.375" PointY="14.75" />
+        <AssociationConnector Association="DB_PHBCModel.FK_DMDiemIn_District" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BThongTinBao_BThongTinBao" />
+        <EntityTypeShape EntityType="DB_PHBCModel.BDieuChinhPhanHuongDistrict" Width="1.5" PointX="20" PointY="13.25" />
+        <EntityTypeShape EntityType="DB_PHBCModel.BDieuChinhPhanHuongUnit" Width="1.5" PointX="20" PointY="18" />
+        <EntityTypeShape EntityType="DB_PHBCModel.BThongTinGiaBao" Width="1.5" PointX="12.25" PointY="18" />
+        <EntityTypeShape EntityType="DB_PHBCModel.SysDBLog" Width="1.5" PointX="18.375" PointY="3.75" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_BDiemTiepNhan" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_BDiemTiepNhan" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_BThongTinBao" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_District" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_BThongTinBao" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_Unit" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BThongTinGiaBao_BThongTinBao" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BThongTinGiaBao_Province" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_BDieuChinhKHXBDetail" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_BDieuChinhKHXBDetail" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_BDieuChinhKHXBDetail1" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_BDieuChinhKHXBDetail1" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BDieuChinhKHXBDetail_BDieuChinhKHXB" />
+        <EntityTypeShape EntityType="DB_PHBCModel.C__MigrationHistory" Width="1.5" PointX="19.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_PHBCModel.BPhanHuongNhuCauDistrict" Width="1.5" PointX="22.375" PointY="9" />
+        <EntityTypeShape EntityType="DB_PHBCModel.BPhanHuongNhuCauUnit" Width="1.5" PointX="23.375" PointY="13.75" />
+        <EntityTypeShape EntityType="DB_PHBCModel.Commune_MBCSync" Width="1.5" PointX="19.75" PointY="10.75" />
+        <EntityTypeShape EntityType="DB_PHBCModel.District_MBCSync" Width="1.5" PointX="20.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DB_PHBCModel.POS_MBCSync" Width="1.5" PointX="7.75" PointY="21.75" />
+        <EntityTypeShape EntityType="DB_PHBCModel.POSLevel_MBCSync" Width="1.5" PointX="21.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_PHBCModel.POSType_MBCSync" Width="1.5" PointX="9.75" PointY="21.75" />
+        <EntityTypeShape EntityType="DB_PHBCModel.Province_MBCSync" Width="1.5" PointX="22.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DB_PHBCModel.Region_MBCSync" Width="1.5" PointX="11.75" PointY="22.75" />
+        <EntityTypeShape EntityType="DB_PHBCModel.sysdiagram" Width="1.5" PointX="22.75" PointY="17.75" />
+        <EntityTypeShape EntityType="DB_PHBCModel.Unit_MBCSync" Width="1.5" PointX="22.75" PointY="20.75" />
+        <EntityTypeShape EntityType="DB_PHBCModel.UnitType_MBCSync" Width="1.5" PointX="23.75" PointY="0.75" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BPhanHuongNhuCauDistrict_BDiemTiepNhan" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BPhanHuongNhuCauUnit_BDiemTiepNhan" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BPhanHuongNhuCauDistrict_BThongTinBao" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BPhanHuongNhuCauDistrict_District" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BPhanHuongNhuCauUnit_BThongTinBao" />
+        <AssociationConnector Association="DB_PHBCModel.FK_BPhanHuongNhuCauUnit_Unit" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

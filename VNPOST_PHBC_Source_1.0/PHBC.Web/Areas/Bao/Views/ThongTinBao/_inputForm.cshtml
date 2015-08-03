@@ -1,0 +1,131 @@
+﻿@model PHBC.DAO.Models.ThongTinBaoModel
+
+<div>
+    <div class="form-group col-md-6">
+        @Html.LabelForEdit(model => model.MaBao, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.MaBao, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MaBao, "", new { @class = "text-danger " })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelForEdit(model => model.TenBao, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.TenBao, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TenBao, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelForEdit(model => model.TenToaSoan, new { @class = "col-md-4 control-label" })
+        <div class=" col-md-8">
+            @Html.DropDownListFor(model => model.MaToaSoan, (System.Web.Mvc.SelectList)ViewBag.MaToaSoan, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MaToaSoan, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelForEdit(model => model.LoaiAnPham, new { @class = "col-md-4 control-label" })
+        <div class=" col-md-8">
+            @Html.DropDownListFor(model => model.LoaiAnPham, (System.Web.Mvc.SelectList)ViewBag.LoaiAnPham, htmlAttributes: new { @class = "form-control slcLoaiAnPham", onchange = "fncLoaiAnPhamChange()" })
+            @Html.ValidationMessageFor(model => model.LoaiAnPham, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelForEdit(model => model.GiaBia, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.TextBoxFor(model => model.GiaBia, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.GiaBia, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6 txtMaoBaoCha_Edit">
+        @Html.LabelForEdit(model => model.ParentId, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.HiddenFor(model => model.ParentId)
+            @Html.TextBoxFor(model => model.ParentName, htmlAttributes: new { @class = "form-control", disabled = "disabled", style = "z-index:1;" });
+            @Html.ValidationMessageFor(model => model.ParentId, "", new { @class = "text-danger" })
+            @Ajax.ActionLink("Chọn", "GetMaBaoCha", new { search = "", pageIndex = "1" }, new AjaxOptions() { InsertionMode = InsertionMode.Replace, OnSuccess = "fillDataToListBao" }, htmlAttributes: new { @class = "btn btn-info", style = "float: right;z-index: 1; position: relative; margin-right: -15px;height: 29px;line-height: 16px;border-radius: 0px;" })
+        </div>
+    </div>
+    <div class="form-group col-md-12">
+        @Html.LabelForEdit(model => model.GhiChu, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.GhiChu, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+<div class=" form-title col-md-12"> Chi tiết</div>
+<div>
+    <div class="form-group col-md-6">
+        @Html.LabelForView(model => model.SoTrang, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.TextBoxFor(model => model.SoTrang, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SoTrang, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelForView(model => model.TrongLuong, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.TextBoxFor(model => model.TrongLuong, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TrongLuong, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelForEdit(model => model.KichThuoc, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.KichThuoc, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.KichThuoc, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelForEdit(model => model.GiayPhep, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.GiayPhep, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.GiayPhep, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+<div class="form-title col-md-12">Thuộc tính</div>
+<div>
+    <div class="form-group col-md-6">
+        @Html.LabelForView(model => model.BaoNgoaiVan, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.CheckBoxFor(model => model.BaoNgoaiVan)
+            @Html.ValidationMessageFor(model => model.BaoNgoaiVan, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelForView(model => model.BaoCongIchNgoaiCongIch, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.CheckBoxFor(model => model.BaoCongIchNgoaiCongIch)
+            @Html.ValidationMessageFor(model => model.BaoCongIchNgoaiCongIch, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelForView(model => model.BaoTrongMucLuc, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.CheckBoxFor(model => model.BaoTrongMucLuc)
+            @Html.ValidationMessageFor(model => model.BaoTrongMucLuc, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelForView(model => model.BaoTrungUongDiaPhuong, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.CheckBoxFor(model => model.BaoTrungUongDiaPhuong)
+            @Html.ValidationMessageFor(model => model.BaoTrungUongDiaPhuong, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelForView(model => model.CoThue, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.CheckBoxFor(model => model.CoThue, new { onchange = "changeThue()" })
+            @Html.ValidationMessageFor(model => model.CoThue, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6 txtMucThue_Edit">
+        @Html.LabelForView(model => model.MucThue, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8 ">
+            @Html.TextBoxFor(model => model.MucThue, htmlAttributes: new { @class = "txtMucThue_EditValue form-control" } )
+            @Html.ValidationMessageFor(model => model.MucThue)
+        </div>
+    </div>
+</div>

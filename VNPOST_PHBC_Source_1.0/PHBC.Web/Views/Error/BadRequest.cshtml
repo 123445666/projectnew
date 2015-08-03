@@ -1,0 +1,14 @@
+﻿@model ErrorModel
+
+@{
+    ViewBag.Title = "Bad Request";
+    ViewBag.Description = "Yêu cầu không chính xác !!!";
+}
+
+<div class="jumbotron text-center">
+    <header>
+        <h1><span aria-hidden="true" class="fa fa-exclamation-circle text-danger"></span> @ViewBag.Title</h1>
+    </header>
+    <p>@ViewBag.Description</p>
+    <a class="btn btn-primary btn-lg" href="@Url.RouteUrl(ControllerRoute.HomeGetIndex)"><span aria-hidden="true" class="fa fa-home"></span> Take me home</a>
+</div>

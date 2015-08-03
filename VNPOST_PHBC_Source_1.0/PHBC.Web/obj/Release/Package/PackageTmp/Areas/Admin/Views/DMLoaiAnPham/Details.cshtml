@@ -1,0 +1,42 @@
+﻿@model PHBC.DAO.Models.DMLoaiAnPhamModel
+@using PHBC.Web.Constants
+@using PHBC.Web.Permission;
+@{
+    ViewBag.Title = "Chi tiết Danh Mục Loại Ấn Phẩm";
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Chi tiết Danh Mục Loại Ấn Phẩm
+    </div>
+    <div class="panel-body">
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @*@Html.DisplayNameFor(model => model.TenLoaiAnPham) :*@
+                    @Html.LabelForView(model => model.TenLoaiAnPham, new { @class = "control-label" })
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TenLoaiAnPham)
+                </dd>
+
+                <dt>
+                    @*@Html.DisplayNameFor(model => model.CoKyXuatBan) :*@   
+                    @Html.LabelForView(model => model.CoKyXuatBan, new { @class = "control-label" })
+                </dt>
+               <dd>
+                  @Html.ValidationMessage("Không Có","Có") 
+               </dd>
+                
+            </dl>
+        </div>
+        <p>
+                @Html.CustomLink(Application.ButtonLabel.ToEdit, ActionType.Edit, permisson, new { id = Model.Id }, new { @class = "btn btn-default" })
+                @Html.ActionLink(Application.ButtonLabel.Back, "Index", null, new { @class = "btn btn-default" })
+            
+           
+        </p>
+    </div>
+</div>

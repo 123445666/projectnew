@@ -1,0 +1,49 @@
+﻿@model PagedList<PHBC.DAO.Models.ThongTinBaoModel>
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+<div class="panel panel-primary">    
+    <div class="panel-heading">
+        Danh sách báo cha
+    </div>
+    <div class="panel-body">
+       
+        <div class="row">           
+            <div class="col-md-12">
+            @using (Ajax.BeginForm("TimKiemMaBaoCha", "ThongTinBao", new { Area = "Bao" }, new AjaxOptions() { UpdateTargetId = "ListBaoCha" }, htmlAttributes: new { role = "form", @class = "navbar-form navbar-right" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="input-group">
+                    @Html.Hidden("pageIndex", 1)
+                    <input type="text" name="search" class="form-control" value="@ViewBag.Search" placeholder="Tìm kiếm" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            }
+            </div>
+        </div>
+        <div>
+            @Html.Partial("_showGridBaoCha", Model)
+        </div>
+        @*@if (Model.TotalPageCount > 1)
+        {
+            <div class="paginationcustome">
+                @Ajax.Pager(Model, new PagerOptions()
+                           {
+                               PagerItemTemplate = "<li>{0}</li>",
+                               NextPageText = "&gt;",
+                               PrevPageText = "&lt;",
+                               FirstPageText = "Đầu",
+                               LastPageText = "Cuối",
+                               ShowDisabledPagerItems = false,
+                               ContainerTagName = "ul",
+                               CurrentPagerItemTemplate = "<li><a href='#' class='active'>{0}</a></li>"
+                           }
+                    ).AjaxOptions(a => a.SetUpdateTargetId("ListBaoCha"))
+            </div>
+        }*@
+    </div>
+</div>

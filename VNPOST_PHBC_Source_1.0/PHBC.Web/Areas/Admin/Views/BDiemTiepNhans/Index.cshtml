@@ -1,0 +1,59 @@
+﻿@model IEnumerable<PHBC.DAO.Models.BDiemTiepNhanModel>
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = Application.ButtonLabel.List + " " + ControllerDesc.ThongTinBao;
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @Application.ButtonLabel.List @ViewBag.TitleName
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="btn-toolbar col-md-12">
+                @Html.CustomLink(Application.ButtonLabel.Create + (string)ViewBag.TitleName, ActionType.Create, permisson, null, new { @class = Application.ButtonClass.Default })
+            </div>
+        </div>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-custom">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Code)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Unit.UnitName)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Unit.UnitName)
+                        </td>
+                        <td>
+                            @Html.CustomLink("", ActionType.Edit, permisson, new { id = item.Id }, null, Application.ButtonIcon.ToEdit, Application.ButtonLabel.ToEdit)
+                            @Html.CustomLink("", ActionType.Details, permisson, new { id = item.Id }, null, Application.ButtonIcon.Details, Application.ButtonLabel.Details)
+                            @Html.CustomLink("", ActionType.Delete, permisson, new { id = item.Id }, null, Application.ButtonIcon.Delete, Application.ButtonLabel.Delete)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>

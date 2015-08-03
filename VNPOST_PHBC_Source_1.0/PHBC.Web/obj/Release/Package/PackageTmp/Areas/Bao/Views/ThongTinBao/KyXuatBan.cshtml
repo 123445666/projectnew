@@ -1,0 +1,145 @@
+﻿@model PHBC.DAO.Models.BaoKyXuatBanModel
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = "Chỉnh sửa kỳ xuất bản";
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Chỉnh sửa kỳ xuất bản
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.LabelForView(model => model.MaBao, null)
+
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MaBao)
+            </dd>
+            <dt>
+                @Html.LabelForView(model => model.TenBao, null)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenBao)
+            </dd>
+        </dl>
+        @using (Html.BeginForm("UpdateKyXuatBan", "ThongTinBao", new { Area = "Bao" }, FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", id = "actionForm", thongtin = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.KyConfig)
+        }
+
+        <div class="form-title">
+        </div>
+        <div class="row" style="position:relative;">
+            <div class="parent-kxb" valselect="0">
+                <div class="parent-kxb-btn">
+                    <span btn-select valid="0" active>Hàng ngày</span>
+                    <span btn-select valid="1">Hàng Tuần</span>
+                    <span btn-select valid="2">Tháng Chẵn</span>
+                    <span btn-select valid="3">Tháng Lẻ</span>
+                    <span btn-select valid="4">
+                        Tháng
+                    </span>
+                    <span btn-select valid="5">
+                        Quý
+                    </span>
+                    <span btn-select valid="6">
+                        Năm
+                    </span>
+                </div>
+                <div style="border-left: 1px solid #ccc;height: 100%;left: 189px;position: absolute;top: 0;z-index: 0;"></div>
+                <div class="parent-kxb-title">
+
+                </div>
+                <div class="parent-kxb-box">
+                    <div box-kxb valid="0">
+                    </div>
+                    <div box-kxb valid="1">
+                    </div>
+                    <div box-kxb valid="2">
+                    </div>
+                    <div box-kxb valid="3">
+                    </div>
+                    <div box-kxb valid="4">
+                        <div box-kxb-input>
+                            <input type="text" placeholder="Số tháng" max="12" /><label valtitle="Tháng" att-acefff></label>
+                            <input type="text" placeholder="Số kỳ"/><label valtitle="Kỳ" att-acefff></label>
+                            <input type="button" value="Ok" />
+                        </div>
+                        <div append-data-box>
+
+                        </div>
+                    </div>
+                    <div box-kxb valid="5">
+                        <div box-kxb-input>
+                            <input type="text" placeholder="Số quý" max="4" /><label valtitle="Quý" att-acefff></label>
+                            <input type="text" placeholder="Số kỳ"/><label valtitle="Kỳ" att-acefff></label>
+                            <input type="button" value="Ok" />
+                        </div>
+                        <div append-data-box>
+
+                        </div>
+                    </div>
+                    <div box-kxb valid="6">
+                        <div box-kxb-input>
+                            <input type="text" placeholder="Số năm" max="1" value="1" readonly style="display:none;" />
+                            <input type="text" placeholder="Số kỳ" /><label valtitle="Kỳ" att-acefff></label>
+                            <input type="button" value="Ok" />
+                        </div>
+                        <div append-data-box>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both;height:30px;"></div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="javascript:;" onclick="callSave();" class="btn btn-default">@PHBC.Web.Constants.Application.ButtonLabel.Save</a>
+                @Html.ActionLink(PHBC.Web.Constants.Application.ButtonLabel.Back, "Index", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section head{
+    <link href="~/Styles/KyXuatBan/fonts.css" rel="stylesheet" />
+    <link href="~/Styles/KyXuatBan/style.css" rel="stylesheet" />
+    <link href="~/Styles/lib/popup.css" rel="stylesheet" />
+    
+    
+}
+
+@section scripts{
+    <script src="~/Scripts/KyXuatBan/script.js"></script>
+    <script src="~/Scripts/lib/popup.js"></script>
+    <script type="text/javascript">
+        function callSave() {
+            var _data = getDataKyXuatBan();
+            if (!_data[0]) {
+                new jPopup({
+                    show: true,
+                    title: 'Thông báo',
+                    width: 350,
+                    body: '<div style="text-align:center;margin:5px 0px;">' + _data[1] + '</div>'
+                });
+            } else {
+                $("#KyConfig").val(_data[1]);
+                $("#actionForm").submit();
+            }
+                
+        }
+        $(document).ready(function () {
+            buildKxb();
+            var _dataLoad = JSON.parse($("#KyConfig").val());
+            loadDataKyXuatBan(_dataLoad);
+        });
+    </script>
+}
+
+

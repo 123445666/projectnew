@@ -1,0 +1,107 @@
+﻿@model IEnumerable<PHBC.DAO.Models.TinhThanh>
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = Application.ButtonLabel.List + ViewBag.TitleName;
+    string curProvinceCode = "";
+    PHBC.DAO.BDieuChinhKHXBDetail objDetail = new PHBC.DAO.BDieuChinhKHXBDetail();
+    if (ViewBag.ThongTinDetail != null)
+    {
+        objDetail = (PHBC.DAO.BDieuChinhKHXBDetail)ViewBag.ThongTinDetail;
+    }
+
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @Application.ButtonLabel.List @ViewBag.TitleName
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="btn-toolbar col-md-7">
+                @Html.CustomLink("Thiết lập" + (string)ViewBag.TitleName, ActionType.Create + (string)ViewBag.SubAction, permisson, new { ThongTinBaoId = (string)objDetail.BDieuChinhKHXB.ThongTinBaoId, DieuChinhKHXBDetailId = (string)objDetail.Id }, new { @class = Application.ButtonClass.Default })
+
+            </div>
+            
+                </div>
+                <br />
+                <div>
+                    @if (@objDetail.DieuChinhKHXBId != null)
+                    {
+                        <dl class="dl-horizontal">
+                            <dt>Báo điều chỉnh : </dt>
+                            <dd>@objDetail.BDieuChinhKHXB.BThongTinBao.TenBao</dd>
+                            <dt>Số điều chỉnh : </dt>
+                            <dd>@objDetail.SoBao</dd>
+                            <dt>Năm điều chỉnh : </dt>
+                            <dd>@objDetail.BDieuChinhKHXB.Nam</dd>
+                            <dt>Quý điều chỉnh : </dt>
+                            <dd>@objDetail.BDieuChinhKHXB.Quy</dd>
+                        </dl>
+                    }
+                </div>
+
+                <br />
+        <div class="row">
+            <div class="col-md-9"></div>
+            <div class="col-md-3">
+                <div class="row" style="float:right;margin-right:5px;">
+                    <div class="input-group">
+                        <input type="text" id="provinceName" name="provinceName" class="form-control" placeholder="Tìm kiếm" />
+                        <div class="input-group-btn">
+                            <div class="btn btn-info searchProvince">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <colgroup></colgroup>
+                        <tr>
+                            <td colspan="3" valname="">Tổng số tỉnh : @Model.Count() ( Số huyện đã thiết lập: @Model.Sum(t => t.CountDistrictMap2) / Tổng số huyện: @Model.Sum(t => t.lstQuanHuyen.Count))</td>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            if (item.ProvinceCode != curProvinceCode)
+                            {
+                                curProvinceCode = item.ProvinceCode;
+                                bool check = item.CountDistrictMap2 == item.lstQuanHuyen.Count;
+                                <tr class="@(check ? "active" : "info")">
+                                    <td valname="@Html.replaceUnicode(item.ProvinceName) @Html.replaceUnicode(item.ProvinceMapPoint)"><b>@item.ProvinceName</b> - <span title="số huyện đã thiết lập/ tổng số huyện">(@item.CountDistrictMap2 / @item.lstQuanHuyen.Count huyện) </span></td>
+                                    <td valname="@Html.replaceUnicode(item.ProvinceName) @Html.replaceUnicode(item.ProvinceMapPoint)">@item.ProvinceMapPoint</td>
+                                    <td valname="@Html.replaceUnicode(item.ProvinceName) @Html.replaceUnicode(item.ProvinceMapPoint)">
+                                        @if (item.CountDistrictMap2 > 0)
+                                        {
+                                            if (item.CountDistrictMap2 < item.lstQuanHuyen.Count)
+                                            {
+                                                @Html.CustomLink("", ActionType.Create + (string)ViewBag.SubAction, permisson, new { provincecode = item.ProvinceCode, DieuChinhKHXBDetailId = objDetail.Id }, null, Application.ButtonIcon.Create, "Thiết lập phân hướng")@:
+                                                                    } @Html.CustomLink("", ActionType.Edit + (string)ViewBag.SubAction, permisson, new { provincecode = item.ProvinceCode, DieuChinhKHXBDetailId = objDetail.Id }, null, Application.ButtonIcon.ToEdit, "Sửa huyện đã thiết lập") @:
+                                                                    @Html.CustomLink("", ActionType.Details + (string)ViewBag.SubAction, permisson, new { provincecode = item.ProvinceCode, DieuChinhKHXBDetailId = objDetail.Id }, null, Application.ButtonIcon.Details, Application.ButtonLabel.Details) @:
+                                                                     }
+                                        else
+                                        { @Html.CustomLink("", ActionType.Create + (string)ViewBag.SubAction, permisson, new { provincecode = item.ProvinceCode, DieuChinhKHXBDetailId = objDetail.Id }, null, Application.ButtonIcon.Create, "Thiết lập phân hướng") }
+                                    </td>
+                                </tr> }
+                        }
+                    </table>
+                    @*@Html.ActionLink(Application.ButtonLabel.Back, "Index", "ThongTinBao", null, new { @class = "btn btn-default" })*@
+                    @*@Html.CustomRouterLink(permisson, "Bao_kehoachxuatban_new", new { controller = "kehoachxuatban", action = "dieuchinh", id = objDetail.BDieuChinhKHXB.ThongTinBaoId, idkehoach = objDetail.DieuChinhKHXBId }, Application.ButtonLabel.Back, new { @class = "btn btn-default" })*@
+                    @Html.ActionLink(Application.ButtonLabel.Back, "Index", new { Area = "Bao", id = objDetail.DieuChinhKHXBId }, new { @class = "btn btn-default" })
+                </div>
+
+            </div>
+        </div>
+@section Scripts {
+    <script src="~/Scripts/PHBC/phbc_phnc2.js"></script>
+    <script>
+        $(document).ready(function () {
+            search_phnc();
+        })
+    </script>
+}

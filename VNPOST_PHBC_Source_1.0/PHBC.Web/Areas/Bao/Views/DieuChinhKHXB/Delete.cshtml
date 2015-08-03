@@ -1,0 +1,394 @@
+﻿@model PHBC.DAO.Models.KeHoachXuatBanModel
+@using PHBC.Web.Constants
+@using PHBC.DAO.Common
+@{
+    ViewBag.Title = "Xóa " + @Model.data["TypeText"] + " kế hoạch xuất bản Năm " + Model.Nam + " Quý " + Model.Quy;
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Xóa @Model.data["TypeText"] Quý @Model.Quy Năm @Model.Nam
+    </div>
+    <div class="panel-body">
+        <div class="form-title">
+            Thông tin báo
+        </div>
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.LabelForView(model => model.MaBao, null)
+
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MaBao)
+            </dd>
+            <dt>
+                @Html.LabelForView(model => model.TenBao, null)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenBao)
+            </dd>
+            <dt>
+                @Html.LabelForView(model => model.Nam, null)
+
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Nam)
+            </dd>
+            <dt>
+                @Html.LabelForView(model => model.Quy, null)
+
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Quy)
+            </dd>
+        </dl>
+        @{
+            dynamic config = (dynamic)Model.data["DataConfig"];
+        }
+        <div class="form-title">Thông tin @Model.data["TypeText"] Quý @Model.Quy Năm @Model.Nam</div>
+        <div class="form-horizontal">
+            <div group-config style="@(Convert.ToInt32(Model.data["Type"]) != (int)PHBC.DAO.Common.Enums.KeHoachXuatBan.add ? "" : "display:none;")opacity:1;" disabled>
+                <div class="form-group col-md-6" attr-start style="margin-left:-15px;">
+                    <label class="col-md-5 control-label">
+                        @Model.data["TypeText"] theo số xuất bản
+                    </label>
+                    <div class="col-md-7">
+
+                        <input type="checkbox" groupname="groupcheck" value="0" @(config.config.type == 0 ? "checked=\"checked\"" : "")>
+                    </div>
+                </div>
+                @if (Model.LoaiKy >= 0 && Model.LoaiKy <= 3)
+                {
+                    <div style="clear:both;"></div>
+                    <div class="form-group col-md-6" attr-start style="margin-left:-15px;@(config.config.type == 0 ? "display:none;" : "")">
+                        <label class="col-md-5 control-label">
+                            @Model.data["TypeText"] theo kỳ xuất bản
+                        </label>
+                        <div class="col-md-7">
+                            <input type="checkbox" groupname="groupcheck" value="1" @(config.config.type != 0 ? "checked=\"checked\"" : "")>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div group-check-kxb style="@(config.config.type == 0 ? "display:none;" : "")">
+                        @foreach (var item in config.config.data)
+                        {
+                            <input type="button" value="@(Model.LoaiKy == 0 || Model.LoaiKy == 1 ? Convert.ToInt32(item) == 8 ? "Chủ nhật" : "Thứ " + item : "Ngày " + item)" />
+                        }
+                    </div>
+                }
+                <div style="clear:both;height:10px;"></div>
+            </div>
+            <div div-showwww none></div>
+            <div attr-table-so>
+                <div table-search style="border-bottom:1px solid #DDD;margin-left:0px;">
+                    <table class="table table-bordered table-hover table-custom" attr-top-scroll>
+                        <colgroup>
+                            <col style="width: 120px">
+                            <col style="width: 200px">
+                            <col style="width: 100px">
+                        </colgroup>
+                        <tr>
+                            <th>Số</th>
+                            <th>Ngày phát hành</th>
+                            <th>Thứ</th>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered table-hover" style="margin-bottom:0px;">
+                        <colgroup>
+                            <col style="width: 120px">
+                            <col style="width: 200px">
+                            <col style="width: 100px">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>Số</th>
+                                <th>Ngày phát hành</th>
+                                <th>Thứ</th>
+                            </tr>
+                            @{
+                                List<PHBC.DAO.BKeHoachXuatBanDetail> arrNumber = (List<PHBC.DAO.BKeHoachXuatBanDetail>)Model.data["DataNumber"];
+                                int loaiDieuChinh = (int)Model.data["Type"];
+                            }
+                            @if (loaiDieuChinh == (int)Enums.KeHoachXuatBan.add)
+                            {
+
+                                PHBC.DAO.BKeHoachXuatBanDetail soBao = arrNumber.Where(d => ((string)Model.data["SoBao"]).IndexOf("\"" + d.SoBao + "\"") > -1).FirstOrDefault();
+                                <tr>
+                                    <td>
+                                        Số @soBao.SoXuatBan
+                                    </td>
+                                    <td>
+                                        @(soBao.Ngay + "/" + soBao.Thang + "/" + soBao.Nam)
+                                    </td>
+                                    <td>
+                                        @(soBao.Thu == 8 ? "Chủ nhật" : "Thứ " + soBao.Thu)
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+
+                                foreach (var item in config.content.data)
+                                {
+                                    PHBC.DAO.BKeHoachXuatBanDetail soBao = (loaiDieuChinh == (int)Enums.KeHoachXuatBan.group ? arrNumber.Where(d => d.SoBao.Equals(item.id)).FirstOrDefault() : loaiDieuChinh == (int)Enums.KeHoachXuatBan.add ? arrNumber.Where(d => ((string)Model.data["SoBao"]).IndexOf("\"" + d.SoBao + "\"") > -1).FirstOrDefault() : arrNumber.Where(d => d.SoBao.Equals(item.number + "")).FirstOrDefault());
+                                    <tr>
+                                        <td>
+                                            Số @(soBao.status == (int)Enums.KeHoachXuatBan.group || soBao.status == (int)Enums.KeHoachXuatBan.add ? soBao.SoXuatBan.Replace(",", " + ") : soBao.Number + "")
+                                        </td>
+                                        <td>
+                                            @(soBao.Ngay + "/" + soBao.Thang + "/" + soBao.Nam)
+                                        </td>
+                                        <td>
+                                            @(soBao.Thu == 8 ? "Chủ nhật" : "Thứ " + soBao.Thu)
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div style="clear:both;height:20px;"></div>
+    </div>
+    <div style="margin:0px 20px;" from-save>
+        @if ((int)@Model.data["Type"] == ((int)PHBC.DAO.Common.Enums.KeHoachXuatBan.group))
+        {
+            <div class="form-title">
+                Chỉnh sửa thông thin dồn số
+            </div>
+        }
+        else if ((int)@Model.data["Type"] == ((int)PHBC.DAO.Common.Enums.KeHoachXuatBan.add))
+        {
+            <div class="form-title">
+                Chỉnh sửa thông thin báo ra riêng
+            </div>
+        }
+        else if ((int)@Model.data["Type"] == ((int)PHBC.DAO.Common.Enums.KeHoachXuatBan.cancel))
+        {
+            <div class="form-title">
+                Chỉnh sửa thông thin báo nghỉ
+            </div>
+        }
+        else if ((int)@Model.data["Type"] == ((int)PHBC.DAO.Common.Enums.KeHoachXuatBan.changed))
+        {
+            <div class="form-title">
+                Chỉnh sửa thông thin thay đổi cho báo
+            </div>
+        }
+        @Html.Action("ViewDCThongTinBao", "DieuChinhKHXB", new { area = "Bao", id = Model.data["IdDieuChinh"] })
+        <div style="clear:both;"></div>
+        <div style="margin-top:10px;text-align:right;">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" value="Xóa @Model.data["TypeText"]" class="@Application.ButtonClass.Default" />
+            }
+        </div>
+        <div style="clear:both;height:20px;"></div>
+    </div>
+    <span style="margin:0px 20px 0px 20px;position:relative;z-index:1;top:-54px;">
+        <a class="btn btn-default" href="@Url.Action("Index", new { id = ViewBag.ThongTinBaoId })">Quay lại</a>
+    </span>
+</div>
+<div attr-loading value="Xin vui lòng đợi" loading-new>
+    <img src="~/Content/icons/loading_new_gif.gif" />
+</div>
+
+@section head{
+    <link href="~/Styles/KyXuatBan/fonts.css" rel="stylesheet" />
+    <link href="~/Styles/KyXuatBan/style.css" rel="stylesheet" />
+    <style type="text/css">
+        [item-panel] {
+            border: 1px solid #dddddd;
+            padding: 0 0;
+            margin-top: -1px;
+            display: none;
+        }
+
+            [item-panel][show] {
+                display: block;
+            }
+
+        [attr-btn-ac] span {
+            margin: 5px 30px 10px 0;
+        }
+        /*[attr-btn-ac] span {
+                background-color: #ddd;
+                border-radius: 3px;
+                color: #777;
+                cursor: pointer;
+                display: inline-block;
+                font-size: 12px;
+                margin: 5px 30px 10px 0;
+                padding: 5px 15px;
+                text-transform: uppercase;
+            }
+            [attr-btn-ac] span:hover{
+                background-color:#333;
+                color:#FFF;
+            }*/
+        .confirm-Btn[style-new-btn-popup] {
+            text-align: left !important;
+        }
+
+            .confirm-Btn[style-new-btn-popup] span {
+                width: calc(50% - 20px) !important;
+                text-align: center !important;
+                background-color: #555 !important;
+                padding: 5px 10px !important;
+            }
+
+                .confirm-Btn[style-new-btn-popup] span:hover {
+                    box-shadow: 0 0 2px #555 !important;
+                }
+
+        [action-number-dieuchinh][none] {
+            opacity: 0;
+        }
+
+        [loading-new] {
+            background-color: rgba(255, 255, 255, 0.5);
+            height: 100% !important;
+            left: 0;
+            position: fixed !important;
+            top: 0;
+            width: 100%;
+            z-index: 100000;
+            display: none;
+        }
+
+            [loading-new]::before {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translateX(-50%) translateY(-50%);
+                -ms-transform: translateX(-50%) translateY(-50%);
+                -webkit-transform: translateX(-50%) translateY(-50%);
+            }
+
+            [loading-new] img {
+                position: absolute;
+                left: 50%;
+                top: calc(50% + 20px);
+                transform: translateX(-50%) translateY(-50%);
+                -ms-transform: translateX(-50%) translateY(-50%);
+                -webkit-transform: translateX(-50%) translateY(-50%);
+            }
+
+        [group-check-kxb] {
+            border: 1px solid #CCC;
+            padding: 10px;
+        }
+
+            [group-check-kxb] > input[type=button] {
+                border: 1px solid #CCC;
+                padding: 5px 0px;
+                margin: 3px 10px;
+                font-size: 13px;
+                background-color: #FFF;
+                width: 100px;
+                text-align: center;
+            }
+
+                [group-check-kxb] > input[type=button]:hover {
+                    background-color: #EDEDED;
+                    color: #333;
+                }
+
+                [group-check-kxb] > input[type=button][active] {
+                    background-color: #DDD;
+                    color: #333;
+                }
+        /*[group-check-kxb] > input[type=button]:first-child{
+            margin-left:0px;
+        }*/
+        [attr-table-so] {
+            position: relative;
+            z-index: 11;
+            background-color: #FFF;
+        }
+
+        [group-btn-acccc] {
+            left: 0;
+            position: absolute;
+            top: -44px;
+            z-index: 1;
+        }
+
+        [attr-group-cancel-number] {
+            margin-left: 20px;
+            display: none;
+        }
+
+
+        [div-showwww] {
+            position: fixed;
+            z-index: 10;
+            background-color: rgba(0,0,0,0.5);
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+        }
+
+            [div-showwww][none] {
+                display: none;
+            }
+
+        [accc-timepicker] {
+            left: 0;
+            opacity: 0;
+            position: absolute;
+            top: 15px;
+            z-index: -1;
+        }
+
+        tr[valgroup] > td:first-child {
+            opacity: 1 !important;
+            pointer-events: inherit !important;
+            cursor: pointer;
+        }
+
+            tr[valgroup] > td:first-child > input[type=checkbox] {
+                display: none;
+            }
+
+            tr[valgroup] > td:first-child:before {
+                background-image: url("/Content/icons/delete-1-icon.png");
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: 20px auto;
+                content: " ";
+                cursor: pointer;
+                height: 20px;
+                left: 15px;
+                position: absolute;
+                width: 20px;
+                z-index: 2;
+                opacity: 0.7;
+            }
+
+            tr[valgroup] > td:first-child:hover:before {
+                opacity: 1;
+            }
+
+        tr[valgroupold] > td:first-child > input {
+            display: none;
+        }
+
+        [attr-add-contenyt-action] {
+            margin-left: -15px;
+        }
+    </style>
+
+}
+
+@section scripts{
+    <script src="~/Scripts/KyXuatBan/script.js"></script>
+}
+
+

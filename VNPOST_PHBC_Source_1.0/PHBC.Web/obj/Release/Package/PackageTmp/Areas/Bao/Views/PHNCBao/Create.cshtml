@@ -1,0 +1,375 @@
+﻿@model PHBC.DAO.Models.BPhanHuongNhuCauModel
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+
+@{
+    ViewBag.Title = "Cấu hình điểm tiếp nhận ";
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+@section  head{
+
+    <style>
+        .list-group-item > .badge {
+            float: none !important;
+            position: relative;
+            left: 10px;
+        }
+    </style>
+
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @ViewBag.TitleName
+    </div>
+
+    <div id="DiemTiepNhan">
+        @Html.Partial("_DiemTiepNhan", Model)
+    </div>   
+
+
+    @section Scripts {
+        @*@Scripts.Render("~/bundles/jqueryval")*@
+        <script type="text/javascript">
+    $(document).ready(function () {
+        fillDiemTiepNhan();
+        lib.fromcontroler();
+    })
+
+    function fillDiemTiepNhan() {
+        var currentlisttinh = {};
+        var currentlisthuyen = {};
+        $('#DiemTiepNhan').unbind("click");
+        $('#DiemTiepNhan').on('click', '.list-group .list-group-item', function () {
+            $(this).toggleClass('active');
+        });
+
+        $('.dual-list .selector').click(function () {
+            var $checkBox = $(this);
+            var divcontainer;
+            if ($checkBox.attr("customs") == "1") {
+                divcontainer = ".tinh-partition";
+            } else if ($checkBox.attr("customs") == "2") {
+                divcontainer = ".huyen-partition";
+            }
+            else if ($checkBox.attr("customs") == "3") {
+                divcontainer = ".buucuc-partition";
+            }
+            if (!$checkBox.hasClass('selected')) {
+                $checkBox.addClass('selected').closest('.well ' + divcontainer).find('ul li:not(.active):visible').addClass('active');
+                $checkBox.children('i').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+            } else {
+                $checkBox.removeClass('selected').closest('.well ' + divcontainer).find('ul li.active:visible').removeClass('active');
+                $checkBox.children('i').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+            }
+        });
+
+
+
+        $('[name="SearchDualList"]').keyup(function (e) {
+
+            var code = e.keyCode || e.which;
+            if (code == '9') return;
+            if (code == '27') $(this).val(null);
+            //var $rows = $(this).closest('.dual-list').find('.list-group li');
+            var $rows = $(this).parents('.cslide-slide').find('.list-group li');
+
+            var $selector = $(this).parents('.cslide-slide').find('.selector');
+            $selector.removeClass('selected');
+            $selector.children('i').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+            $rows.show().filter(function () {
+
+                var text = $(this).attr('valname').replace(/\s+/g, ' ').toLowerCase();
+
+                val = libIf.locdau(val);
+                return !~text.indexOf(val);
+                return !libIf.containstxt($(this).attr('valname'), val);
+
+            }).hide();
+
+        });
+
+        var libIf = new LibIf();
+        function LibIf() {
+            this.locdau = function (txt) {
+                var str = txt.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a"); str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e"); str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i"); str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o"); str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u"); str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y"); str = str.replace(/đ/g, "d");
+                return str;
+            }
+            this.containstxt = function (txt1, txt2) {
+                if (!txt2) return false;
+                txt2 = libIf.locdau(txt2);
+                if (txt1 == txt2)
+                    return true;
+                var arrayTxt1 = txt1.split(' ');
+                var arrayTxt2 = txt2.split(' ');
+                var countTxt1 = arrayTxt1.filter(function (x, index) { return arrayTxt2.indexOf(x) > -1; }).length;
+                var countTxt2 = arrayTxt2.filter(function (x, index) { return arrayTxt1.indexOf(x) > -1; }).length;
+                if (arrayTxt1.length / 2 <= countTxt1)
+                    return true;
+                if (arrayTxt2.length / 2 <= countTxt2)
+                    return true;
+                return false;
+            }
+        }
+
+        $("#treeMenu").treed();
+        $("#cslide-slides").cslide();
+        $("#DiemTiepNhanId").removeAttr('disabled');
+        $("#fSubmit").on("click", function () {
+
+            var IDs = [];
+            $(".cslide-active").children('div').find("li.active").each(function () { IDs.push(this.id); });
+            if (IDs.length == 0) {
+                messageErrorShow("Bạn chưa chọn quận huyện hay bưu cục nào !");
+                return;
+            }
+            var typeid = $(".cslide-active").children('div').attr("typediv");
+            var lstAction = $("#listId");
+            var objType = $("#TypeId");
+
+            lstAction.val(IDs);
+            objType.val(typeid);
+            //$('#ThongTinBaoId').removeAttr('disabled')
+            //console.log(lstAction);
+            $("#actionFormPHNC").submit();
+        });
+
+        //html for image loading
+        htmlloading = "<div attr-loading value='Xin vui lòng đợi'>";
+        htmlloading += "<img src='@Url.Content("~/Content/icons/loading_new_gif.gif")' />";
+        htmlloading += "</div>";
+
+                var mabao = $('#ThongTinBaoId').val();
+                // click chọn huyện
+                $(".cslide-next.choose-district").click(function () {
+                    var IDs = [];
+                    $("#lstMapTinh").find("li.active").each(function () { IDs.push(this.id); });
+                    var serviceURL = "@Url.Action("LoadDistrict","PHNCBao" ,null)";
+                    var danhSachTinh = {};
+                    danhSachTinh = IDs.toString();
+
+                    if (IDs.length == 0)
+                    {
+                        messageErrorShow("Bạn chưa chọn tỉnh nào !");
+                    }
+                    //run action if change list province
+                    if (danhSachTinh != currentlisttinh) {
+                        $("#lstMapHuyen").html(htmlloading);
+                        currentlisttinh = danhSachTinh;
+                        $(".huyen-partition .selector").removeClass('selected');
+                        $(".huyen-partition .selector").children('i').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+                        $.ajax({
+                            type: "POST",
+                            url: serviceURL,
+                            data: { 'lstTinh': danhSachTinh, 'Mabao': mabao },
+                            dataType: "json",
+                            success: function (data, status) {
+                                $("#lstMapHuyen").html(data.responseText);
+
+                            },
+                            error: function (request, status, error) {
+                                $("#lstMapHuyen").html(request.responseText);
+                            }
+
+                        });
+                    }
+                })
+
+                //click chọn bưu cục
+                $(".choose-unit").click(function () {
+                    var IDs = [];
+                    $("#lstMapHuyen").find("li.active").each(function () { IDs.push(this.id); });
+                    //check list id exists
+                    if (IDs.length == 0) {
+                        messageErrorShow("Bạn chưa chọn huyện nào !");
+                    }
+                    var serviceURL = "@Url.Action("LoadUnit", "PHNCBao", null)";
+                    var danhSachHuyen = {};
+                    danhSachHuyen = IDs.toString();
+                    if (danhSachHuyen != currentlisthuyen) {
+                        $("#lstMapBuuCuc").html(htmlloading);
+                        $(".buucuc-partition .selector").removeClass('selected');
+                        $(".buucuc-partition .selector").children('i').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+                        currentlisthuyen = danhSachHuyen;
+                        $.ajax({
+                            type: "POST",
+                            url: serviceURL,
+                            data: { 'lstUnit': danhSachHuyen, 'mabao': mabao },
+                            dataType: "json",
+                            success: function (data, status) {
+                                $("#lstMapBuuCuc").html(data.responseText);
+                            },
+                            error: function (request, status, error) {
+                                $("#lstMapBuuCuc").html(request.responseText);
+                            }
+                        });
+                    }
+                })
+            }
+
+            function successPHNC(result) {
+                if (result.MSG) {
+                    //remove unit when completed
+                    removeUnit();
+                    messageShow("Thông báo",result.MSG);
+                } else {
+                    //if not message
+                    $('#DiemTiepNhan').html(result);
+                    fillDiemTiepNhan();
+                    lib.fromcontroler();
+                    messageSuccessShow("Thiết lập thành công.");
+                }
+            }
+
+            //function change status of unit, district and province on client after saved
+            function removeUnit() {
+                var categories = {},
+                category;
+                //position of active cslide: 1: province, 2: district, 3: unit
+                var typeid = $(".cslide-active").children('div').attr("typediv");
+
+                $('#lstMapBuuCuc .list-group-item.active').each(function (i, el) {
+                    //get data-districtcode
+                    category = $(el).data('districtcode');
+                    //if exists data-districtcode count + 1
+                    if (categories.hasOwnProperty(category)) {
+                        categories[category] += 1;
+                    }
+                    else {
+                        categories[category] = 1;
+                    }
+                });
+
+                //check type of active cslide to remove district
+                if ($.isEmptyObject(categories) || typeid == "2") {
+                    $("#lstMapHuyen .list-group-item.active").remove();
+                } else{
+                // count and remove district
+                    for (var key in categories) {
+                        var numCount = $("#lstMapHuyen ." + key + " .numCount").text();
+                        numCount = numCount - categories[key];
+                        if (numCount == 0) {
+                            $("#lstMapHuyen ." + key).remove();
+                        } else {
+                            $("#lstMapHuyen ." + key + " .numCount").text(numCount);
+                        }
+                    }
+                }
+                //function for province
+                var categories2 = {};
+                var category2;
+
+                $('#lstMapHuyen .list-group-item').each(function (i, el) {
+                    //get data-provincecode
+                    category2 = $(el).data('provincecode');
+                    //if exists data-provincecode count + 1
+                    if (categories2.hasOwnProperty(category2)) {
+                        categories2[category2] += 1;
+                    }
+                    else {
+                        categories2[category2] = 1;
+                    }
+                });
+
+                //check type of active cslide to remove province
+                if ($.isEmptyObject(categories2) || typeid == "1") {
+                    $("#lstMapTinh .list-group-item.active").remove();
+                } else {
+                    // count and remove province
+                    var IDprovince = [];
+                    //get list active province
+                    $('#lstMapTinh .list-group-item.active').each(function () { IDprovince.push(this.id); });
+                    //loop to change status of list province
+                    for (var i = 0; i < IDprovince.length; i++) {
+                        var key2 = IDprovince[i];
+                        var numCount2 = $("#lstMapTinh ." + key2 + " .numCount").text();
+                        if (categories2[key2] != null) {
+                            numCount2 = categories2[key2];
+                        }
+                        else {
+                            numCount2 = 0;
+                        }
+
+                        if (numCount2 == 0) {
+                            $("#lstMapTinh ." + key2).remove(); // remove when count district = 0
+                        } else {
+                            $("#lstMapTinh ." + key2 + " .numCount").text(numCount2); // change text when count district > 0
+                        }
+                    }
+                }
+
+                //remove active unit
+                $("#lstMapBuuCuc .list-group-item.active").remove();
+                
+                //change general information of cslide
+                if (typeid == "1") {
+                    countProvince();
+                }
+                if(typeid == "2")
+                {
+                    if ($("#lstMapHuyen .list-group-item").length == 0) {
+                        //auto click back if empty
+                        $(".huyen-partition .cslide-prev").trigger("click");                        
+                    }
+                    countProvince();
+                    countDistrict();
+                    
+                }
+                if(typeid == "3")
+                {
+                    if ($("#lstMapBuuCuc .list-group-item").length == 0) {
+                        //auto click back if empty
+                        $(".buucuc-partition .cslide-prev").trigger("click");
+                        if ($("#lstMapHuyen .list-group-item").length == 0) {
+                            //auto click back if empty
+                            $(".huyen-partition .cslide-prev").trigger("click");
+                        }                         
+                    }
+                    countProvince();
+                    countDistrict();
+                    countUnit();
+                }
+            }
+
+            //count and change count of province slide
+            function countProvince() {
+                var count = $("#lstMapTinh .list-group-item").length;
+                $(".tinh-partition .numCountAll").html(count);
+                var num = 0;
+                $("#lstMapTinh .list-group-item").each(function () {
+                    num += parseInt($(this).find(".numCount").text());
+                })
+                $(".tinh-partition .numCountChild").html(num);
+            }
+            //count and change count of district slide
+            function countDistrict() {
+                var count = $("#lstMapHuyen .list-group-item").length;
+                $(".huyen-partition .numCountAll").html(count);
+                var num = 0;
+                $("#lstMapHuyen .list-group-item").each(function () {
+                    num += parseInt($(this).find(".numCount").text());
+                })
+                $(".huyen-partition .numCountChild").html(num);
+            }
+            //count and change count of unit slide
+            function countUnit() {
+                var count = $("#lstMapBuuCuc .list-group-item").length;
+                $(".buucuc-partition .numCountAll").html(count);
+            }
+        </script>
+        <script>
+            @{
+                // click if edit
+                if ( ViewBag.CheckPrv != null && (bool)ViewBag.CheckPrv)
+                {
+                    @: $(".cslide-next.choose-district").trigger("click");
+                    @: $("#cslide-slides").cslide();
+                    @: $("#DiemTiepNhanId").removeAttr('disabled');
+                }
+            }
+        </script>
+    }
+</div>

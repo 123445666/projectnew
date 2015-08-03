@@ -1,0 +1,112 @@
+﻿@model PHBC.DAO.Models.BaoKyXuatBanModel
+@using PHBC.Web.Constants
+
+@using (Ajax.BeginForm("UpdateKyXuatBan", "ThongTinBao", new { Area = "Bao" }, new AjaxOptions() { OnSuccess = "successMsg" }, htmlAttributes: new { @class = "form-horizontal", id = "actionForm", thongtin = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.KyConfig)
+}
+<div class="row" style="position:relative;">
+    <div class="parent-kxb" valselect="0">
+        <div class="parent-kxb-btn">
+            <span btn-select valid="0" active>Hàng ngày</span>
+            <span btn-select valid="1">Hàng Tuần</span>
+            <span btn-select valid="2">Tháng Chẵn</span>
+            <span btn-select valid="3">Tháng Lẻ</span>
+            <span btn-select valid="4">
+                Tháng
+                @*<span input-enter style="display:none;">
+                        <input type="text" placeholder="Số Tháng" max="12" />
+                        <input type="text" placeholder="Số kỳ" max="10" />
+                    </span>*@
+            </span>
+            <span btn-select valid="5">
+                Quý
+                @*<span input-enter style="display:none;"
+                        <input type="text" placeholder="Số Quý" max="4" />
+                        <input type="text" placeholder="Số Kỳ" max="10" />
+                    </span>*@
+            </span>
+            <span btn-select valid="6">
+                Năm
+                @*<span input-enter style="display:none;"
+                        <input type="text" placeholder="Số Năm" max="10" />
+                        <input type="text" placeholder="Số Kỳ" max="10" />
+                    </span>*@
+            </span>
+        </div>
+        <div style="border-left: 1px solid #ccc;height: 100%;left: 189px;position: absolute;top: 0;z-index: 0;"></div>
+        <div class="parent-kxb-title">
+
+        </div>
+        <div class="parent-kxb-box">
+            <div box-kxb valid="0">
+            </div>
+            <div box-kxb valid="1">
+            </div>
+            <div box-kxb valid="2">
+            </div>
+            <div box-kxb valid="3">
+            </div>
+            <div box-kxb valid="4">
+                <div box-kxb-input>
+                    <input type="text" placeholder="Số tháng" max="12" /><label valtitle="Tháng" att-acefff></label>
+                    <input type="text" placeholder="Số kỳ" /><label valtitle="Kỳ" att-acefff></label>
+                    <input type="button" value="Ok" />
+                </div>
+                <div append-data-box>
+
+                </div>
+            </div>
+            <div box-kxb valid="5">
+                <div box-kxb-input>
+                    <input type="text" placeholder="Số quý" max="4" /><label valtitle="Quý" att-acefff></label>
+                    <input type="text" placeholder="Số kỳ" /><label valtitle="Kỳ" att-acefff></label>
+                    <input type="button" value="Ok" />
+                </div>
+                <div append-data-box>
+
+                </div>
+            </div>
+            <div box-kxb valid="6">
+                <div box-kxb-input>
+                    <input type="text" placeholder="Số năm" max="1" value="1" readonly style="display:none;" />
+                    <input type="text" placeholder="Số kỳ" /><label valtitle="Kỳ" att-acefff></label>
+                    <input type="button" value="Ok" />
+                </div>
+                <div append-data-box>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="clear:both;height:20px;"></div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <a href="javascript:;" onclick="callSave();" class="btn btn-default">@PHBC.Web.Constants.Application.ButtonLabel.Save</a>
+    </div>
+</div>
+<div style="clear:both;height:20px;"></div>
+<script type="text/javascript">
+    function callSave() {
+        var _data = getDataKyXuatBan();
+        if (!_data[0]) {
+            new jPopup({
+                show: true,
+                close: true,
+                title: 'Thông báo',
+                width: 350,
+                body: '<div style="text-align:center;margin:5px 0px;">' + _data[1] + '</div>'
+            });
+        } else {
+            $("#KyConfig").val(_data[1]);
+            $("#actionForm").submit();
+        }
+    }
+</script>
+
+
+
+

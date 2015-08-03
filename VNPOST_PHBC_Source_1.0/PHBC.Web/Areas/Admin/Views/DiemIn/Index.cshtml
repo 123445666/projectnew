@@ -1,0 +1,112 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@model PagedList<PHBC.DAO.Models.DMDiemInModel>
+ @using PHBC.Web.Constants
+
+@{
+    ViewBag.Title = Application.ButtonLabel.List + ViewBag.TitleName;
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @Application.ButtonLabel.List @ViewBag.TitleName
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="btn-toolbar col-md-7">
+            @Html.CustomLink(Application.ButtonLabel.Create + (string)ViewBag.TitleName, ActionType.Create, permisson, null, new { @class = Application.ButtonClass.Default })
+            </div>
+            <div class="col-md-5">
+@if (permisson.hasPermisson("Search"))
+{ 
+              if(ViewBag.SearchModel==null)
+                {
+                    @Html.Partial("_searchPartial", new PHBC.DAO.Models.DMDiemInSearchModel())
+                    }
+                else { 
+                    @Html.Partial("_searchPartial", ViewBag.SearchModel as PHBC.DAO.Models.DMDiemInSearchModel)
+                }
+}
+            </div>
+        </div>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaDiemIn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TenDiemIn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProvinceName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DistrictName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DiaChi)
+                </th>
+                <th></th>
+            </tr>
+            @if (Model != null || Model.Count() > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaDiemIn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenDiemIn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProvinceName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DistrictName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DiaChi)
+                        </td>
+                        <td>
+                            @Html.CustomLink("", ActionType.Edit, permisson, new { id = item.Id }, null, Application.ButtonIcon.ToEdit, Application.ButtonLabel.ToEdit)
+                            @Html.CustomLink("", ActionType.Details, permisson,  new { id = item.Id }, null, Application.ButtonIcon.Details, Application.ButtonLabel.Details)
+                            @Html.CustomLink("", ActionType.Delete, permisson,  new { id = item.Id }, null, Application.ButtonIcon.Delete, Application.ButtonLabel.Delete)
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5">
+                        Không có bản ghi nào !
+                    </td>
+                </tr>
+            }
+        </table>
+        <div class="paginationcustome">
+            @Html.Pager(Model, new PagerOptions
+               {
+                   PagerItemTemplate = "<li>{0}</li>",
+                   NextPageText = "&gt;",
+                   PrevPageText = "&lt;",
+                   FirstPageText = "Đầu",
+                   LastPageText = "Cuối",
+                   ShowDisabledPagerItems = false,
+                   ContainerTagName = "ul",
+                   CurrentPagerItemTemplate = "<li><a href='#' class='active'>{0}</a></li>"
+               })
+        </div>
+    </div>
+
+    @section Scripts {
+    <script type="text/javascript">
+        $('.test').click(function (e) {
+            e.stopPropagation(); // prevent click in dropdown
+        });
+    </script>
+    }
+    
+</div>

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<PHBC.DAO.Models.QuanHuyen>
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+@{
+    string curDistrictCode = "";
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <colgroup></colgroup>
+        <tr>
+            <th>Huyện</th>
+            <th>Điểm tiếp nhận</th>
+            <th>Chức năng</th>
+        </tr>
+        @foreach (var lstUnit in Model)
+        { 
+        foreach (var item in lstUnit.lstUnitMap)
+        {
+            if (item.DistrictCode != curDistrictCode)
+            {
+                curDistrictCode = item.DistrictCode;
+                <tr class="warning">
+                    <td colspan="2"><b>@item.DistrictName</b></td>
+                    <td>
+                        @*@Html.CustomLink("", "Edit", permisson, new { provincecode = item.ProvinceCode, Mabao = ViewBag.MaBao }, null, Application.ButtonIcon.ToEdit, Application.ButtonLabel.ToEdit)*@
+                        @*@Html.CustomLink("", ActionType.Details, permisson, new { provincecode = item.ProvinceCode, Mabao = ViewBag.MaBao }, null, Application.ButtonIcon.Details, Application.ButtonLabel.Details)*@
+
+                    </td>
+                </tr>
+
+            }
+            <tr class="info">
+                <td><b>@item.UnitName</b> </td>
+                <td><span>  @item.DiemTiepNhanName</span></td>
+                <td>
+                    @*@Html.CustomLink("", "EditPHNC", permisson, new { districtcode = item.DistrictCode, Mabao = ViewBag.MaBao }, null, Application.ButtonIcon.ToEdit, Application.ButtonLabel.ToEdit)*@
+                    @Html.CustomLink("", "EditPHNC", permisson, new { id = item.UnitCode + ViewBag.Mabao }, null, Application.ButtonIcon.ToEdit, Application.ButtonLabel.ToEdit)
+
+                </td>
+            </tr>
+
+        }
+        }
+
+    </table>
+</div>
+

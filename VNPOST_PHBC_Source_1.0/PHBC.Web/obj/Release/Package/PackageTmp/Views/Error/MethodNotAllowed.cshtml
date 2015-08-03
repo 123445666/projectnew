@@ -1,0 +1,14 @@
+﻿@model ErrorModel
+
+@{
+    ViewBag.Title = "Method Not Allowed";
+    ViewBag.Description = "Phương thức bạn sử dụng để gửi không đúng !!!";
+}
+
+<div class="jumbotron text-center">
+    <header>
+        <h1><span aria-hidden="true" class="fa fa-ban text-danger"></span> @ViewBag.Title</h1>
+    </header>
+    <p>@ViewBag.Description</p>
+    <a class="btn btn-primary btn-lg" href="@Url.RouteUrl(ControllerRoute.HomeGetIndex)"><span aria-hidden="true" class="fa fa-home"></span> Về trang chủ</a>
+</div>

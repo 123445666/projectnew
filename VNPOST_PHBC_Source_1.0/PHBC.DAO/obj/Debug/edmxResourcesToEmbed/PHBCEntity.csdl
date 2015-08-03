@@ -1,0 +1,1860 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_PHBCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Level" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+    <NavigationProperty Name="SysActions" Relationship="Self.SysRoleActions" FromRole="AspNetRoles" ToRole="SysAction" />
+    <Property Name="Discriminator" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+  </EntityType>
+  <EntityType Name="Commune">
+    <Key>
+      <PropertyRef Name="CommuneCode" />
+    </Key>
+    <Property Name="CommuneCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CommuneName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DistrictCode" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="District" Relationship="Self.FK_Commune_District" FromRole="Commune" ToRole="District" />
+    <NavigationProperty Name="Units" Relationship="Self.FK_Unit_Commune" FromRole="Commune" ToRole="Unit" />
+  </EntityType>
+  <EntityType Name="Continent">
+    <Key>
+      <PropertyRef Name="ContinentCode" />
+    </Key>
+    <Property Name="ContinentCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContinentName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Countries" Relationship="Self.FK_Country_Continent" FromRole="Continent" ToRole="Country" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="CountryCode" />
+    </Key>
+    <Property Name="CountryCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContinentCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="isPrintedCN23" Type="Boolean" />
+    <Property Name="isPostalParcels" Type="Boolean" />
+    <NavigationProperty Name="Continent" Relationship="Self.FK_Country_Continent" FromRole="Country" ToRole="Continent" />
+  </EntityType>
+  <EntityType Name="District">
+    <Key>
+      <PropertyRef Name="DistrictCode" />
+    </Key>
+    <Property Name="DistrictCode" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DistrictName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ProvinceCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Communes" Relationship="Self.FK_Commune_District" FromRole="District" ToRole="Commune" />
+    <NavigationProperty Name="Province" Relationship="Self.FK_District_ProvinceCode" FromRole="District" ToRole="Province" />
+    <NavigationProperty Name="DMDiemIns" Relationship="DB_PHBCModel.FK_DMDiemIn_District" FromRole="District" ToRole="DMDiemIn" />
+    <NavigationProperty Name="BDieuChinhPhanHuongDistricts" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_District" FromRole="District" ToRole="BDieuChinhPhanHuongDistrict" />
+    <NavigationProperty Name="BPhanHuongNhuCauDistricts" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCauDistrict_District" FromRole="District" ToRole="BPhanHuongNhuCauDistrict" />
+  </EntityType>
+  <EntityType Name="DMDiemIn">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="MaDiemIn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenDiemIn" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProvinceCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DiaChi" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Province" Relationship="Self.FK_DMDiemIn_Province" FromRole="DMDiemIn" ToRole="Province" />
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BThongTinBaos" Relationship="DB_PHBCModel.BBaoDiemIn" FromRole="DMDiemIn" ToRole="BThongTinBao" />
+    <Property Name="DistrictCode" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="District" Relationship="DB_PHBCModel.FK_DMDiemIn_District" FromRole="DMDiemIn" ToRole="District" />
+  </EntityType>
+  <EntityType Name="DMLoaiAnPham">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenLoaiAnPham" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CoKyXuatBan" Type="Boolean" Nullable="false" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BThongTinBaos" Relationship="DB_PHBCModel.FK_BThongTinBao_DMLoaiAnPham" FromRole="DMLoaiAnPham" ToRole="BThongTinBao" />
+  </EntityType>
+  <EntityType Name="DMToaSoan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MaToaSoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenToaSoan" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DiaChi" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SoDienThoai" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Web" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="MaSoThue" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="TaiKhoan" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="NganHang" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="TongBienTap" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="NguoiDaiDien" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="CoQuanChuQuan" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="KieuToaSoan" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BThongTinBaos" Relationship="DB_PHBCModel.FK_BThongTinBao_DMToaSoan" FromRole="DMToaSoan" ToRole="BThongTinBao" />
+  </EntityType>
+  <EntityType Name="MailRoute">
+    <Key>
+      <PropertyRef Name="MailRouteCode" />
+      <PropertyRef Name="FromPOSCode" />
+    </Key>
+    <Property Name="MailRouteCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TransportTypeCode" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="MailRouteName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MailRouteTypeCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FromPOSCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MailTripFrequencePerDay" Type="Byte" />
+    <NavigationProperty Name="MailRouteType" Relationship="Self.FK_MailRoute_MailRouteType" FromRole="MailRoute" ToRole="MailRouteType" />
+    <NavigationProperty Name="POS" Relationship="Self.FK_MailRoute_POS" FromRole="MailRoute" ToRole="POS" />
+    <NavigationProperty Name="MailRouteSchedules" Relationship="Self.FK_MailRouteSchedule_MailRoute" FromRole="MailRoute" ToRole="MailRouteSchedule" />
+  </EntityType>
+  <EntityType Name="MailRoutePOS">
+    <Key>
+      <PropertyRef Name="MailRouteCode" />
+      <PropertyRef Name="FromPOSCode" />
+      <PropertyRef Name="OnMailRoutePOSCode" />
+      <PropertyRef Name="MailRouteScheduleCode" />
+      <PropertyRef Name="Type" />
+    </Key>
+    <Property Name="MailRouteCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FromPOSCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OnMailRoutePOSCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="POSOrder" Type="Byte" />
+    <Property Name="MailRouteScheduleCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Type" Type="Boolean" Nullable="false" />
+    <Property Name="IncomingTime" Type="DateTime" Precision="3" />
+    <Property Name="OutgoingTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="POS" Relationship="Self.FK_MailRoutePOS_POS1" FromRole="MailRoutePOS" ToRole="POS" />
+  </EntityType>
+  <EntityType Name="MailRouteSchedule">
+    <Key>
+      <PropertyRef Name="MailRouteScheduleCode" />
+      <PropertyRef Name="MailRouteCode" />
+      <PropertyRef Name="FromPOSCode" />
+    </Key>
+    <Property Name="MailRouteScheduleCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MailRouteCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FromPOSCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MailRouteScheduleName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="MailRoute" Relationship="Self.FK_MailRouteSchedule_MailRoute" FromRole="MailRouteSchedule" ToRole="MailRoute" />
+  </EntityType>
+  <EntityType Name="MailRouteType">
+    <Key>
+      <PropertyRef Name="MailRouteTypeCode" />
+    </Key>
+    <Property Name="MailRouteTypeCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MailRouteTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="MailRoutes" Relationship="Self.FK_MailRoute_MailRouteType" FromRole="MailRouteType" ToRole="MailRoute" />
+  </EntityType>
+  <EntityType Name="POS">
+    <Key>
+      <PropertyRef Name="POSCode" />
+    </Key>
+    <Property Name="POSCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="POSName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="AddressCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DatabaseServer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DatabaseUsername" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DatabasePassword" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="POSTypeCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProvinceCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ServiceServer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ServicePort" Type="Int32" />
+    <Property Name="POSLevelCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CommuneCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsOffline" Type="Boolean" />
+    <Property Name="UnitCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Byte" />
+    <Property Name="LastUpdate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="MailRoutes" Relationship="Self.FK_MailRoute_POS" FromRole="POS" ToRole="MailRoute" />
+    <NavigationProperty Name="MailRoutePOS" Relationship="Self.FK_MailRoutePOS_POS1" FromRole="POS" ToRole="MailRoutePOS" />
+    <NavigationProperty Name="POSLevel" Relationship="Self.FK_POS_POSLevel" FromRole="POS" ToRole="POSLevel" />
+    <NavigationProperty Name="POSType" Relationship="Self.FK_POS_POSType" FromRole="POS" ToRole="POSType" />
+    <NavigationProperty Name="Unit" Relationship="Self.FK_POS_Unit" FromRole="POS" ToRole="Unit" />
+    <NavigationProperty Name="Transports" Relationship="Self.FK_Transport_POS" FromRole="POS" ToRole="Transport" />
+  </EntityType>
+  <EntityType Name="POSLevel">
+    <Key>
+      <PropertyRef Name="POSLevelCode" />
+    </Key>
+    <Property Name="POSLevelCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="POSLevelName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="POS" Relationship="Self.FK_POS_POSLevel" FromRole="POSLevel" ToRole="POS" />
+  </EntityType>
+  <EntityType Name="POSType">
+    <Key>
+      <PropertyRef Name="POSTypeCode" />
+    </Key>
+    <Property Name="POSTypeCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="POSTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="POS" Relationship="Self.FK_POS_POSType" FromRole="POSType" ToRole="POS" />
+  </EntityType>
+  <EntityType Name="Province">
+    <Key>
+      <PropertyRef Name="ProvinceCode" />
+    </Key>
+    <Property Name="ProvinceCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProvinceName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="RegionCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProvinceListCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Districts" Relationship="Self.FK_District_ProvinceCode" FromRole="Province" ToRole="District" />
+    <NavigationProperty Name="DMDiemIns" Relationship="Self.FK_DMDiemIn_Province" FromRole="Province" ToRole="DMDiemIn" />
+    <NavigationProperty Name="Region" Relationship="Self.FK_Province_Region" FromRole="Province" ToRole="Region" />
+    <NavigationProperty Name="BThongTinGiaBaos" Relationship="DB_PHBCModel.FK_BThongTinGiaBao_Province" FromRole="Province" ToRole="BThongTinGiaBao" />
+  </EntityType>
+  <EntityType Name="Region">
+    <Key>
+      <PropertyRef Name="RegionCode" />
+    </Key>
+    <Property Name="RegionCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RegionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Provinces" Relationship="Self.FK_Province_Region" FromRole="Region" ToRole="Province" />
+  </EntityType>
+  <EntityType Name="SysAction">
+    <Key>
+      <PropertyRef Name="Code" />
+    </Key>
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Controller" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Action" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Params" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsMenu" Type="Boolean" />
+    <NavigationProperty Name="SysMenus" Relationship="Self.FK_SysMenu_SysAction" FromRole="SysAction" ToRole="SysMenu" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.SysRoleActions" FromRole="SysAction" ToRole="AspNetRoles" />
+    <Property Name="Component" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Icon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ControllerDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ComponentDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="AreaDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SysDMPublic">
+    <Key>
+      <PropertyRef Name="TypeId" />
+      <PropertyRef Name="Code" />
+    </Key>
+    <Property Name="TypeId" Type="Int32" Nullable="false" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="IsLock" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SysDMType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SysMenu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ActionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Controller" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Action" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Params" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Pram1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Pram2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Pram3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="QuerryString" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Url" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ParentId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Order" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MenuType" Type="Int32" />
+    <NavigationProperty Name="SysAction" Relationship="Self.FK_SysMenu_SysAction" FromRole="SysMenu" ToRole="SysAction" />
+    <NavigationProperty Name="SysMenu1" Relationship="Self.FK_SysMenu_SysMenu" FromRole="SysMenu" ToRole="SysMenu1" />
+    <NavigationProperty Name="SysMenu2" Relationship="Self.FK_SysMenu_SysMenu" FromRole="SysMenu1" ToRole="SysMenu" />
+    <Property Name="Icon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SysMenuH">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ActionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Controller" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Action" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Pram1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Pram2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Pram3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="QuerryString" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Url" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ParentId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Order" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SysMenuV">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ActionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Controller" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Action" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Pram1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Pram2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Pram3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="QuerryString" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Url" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ParentId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Order" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="sys_MenuH_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Transport">
+    <Key>
+      <PropertyRef Name="TransportCode" />
+    </Key>
+    <Property Name="TransportCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TransportGroup" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TotalLoad" Type="Double" />
+    <Property Name="Status" Type="Byte" />
+    <Property Name="POSCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="StartYear" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Name="EndYear" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Name="Partner" Type="Int32" />
+    <NavigationProperty Name="POS" Relationship="Self.FK_Transport_POS" FromRole="Transport" ToRole="POS" />
+    <NavigationProperty Name="TransportGroup1" Relationship="Self.FK_Transport_TransportGroup" FromRole="Transport" ToRole="TransportGroup" />
+  </EntityType>
+  <EntityType Name="TransportGroup">
+    <Key>
+      <PropertyRef Name="TransportGroupCode" />
+    </Key>
+    <Property Name="TransportGroupCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TransportGroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Transports" Relationship="Self.FK_Transport_TransportGroup" FromRole="TransportGroup" ToRole="Transport" />
+  </EntityType>
+  <EntityType Name="Unit">
+    <Key>
+      <PropertyRef Name="UnitCode" />
+    </Key>
+    <Property Name="UnitCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UnitName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ParentUnitCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="CommuneCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="UnitTypeCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Commune" Relationship="Self.FK_Unit_Commune" FromRole="Unit" ToRole="Commune" />
+    <NavigationProperty Name="POS" Relationship="Self.FK_POS_Unit" FromRole="Unit" ToRole="POS" />
+    <NavigationProperty Name="Unit1" Relationship="Self.FK_Unit_Unit" FromRole="Unit" ToRole="Unit1" />
+    <NavigationProperty Name="Unit2" Relationship="Self.FK_Unit_Unit" FromRole="Unit1" ToRole="Unit" />
+    <NavigationProperty Name="UnitType" Relationship="Self.FK_Unit_UnitType" FromRole="Unit" ToRole="UnitType" />
+    <NavigationProperty Name="UserInfoes" Relationship="Self.FK_UserInfo_Unit" FromRole="Unit" ToRole="UserInfo" />
+    <NavigationProperty Name="BDiemTiepNhans" Relationship="DB_PHBCModel.FK_BDiemTiepNhan_Unit" FromRole="Unit" ToRole="BDiemTiepNhan" />
+    <NavigationProperty Name="BPhanHuongNhuCaus" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCau_Unit" FromRole="Unit" ToRole="BPhanHuongNhuCau" />
+    <NavigationProperty Name="BThongTinBaos" Relationship="DB_PHBCModel.FK_BThongTinBao_Unit" FromRole="Unit" ToRole="BThongTinBao" />
+    <NavigationProperty Name="BDieuChinhPhanHuongUnits" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_Unit" FromRole="Unit" ToRole="BDieuChinhPhanHuongUnit" />
+    <NavigationProperty Name="BPhanHuongNhuCauUnits" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCauUnit_Unit" FromRole="Unit" ToRole="BPhanHuongNhuCauUnit" />
+  </EntityType>
+  <EntityType Name="UnitType">
+    <Key>
+      <PropertyRef Name="UnitTypeCode" />
+    </Key>
+    <Property Name="UnitTypeCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UnitTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Units" Relationship="Self.FK_Unit_UnitType" FromRole="UnitType" ToRole="Unit" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DislayName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UnitCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Level" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Unit" Relationship="Self.FK_UserInfo_Unit" FromRole="UserInfo" ToRole="Unit" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Commune_District">
+    <End Role="District" Type="Self.District" Multiplicity="1" />
+    <End Role="Commune" Type="Self.Commune" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="District">
+        <PropertyRef Name="DistrictCode" />
+      </Principal>
+      <Dependent Role="Commune">
+        <PropertyRef Name="DistrictCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Unit_Commune">
+    <End Role="Commune" Type="Self.Commune" Multiplicity="0..1" />
+    <End Role="Unit" Type="Self.Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commune">
+        <PropertyRef Name="CommuneCode" />
+      </Principal>
+      <Dependent Role="Unit">
+        <PropertyRef Name="CommuneCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Country_Continent">
+    <End Role="Continent" Type="Self.Continent" Multiplicity="1" />
+    <End Role="Country" Type="Self.Country" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Continent">
+        <PropertyRef Name="ContinentCode" />
+      </Principal>
+      <Dependent Role="Country">
+        <PropertyRef Name="ContinentCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_District_ProvinceCode">
+    <End Role="Province" Type="Self.Province" Multiplicity="1" />
+    <End Role="District" Type="Self.District" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Province">
+        <PropertyRef Name="ProvinceCode" />
+      </Principal>
+      <Dependent Role="District">
+        <PropertyRef Name="ProvinceCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DMDiemIn_Province">
+    <End Role="Province" Type="Self.Province" Multiplicity="1" />
+    <End Role="DMDiemIn" Type="Self.DMDiemIn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Province">
+        <PropertyRef Name="ProvinceCode" />
+      </Principal>
+      <Dependent Role="DMDiemIn">
+        <PropertyRef Name="ProvinceCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MailRoute_MailRouteType">
+    <End Role="MailRouteType" Type="Self.MailRouteType" Multiplicity="1" />
+    <End Role="MailRoute" Type="Self.MailRoute" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MailRouteType">
+        <PropertyRef Name="MailRouteTypeCode" />
+      </Principal>
+      <Dependent Role="MailRoute">
+        <PropertyRef Name="MailRouteTypeCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MailRoute_POS">
+    <End Role="POS" Type="Self.POS" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MailRoute" Type="Self.MailRoute" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="POS">
+        <PropertyRef Name="POSCode" />
+      </Principal>
+      <Dependent Role="MailRoute">
+        <PropertyRef Name="FromPOSCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MailRouteSchedule_MailRoute">
+    <End Role="MailRoute" Type="Self.MailRoute" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MailRouteSchedule" Type="Self.MailRouteSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MailRoute">
+        <PropertyRef Name="MailRouteCode" />
+        <PropertyRef Name="FromPOSCode" />
+      </Principal>
+      <Dependent Role="MailRouteSchedule">
+        <PropertyRef Name="MailRouteCode" />
+        <PropertyRef Name="FromPOSCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MailRoutePOS_POS1">
+    <End Role="POS" Type="Self.POS" Multiplicity="1" />
+    <End Role="MailRoutePOS" Type="Self.MailRoutePOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="POS">
+        <PropertyRef Name="POSCode" />
+      </Principal>
+      <Dependent Role="MailRoutePOS">
+        <PropertyRef Name="OnMailRoutePOSCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_POS_POSLevel">
+    <End Role="POSLevel" Type="Self.POSLevel" Multiplicity="1" />
+    <End Role="POS" Type="Self.POS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="POSLevel">
+        <PropertyRef Name="POSLevelCode" />
+      </Principal>
+      <Dependent Role="POS">
+        <PropertyRef Name="POSLevelCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_POS_POSType">
+    <End Role="POSType" Type="Self.POSType" Multiplicity="1" />
+    <End Role="POS" Type="Self.POS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="POSType">
+        <PropertyRef Name="POSTypeCode" />
+      </Principal>
+      <Dependent Role="POS">
+        <PropertyRef Name="POSTypeCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_POS_Unit">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+    <End Role="POS" Type="Self.POS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="UnitCode" />
+      </Principal>
+      <Dependent Role="POS">
+        <PropertyRef Name="UnitCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transport_POS">
+    <End Role="POS" Type="Self.POS" Multiplicity="0..1" />
+    <End Role="Transport" Type="Self.Transport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="POS">
+        <PropertyRef Name="POSCode" />
+      </Principal>
+      <Dependent Role="Transport">
+        <PropertyRef Name="POSCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Province_Region">
+    <End Role="Region" Type="Self.Region" Multiplicity="1" />
+    <End Role="Province" Type="Self.Province" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Region">
+        <PropertyRef Name="RegionCode" />
+      </Principal>
+      <Dependent Role="Province">
+        <PropertyRef Name="RegionCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SysMenu_SysAction">
+    <End Role="SysAction" Type="Self.SysAction" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SysMenu" Type="Self.SysMenu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysAction">
+        <PropertyRef Name="Code" />
+      </Principal>
+      <Dependent Role="SysMenu">
+        <PropertyRef Name="ActionCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SysMenu_SysMenu">
+    <End Role="SysMenu" Type="Self.SysMenu" Multiplicity="0..1" />
+    <End Role="SysMenu1" Type="Self.SysMenu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SysMenu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SysMenu1">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transport_TransportGroup">
+    <End Role="TransportGroup" Type="Self.TransportGroup" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Transport" Type="Self.Transport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TransportGroup">
+        <PropertyRef Name="TransportGroupCode" />
+      </Principal>
+      <Dependent Role="Transport">
+        <PropertyRef Name="TransportGroup" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Unit_Unit">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+    <End Role="Unit1" Type="Self.Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="UnitCode" />
+      </Principal>
+      <Dependent Role="Unit1">
+        <PropertyRef Name="ParentUnitCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Unit_UnitType">
+    <End Role="UnitType" Type="Self.UnitType" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Unit" Type="Self.Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UnitType">
+        <PropertyRef Name="UnitTypeCode" />
+      </Principal>
+      <Dependent Role="Unit">
+        <PropertyRef Name="UnitTypeCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserInfo_Unit">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="UnitCode" />
+      </Principal>
+      <Dependent Role="UserInfo">
+        <PropertyRef Name="UnitCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+  </Association>
+  <Association Name="SysRoleActions">
+    <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+    <End Role="SysAction" Type="Self.SysAction" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="DB_PHBCEntities" annotation:LazyLoadingEnabled="false">
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+    <EntitySet Name="Communes" EntityType="Self.Commune" />
+    <EntitySet Name="Continents" EntityType="Self.Continent" />
+    <EntitySet Name="Countries" EntityType="Self.Country" />
+    <EntitySet Name="Districts" EntityType="Self.District" />
+    <EntitySet Name="DMDiemIns" EntityType="Self.DMDiemIn" />
+    <EntitySet Name="DMLoaiAnPhams" EntityType="Self.DMLoaiAnPham" />
+    <EntitySet Name="DMToaSoans" EntityType="Self.DMToaSoan" />
+    <EntitySet Name="MailRoutes" EntityType="Self.MailRoute" />
+    <EntitySet Name="MailRoutePOS" EntityType="Self.MailRoutePOS" />
+    <EntitySet Name="MailRouteSchedules" EntityType="Self.MailRouteSchedule" />
+    <EntitySet Name="MailRouteTypes" EntityType="Self.MailRouteType" />
+    <EntitySet Name="POS" EntityType="Self.POS" />
+    <EntitySet Name="POSLevels" EntityType="Self.POSLevel" />
+    <EntitySet Name="POSTypes" EntityType="Self.POSType" />
+    <EntitySet Name="Provinces" EntityType="Self.Province" />
+    <EntitySet Name="Regions" EntityType="Self.Region" />
+    <EntitySet Name="SysActions" EntityType="Self.SysAction" />
+    <EntitySet Name="SysDMPublics" EntityType="Self.SysDMPublic" />
+    <EntitySet Name="SysDMTypes" EntityType="Self.SysDMType" />
+    <EntitySet Name="SysMenus" EntityType="Self.SysMenu" />
+    <EntitySet Name="SysMenuHs" EntityType="Self.SysMenuH" />
+    <EntitySet Name="SysMenuVs" EntityType="Self.SysMenuV" />
+    <EntitySet Name="Transports" EntityType="Self.Transport" />
+    <EntitySet Name="TransportGroups" EntityType="Self.TransportGroup" />
+    <EntitySet Name="Units" EntityType="Self.Unit" />
+    <EntitySet Name="UnitTypes" EntityType="Self.UnitType" />
+    <EntitySet Name="UserInfoes" EntityType="Self.UserInfo" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Commune_District" Association="Self.FK_Commune_District">
+      <End Role="District" EntitySet="Districts" />
+      <End Role="Commune" EntitySet="Communes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Unit_Commune" Association="Self.FK_Unit_Commune">
+      <End Role="Commune" EntitySet="Communes" />
+      <End Role="Unit" EntitySet="Units" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Country_Continent" Association="Self.FK_Country_Continent">
+      <End Role="Continent" EntitySet="Continents" />
+      <End Role="Country" EntitySet="Countries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_District_ProvinceCode" Association="Self.FK_District_ProvinceCode">
+      <End Role="Province" EntitySet="Provinces" />
+      <End Role="District" EntitySet="Districts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DMDiemIn_Province" Association="Self.FK_DMDiemIn_Province">
+      <End Role="Province" EntitySet="Provinces" />
+      <End Role="DMDiemIn" EntitySet="DMDiemIns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MailRoute_MailRouteType" Association="Self.FK_MailRoute_MailRouteType">
+      <End Role="MailRouteType" EntitySet="MailRouteTypes" />
+      <End Role="MailRoute" EntitySet="MailRoutes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MailRoute_POS" Association="Self.FK_MailRoute_POS">
+      <End Role="POS" EntitySet="POS" />
+      <End Role="MailRoute" EntitySet="MailRoutes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MailRouteSchedule_MailRoute" Association="Self.FK_MailRouteSchedule_MailRoute">
+      <End Role="MailRoute" EntitySet="MailRoutes" />
+      <End Role="MailRouteSchedule" EntitySet="MailRouteSchedules" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MailRoutePOS_POS1" Association="Self.FK_MailRoutePOS_POS1">
+      <End Role="POS" EntitySet="POS" />
+      <End Role="MailRoutePOS" EntitySet="MailRoutePOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_POS_POSLevel" Association="Self.FK_POS_POSLevel">
+      <End Role="POSLevel" EntitySet="POSLevels" />
+      <End Role="POS" EntitySet="POS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_POS_POSType" Association="Self.FK_POS_POSType">
+      <End Role="POSType" EntitySet="POSTypes" />
+      <End Role="POS" EntitySet="POS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_POS_Unit" Association="Self.FK_POS_Unit">
+      <End Role="Unit" EntitySet="Units" />
+      <End Role="POS" EntitySet="POS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transport_POS" Association="Self.FK_Transport_POS">
+      <End Role="POS" EntitySet="POS" />
+      <End Role="Transport" EntitySet="Transports" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Province_Region" Association="Self.FK_Province_Region">
+      <End Role="Region" EntitySet="Regions" />
+      <End Role="Province" EntitySet="Provinces" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SysMenu_SysAction" Association="Self.FK_SysMenu_SysAction">
+      <End Role="SysAction" EntitySet="SysActions" />
+      <End Role="SysMenu" EntitySet="SysMenus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SysMenu_SysMenu" Association="Self.FK_SysMenu_SysMenu">
+      <End Role="SysMenu" EntitySet="SysMenus" />
+      <End Role="SysMenu1" EntitySet="SysMenus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transport_TransportGroup" Association="Self.FK_Transport_TransportGroup">
+      <End Role="TransportGroup" EntitySet="TransportGroups" />
+      <End Role="Transport" EntitySet="Transports" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Unit_Unit" Association="Self.FK_Unit_Unit">
+      <End Role="Unit" EntitySet="Units" />
+      <End Role="Unit1" EntitySet="Units" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Unit_UnitType" Association="Self.FK_Unit_UnitType">
+      <End Role="UnitType" EntitySet="UnitTypes" />
+      <End Role="Unit" EntitySet="Units" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserInfo_Unit" Association="Self.FK_UserInfo_Unit">
+      <End Role="Unit" EntitySet="Units" />
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <AssociationSet Name="SysRoleActions" Association="Self.SysRoleActions">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="SysAction" EntitySet="SysActions" />
+    </AssociationSet>
+    <EntitySet Name="BDiemTiepNhans" EntityType="DB_PHBCModel.BDiemTiepNhan" />
+    <EntitySet Name="BKyXuatBans" EntityType="DB_PHBCModel.BKyXuatBan" />
+    <EntitySet Name="BPhanHuongNhuCaus" EntityType="DB_PHBCModel.BPhanHuongNhuCau" />
+    <EntitySet Name="BThongTinBaos" EntityType="DB_PHBCModel.BThongTinBao" />
+    <AssociationSet Name="FK_BDiemTiepNhan_Unit" Association="DB_PHBCModel.FK_BDiemTiepNhan_Unit">
+      <End Role="Unit" EntitySet="Units" />
+      <End Role="BDiemTiepNhan" EntitySet="BDiemTiepNhans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BPhanHuongNhuCau_BDiemTiepNhan" Association="DB_PHBCModel.FK_BPhanHuongNhuCau_BDiemTiepNhan">
+      <End Role="BDiemTiepNhan" EntitySet="BDiemTiepNhans" />
+      <End Role="BPhanHuongNhuCau" EntitySet="BPhanHuongNhuCaus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BKyXuatBan_BKyXuatBan" Association="DB_PHBCModel.FK_BKyXuatBan_BKyXuatBan">
+      <End Role="BThongTinBao" EntitySet="BThongTinBaos" />
+      <End Role="BKyXuatBan" EntitySet="BKyXuatBans" />
+    </AssociationSet>
+    <AssociationSet Name="BBaoDiemIn" Association="DB_PHBCModel.BBaoDiemIn">
+      <End Role="BThongTinBao" EntitySet="BThongTinBaos" />
+      <End Role="DMDiemIn" EntitySet="DMDiemIns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BPhanHuongNhuCau_BThongTinBao" Association="DB_PHBCModel.FK_BPhanHuongNhuCau_BThongTinBao">
+      <End Role="BThongTinBao" EntitySet="BThongTinBaos" />
+      <End Role="BPhanHuongNhuCau" EntitySet="BPhanHuongNhuCaus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BPhanHuongNhuCau_Unit" Association="DB_PHBCModel.FK_BPhanHuongNhuCau_Unit">
+      <End Role="Unit" EntitySet="Units" />
+      <End Role="BPhanHuongNhuCau" EntitySet="BPhanHuongNhuCaus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BThongTinBao_DMLoaiAnPham" Association="DB_PHBCModel.FK_BThongTinBao_DMLoaiAnPham">
+      <End Role="DMLoaiAnPham" EntitySet="DMLoaiAnPhams" />
+      <End Role="BThongTinBao" EntitySet="BThongTinBaos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BThongTinBao_DMToaSoan" Association="DB_PHBCModel.FK_BThongTinBao_DMToaSoan">
+      <End Role="DMToaSoan" EntitySet="DMToaSoans" />
+      <End Role="BThongTinBao" EntitySet="BThongTinBaos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BThongTinBao_Unit" Association="DB_PHBCModel.FK_BThongTinBao_Unit">
+      <End Role="Unit" EntitySet="Units" />
+      <End Role="BThongTinBao" EntitySet="BThongTinBaos" />
+    </AssociationSet>
+    <EntitySet Name="BKeHoachXuatBans" EntityType="DB_PHBCModel.BKeHoachXuatBan" />
+    <EntitySet Name="BKeHoachXuatBanDetails" EntityType="DB_PHBCModel.BKeHoachXuatBanDetail" />
+    <AssociationSet Name="FK_BKeHoachXuatBan_BThongTinBao" Association="DB_PHBCModel.FK_BKeHoachXuatBan_BThongTinBao">
+      <End Role="BThongTinBao" EntitySet="BThongTinBaos" />
+      <End Role="BKeHoachXuatBan" EntitySet="BKeHoachXuatBans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BKeHoachXuatBanDetail_BThongTinBao" Association="DB_PHBCModel.FK_BKeHoachXuatBanDetail_BThongTinBao">
+      <End Role="BThongTinBao" EntitySet="BThongTinBaos" />
+      <End Role="BKeHoachXuatBanDetail" EntitySet="BKeHoachXuatBanDetails" />
+    </AssociationSet>
+    <EntitySet Name="v_Unit" EntityType="DB_PHBCModel.v_Unit" />
+    <EntitySet Name="BDieuChinhKHXBs" EntityType="DB_PHBCModel.BDieuChinhKHXB" />
+    <AssociationSet Name="FK_BDieuChinhKHXB_BThongTinBao" Association="DB_PHBCModel.FK_BDieuChinhKHXB_BThongTinBao">
+      <End Role="BThongTinBao" EntitySet="BThongTinBaos" />
+      <End Role="BDieuChinhKHXB" EntitySet="BDieuChinhKHXBs" />
+    </AssociationSet>
+    <FunctionImport Name="SplitString" IsComposable="true" ReturnType="Collection(DB_PHBCModel.SplitString_Result)">
+      <Parameter Name="str" Mode="In" Type="String" />
+      <Parameter Name="separator" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="BDieuChinhKHXBDetails" EntityType="DB_PHBCModel.BDieuChinhKHXBDetail" />
+    <AssociationSet Name="FK_DMDiemIn_District" Association="DB_PHBCModel.FK_DMDiemIn_District">
+      <End Role="District" EntitySet="Districts" />
+      <End Role="DMDiemIn" EntitySet="DMDiemIns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BThongTinBao_BThongTinBao" Association="DB_PHBCModel.FK_BThongTinBao_BThongTinBao">
+      <End Role="BThongTinBao" EntitySet="BThongTinBaos" />
+      <End Role="BThongTinBao1" EntitySet="BThongTinBaos" />
+    </AssociationSet>
+    <EntitySet Name="BDieuChinhPhanHuongDistricts" EntityType="DB_PHBCModel.BDieuChinhPhanHuongDistrict" />
+    <EntitySet Name="BDieuChinhPhanHuongUnits" EntityType="DB_PHBCModel.BDieuChinhPhanHuongUnit" />
+    <EntitySet Name="BThongTinGiaBaos" EntityType="DB_PHBCModel.BThongTinGiaBao" />
+    <EntitySet Name="SysDBLogs" EntityType="DB_PHBCModel.SysDBLog" />
+    <AssociationSet Name="FK_BDieuChinhPhanHuongDistrict_BDiemTiepNhan" Association="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_BDiemTiepNhan">
+      <End Role="BDiemTiepNhan" EntitySet="BDiemTiepNhans" />
+      <End Role="BDieuChinhPhanHuongDistrict" EntitySet="BDieuChinhPhanHuongDistricts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BDieuChinhPhanHuongUnit_BDiemTiepNhan" Association="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_BDiemTiepNhan">
+      <End Role="BDiemTiepNhan" EntitySet="BDiemTiepNhans" />
+      <End Role="BDieuChinhPhanHuongUnit" EntitySet="BDieuChinhPhanHuongUnits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BDieuChinhPhanHuongDistrict_BThongTinBao" Association="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_BThongTinBao">
+      <End Role="BThongTinBao" EntitySet="BThongTinBaos" />
+      <End Role="BDieuChinhPhanHuongDistrict" EntitySet="BDieuChinhPhanHuongDistricts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BDieuChinhPhanHuongDistrict_District" Association="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_District">
+      <End Role="District" EntitySet="Districts" />
+      <End Role="BDieuChinhPhanHuongDistrict" EntitySet="BDieuChinhPhanHuongDistricts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BDieuChinhPhanHuongUnit_BThongTinBao" Association="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_BThongTinBao">
+      <End Role="BThongTinBao" EntitySet="BThongTinBaos" />
+      <End Role="BDieuChinhPhanHuongUnit" EntitySet="BDieuChinhPhanHuongUnits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BDieuChinhPhanHuongUnit_Unit" Association="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_Unit">
+      <End Role="Unit" EntitySet="Units" />
+      <End Role="BDieuChinhPhanHuongUnit" EntitySet="BDieuChinhPhanHuongUnits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BThongTinGiaBao_BThongTinBao" Association="DB_PHBCModel.FK_BThongTinGiaBao_BThongTinBao">
+      <End Role="BThongTinBao" EntitySet="BThongTinBaos" />
+      <End Role="BThongTinGiaBao" EntitySet="BThongTinGiaBaos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BThongTinGiaBao_Province" Association="DB_PHBCModel.FK_BThongTinGiaBao_Province">
+      <End Role="Province" EntitySet="Provinces" />
+      <End Role="BThongTinGiaBao" EntitySet="BThongTinGiaBaos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BDieuChinhPhanHuongDistrict_BDieuChinhKHXBDetail" Association="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_BDieuChinhKHXBDetail">
+      <End Role="BDiemTiepNhan" EntitySet="BDiemTiepNhans" />
+      <End Role="BDieuChinhPhanHuongDistrict" EntitySet="BDieuChinhPhanHuongDistricts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BDieuChinhPhanHuongUnit_BDieuChinhKHXBDetail" Association="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_BDieuChinhKHXBDetail">
+      <End Role="BDiemTiepNhan" EntitySet="BDiemTiepNhans" />
+      <End Role="BDieuChinhPhanHuongUnit" EntitySet="BDieuChinhPhanHuongUnits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BDieuChinhPhanHuongDistrict_BDieuChinhKHXBDetail1" Association="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_BDieuChinhKHXBDetail1">
+      <End Role="BDieuChinhKHXBDetail" EntitySet="BDieuChinhKHXBDetails" />
+      <End Role="BDieuChinhPhanHuongDistrict" EntitySet="BDieuChinhPhanHuongDistricts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BDieuChinhPhanHuongUnit_BDieuChinhKHXBDetail1" Association="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_BDieuChinhKHXBDetail1">
+      <End Role="BDieuChinhKHXBDetail" EntitySet="BDieuChinhKHXBDetails" />
+      <End Role="BDieuChinhPhanHuongUnit" EntitySet="BDieuChinhPhanHuongUnits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BDieuChinhKHXBDetail_BDieuChinhKHXB" Association="DB_PHBCModel.FK_BDieuChinhKHXBDetail_BDieuChinhKHXB">
+      <End Role="BDieuChinhKHXB" EntitySet="BDieuChinhKHXBs" />
+      <End Role="BDieuChinhKHXBDetail" EntitySet="BDieuChinhKHXBDetails" />
+    </AssociationSet>
+    <EntitySet Name="C__MigrationHistory" EntityType="DB_PHBCModel.C__MigrationHistory" />
+    <EntitySet Name="BPhanHuongNhuCauDistricts" EntityType="DB_PHBCModel.BPhanHuongNhuCauDistrict" />
+    <EntitySet Name="BPhanHuongNhuCauUnits" EntityType="DB_PHBCModel.BPhanHuongNhuCauUnit" />
+    <EntitySet Name="Commune_MBCSync" EntityType="DB_PHBCModel.Commune_MBCSync" />
+    <EntitySet Name="District_MBCSync" EntityType="DB_PHBCModel.District_MBCSync" />
+    <EntitySet Name="POS_MBCSync" EntityType="DB_PHBCModel.POS_MBCSync" />
+    <EntitySet Name="POSLevel_MBCSync" EntityType="DB_PHBCModel.POSLevel_MBCSync" />
+    <EntitySet Name="POSType_MBCSync" EntityType="DB_PHBCModel.POSType_MBCSync" />
+    <EntitySet Name="Province_MBCSync" EntityType="DB_PHBCModel.Province_MBCSync" />
+    <EntitySet Name="Region_MBCSync" EntityType="DB_PHBCModel.Region_MBCSync" />
+    <EntitySet Name="sysdiagrams" EntityType="DB_PHBCModel.sysdiagram" />
+    <EntitySet Name="Unit_MBCSync" EntityType="DB_PHBCModel.Unit_MBCSync" />
+    <EntitySet Name="UnitType_MBCSync" EntityType="DB_PHBCModel.UnitType_MBCSync" />
+    <AssociationSet Name="FK_BPhanHuongNhuCauDistrict_BDiemTiepNhan" Association="DB_PHBCModel.FK_BPhanHuongNhuCauDistrict_BDiemTiepNhan">
+      <End Role="BDiemTiepNhan" EntitySet="BDiemTiepNhans" />
+      <End Role="BPhanHuongNhuCauDistrict" EntitySet="BPhanHuongNhuCauDistricts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BPhanHuongNhuCauUnit_BDiemTiepNhan" Association="DB_PHBCModel.FK_BPhanHuongNhuCauUnit_BDiemTiepNhan">
+      <End Role="BDiemTiepNhan" EntitySet="BDiemTiepNhans" />
+      <End Role="BPhanHuongNhuCauUnit" EntitySet="BPhanHuongNhuCauUnits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BPhanHuongNhuCauDistrict_BThongTinBao" Association="DB_PHBCModel.FK_BPhanHuongNhuCauDistrict_BThongTinBao">
+      <End Role="BThongTinBao" EntitySet="BThongTinBaos" />
+      <End Role="BPhanHuongNhuCauDistrict" EntitySet="BPhanHuongNhuCauDistricts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BPhanHuongNhuCauDistrict_District" Association="DB_PHBCModel.FK_BPhanHuongNhuCauDistrict_District">
+      <End Role="District" EntitySet="Districts" />
+      <End Role="BPhanHuongNhuCauDistrict" EntitySet="BPhanHuongNhuCauDistricts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BPhanHuongNhuCauUnit_BThongTinBao" Association="DB_PHBCModel.FK_BPhanHuongNhuCauUnit_BThongTinBao">
+      <End Role="BThongTinBao" EntitySet="BThongTinBaos" />
+      <End Role="BPhanHuongNhuCauUnit" EntitySet="BPhanHuongNhuCauUnits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BPhanHuongNhuCauUnit_Unit" Association="DB_PHBCModel.FK_BPhanHuongNhuCauUnit_Unit">
+      <End Role="Unit" EntitySet="Units" />
+      <End Role="BPhanHuongNhuCauUnit" EntitySet="BPhanHuongNhuCauUnits" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="BDiemTiepNhan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="UnitCode" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreateBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Unit" Relationship="DB_PHBCModel.FK_BDiemTiepNhan_Unit" FromRole="BDiemTiepNhan" ToRole="Unit" />
+    <NavigationProperty Name="BPhanHuongNhuCaus" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCau_BDiemTiepNhan" FromRole="BDiemTiepNhan" ToRole="BPhanHuongNhuCau" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BDieuChinhPhanHuongDistricts" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_BDiemTiepNhan" FromRole="BDiemTiepNhan" ToRole="BDieuChinhPhanHuongDistrict" />
+    <NavigationProperty Name="BDieuChinhPhanHuongUnits" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_BDiemTiepNhan" FromRole="BDiemTiepNhan" ToRole="BDieuChinhPhanHuongUnit" />
+    <NavigationProperty Name="BDieuChinhPhanHuongDistricts1" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_BDieuChinhKHXBDetail" FromRole="BDiemTiepNhan" ToRole="BDieuChinhPhanHuongDistrict" />
+    <NavigationProperty Name="BDieuChinhPhanHuongUnits1" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_BDieuChinhKHXBDetail" FromRole="BDiemTiepNhan" ToRole="BDieuChinhPhanHuongUnit" />
+    <NavigationProperty Name="BPhanHuongNhuCauDistricts" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCauDistrict_BDiemTiepNhan" FromRole="BDiemTiepNhan" ToRole="BPhanHuongNhuCauDistrict" />
+    <NavigationProperty Name="BPhanHuongNhuCauUnits" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCauUnit_BDiemTiepNhan" FromRole="BDiemTiepNhan" ToRole="BPhanHuongNhuCauUnit" />
+  </EntityType>
+  <EntityType Name="BKyXuatBan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ThongTinBaoId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LoaiKy" Type="Int32" Nullable="false" />
+    <Property Name="ChiTiet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BThongTinBao" Relationship="DB_PHBCModel.FK_BKyXuatBan_BKyXuatBan" FromRole="BKyXuatBan" ToRole="BThongTinBao" />
+  </EntityType>
+  <EntityType Name="BPhanHuongNhuCau">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UnitCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ThongTinBaoId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DiemTiepNhanId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BDiemTiepNhan" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCau_BDiemTiepNhan" FromRole="BPhanHuongNhuCau" ToRole="BDiemTiepNhan" />
+    <NavigationProperty Name="BThongTinBao" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCau_BThongTinBao" FromRole="BPhanHuongNhuCau" ToRole="BThongTinBao" />
+    <NavigationProperty Name="Unit" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCau_Unit" FromRole="BPhanHuongNhuCau" ToRole="Unit" />
+  </EntityType>
+  <EntityType Name="BThongTinBao">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="MaBao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenBao" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BaoTrongMucLuc" Type="Boolean" Nullable="false" />
+    <Property Name="CoThue" Type="Boolean" Nullable="false" />
+    <Property Name="MucThue" Type="Double" Nullable="false" />
+    <Property Name="BaoTrungUongDiaPhuong" Type="Boolean" Nullable="false" />
+    <Property Name="LoaiAnPham" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BaoNgoaiVan" Type="Boolean" Nullable="false" />
+    <Property Name="SoTrang" Type="Int32" Nullable="false" />
+    <Property Name="KichThuoc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TrongLuong" Type="Double" Nullable="false" />
+    <Property Name="GiayPhep" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="GiaVon" Type="Double" />
+    <Property Name="GiaBia" Type="Double" Nullable="false" />
+    <Property Name="GiaBan" Type="Double" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BKyXuatBans" Relationship="DB_PHBCModel.FK_BKyXuatBan_BKyXuatBan" FromRole="BThongTinBao" ToRole="BKyXuatBan" />
+    <NavigationProperty Name="DMDiemIns" Relationship="DB_PHBCModel.BBaoDiemIn" FromRole="BThongTinBao" ToRole="DMDiemIn" />
+    <NavigationProperty Name="BPhanHuongNhuCaus" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCau_BThongTinBao" FromRole="BThongTinBao" ToRole="BPhanHuongNhuCau" />
+    <Property Name="MaToaSoan" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UnitCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="DMLoaiAnPham" Relationship="DB_PHBCModel.FK_BThongTinBao_DMLoaiAnPham" FromRole="BThongTinBao" ToRole="DMLoaiAnPham" />
+    <NavigationProperty Name="DMToaSoan" Relationship="DB_PHBCModel.FK_BThongTinBao_DMToaSoan" FromRole="BThongTinBao" ToRole="DMToaSoan" />
+    <NavigationProperty Name="Unit" Relationship="DB_PHBCModel.FK_BThongTinBao_Unit" FromRole="BThongTinBao" ToRole="Unit" />
+    <NavigationProperty Name="BKeHoachXuatBans" Relationship="DB_PHBCModel.FK_BKeHoachXuatBan_BThongTinBao" FromRole="BThongTinBao" ToRole="BKeHoachXuatBan" />
+    <NavigationProperty Name="BKeHoachXuatBanDetails" Relationship="DB_PHBCModel.FK_BKeHoachXuatBanDetail_BThongTinBao" FromRole="BThongTinBao" ToRole="BKeHoachXuatBanDetail" />
+    <Property Name="BaoCongIch" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="BDieuChinhKHXBs" Relationship="DB_PHBCModel.FK_BDieuChinhKHXB_BThongTinBao" FromRole="BThongTinBao" ToRole="BDieuChinhKHXB" />
+    <Property Name="ParentId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BThongTinBao1" Relationship="DB_PHBCModel.FK_BThongTinBao_BThongTinBao" FromRole="BThongTinBao" ToRole="BThongTinBao1" />
+    <NavigationProperty Name="BThongTinBao2" Relationship="DB_PHBCModel.FK_BThongTinBao_BThongTinBao" FromRole="BThongTinBao1" ToRole="BThongTinBao" />
+    <Property Name="GhiChu" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BDieuChinhPhanHuongDistricts" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_BThongTinBao" FromRole="BThongTinBao" ToRole="BDieuChinhPhanHuongDistrict" />
+    <NavigationProperty Name="BDieuChinhPhanHuongUnits" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_BThongTinBao" FromRole="BThongTinBao" ToRole="BDieuChinhPhanHuongUnit" />
+    <NavigationProperty Name="BThongTinGiaBaos" Relationship="DB_PHBCModel.FK_BThongTinGiaBao_BThongTinBao" FromRole="BThongTinBao" ToRole="BThongTinGiaBao" />
+    <NavigationProperty Name="BPhanHuongNhuCauDistricts" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCauDistrict_BThongTinBao" FromRole="BThongTinBao" ToRole="BPhanHuongNhuCauDistrict" />
+    <NavigationProperty Name="BPhanHuongNhuCauUnits" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCauUnit_BThongTinBao" FromRole="BThongTinBao" ToRole="BPhanHuongNhuCauUnit" />
+  </EntityType>
+  <Association Name="FK_BDiemTiepNhan_Unit">
+    <End Type="DB_PHBCModel.Unit" Role="Unit" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BDiemTiepNhan" Role="BDiemTiepNhan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="UnitCode" />
+      </Principal>
+      <Dependent Role="BDiemTiepNhan">
+        <PropertyRef Name="UnitCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BPhanHuongNhuCau_BDiemTiepNhan">
+    <End Type="DB_PHBCModel.BDiemTiepNhan" Role="BDiemTiepNhan" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BPhanHuongNhuCau" Role="BPhanHuongNhuCau" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BDiemTiepNhan">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BPhanHuongNhuCau">
+        <PropertyRef Name="DiemTiepNhanId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BKyXuatBan_BKyXuatBan">
+    <End Type="DB_PHBCModel.BThongTinBao" Role="BThongTinBao" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DB_PHBCModel.BKyXuatBan" Role="BKyXuatBan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BThongTinBao">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BKyXuatBan">
+        <PropertyRef Name="ThongTinBaoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BBaoDiemIn">
+    <End Type="DB_PHBCModel.BThongTinBao" Role="BThongTinBao" Multiplicity="*" />
+    <End Type="DB_PHBCModel.DMDiemIn" Role="DMDiemIn" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_BPhanHuongNhuCau_BThongTinBao">
+    <End Type="DB_PHBCModel.BThongTinBao" Role="BThongTinBao" Multiplicity="0..1" />
+    <End Type="DB_PHBCModel.BPhanHuongNhuCau" Role="BPhanHuongNhuCau" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BThongTinBao">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BPhanHuongNhuCau">
+        <PropertyRef Name="ThongTinBaoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BPhanHuongNhuCau_Unit">
+    <End Type="DB_PHBCModel.Unit" Role="Unit" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BPhanHuongNhuCau" Role="BPhanHuongNhuCau" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="UnitCode" />
+      </Principal>
+      <Dependent Role="BPhanHuongNhuCau">
+        <PropertyRef Name="UnitCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BThongTinBao_DMLoaiAnPham">
+    <End Type="DB_PHBCModel.DMLoaiAnPham" Role="DMLoaiAnPham" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BThongTinBao" Role="BThongTinBao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DMLoaiAnPham">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BThongTinBao">
+        <PropertyRef Name="LoaiAnPham" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BThongTinBao_DMToaSoan">
+    <End Type="DB_PHBCModel.DMToaSoan" Role="DMToaSoan" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BThongTinBao" Role="BThongTinBao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DMToaSoan">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BThongTinBao">
+        <PropertyRef Name="MaToaSoan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BThongTinBao_Unit">
+    <End Type="DB_PHBCModel.Unit" Role="Unit" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BThongTinBao" Role="BThongTinBao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="UnitCode" />
+      </Principal>
+      <Dependent Role="BThongTinBao">
+        <PropertyRef Name="UnitCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="BKeHoachXuatBan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ThongTinBaoId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Nam" Type="Int32" Nullable="false" />
+    <Property Name="SoBatDau" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BThongTinBao" Relationship="DB_PHBCModel.FK_BKeHoachXuatBan_BThongTinBao" FromRole="BKeHoachXuatBan" ToRole="BThongTinBao" />
+    <Property Name="LoaiKy" Type="Int32" />
+    <Property Name="ChiTietKy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="BKeHoachXuatBanDetail">
+    <Key>
+      <PropertyRef Name="ThongTinBaoId" />
+      <PropertyRef Name="Nam" />
+      <PropertyRef Name="SoBao" />
+    </Key>
+    <Property Name="ThongTinBaoId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Nam" Type="Int32" Nullable="false" />
+    <Property Name="SoBao" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Quy" Type="Int32" Nullable="false" />
+    <Property Name="Thang" Type="Int32" Nullable="false" />
+    <Property Name="Ngay" Type="Int32" Nullable="false" />
+    <Property Name="Thu" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+    <Property Name="GiaBao" Type="Int32" />
+    <Property Name="DonSo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BThongTinBao" Relationship="DB_PHBCModel.FK_BKeHoachXuatBanDetail_BThongTinBao" FromRole="BKeHoachXuatBanDetail" ToRole="BThongTinBao" />
+    <Property Name="Number" Type="Int32" Nullable="false" />
+    <Property Name="TrongLuong" Type="Int32" />
+    <Property Name="SoTrang" Type="Int32" />
+    <Property Name="KichThuoc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="SoXuatBan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GhiChu" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_BKeHoachXuatBan_BThongTinBao">
+    <End Type="DB_PHBCModel.BThongTinBao" Role="BThongTinBao" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BKeHoachXuatBan" Role="BKeHoachXuatBan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BThongTinBao">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BKeHoachXuatBan">
+        <PropertyRef Name="ThongTinBaoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BKeHoachXuatBanDetail_BThongTinBao">
+    <End Type="DB_PHBCModel.BThongTinBao" Role="BThongTinBao" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BKeHoachXuatBanDetail" Role="BKeHoachXuatBanDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BThongTinBao">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BKeHoachXuatBanDetail">
+        <PropertyRef Name="ThongTinBaoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="v_Unit">
+    <Key>
+      <PropertyRef Name="UnitCode" />
+      <PropertyRef Name="UnitName" />
+      <PropertyRef Name="DistrictCode" />
+      <PropertyRef Name="ProvinceCode" />
+      <PropertyRef Name="DistrictName" />
+    </Key>
+    <Property Name="UnitCode" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="UnitName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UnitTypeCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="DistrictCode" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="ProvinceCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="DistrictName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="BDieuChinhKHXB">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ThongTinBaoId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Nam" Type="Int32" Nullable="false" />
+    <Property Name="Quy" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BThongTinBao" Relationship="DB_PHBCModel.FK_BDieuChinhKHXB_BThongTinBao" FromRole="BDieuChinhKHXB" ToRole="BThongTinBao" />
+    <Property Name="LoaiKy" Type="Int32" />
+    <Property Name="ChiTietKy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BDieuChinhKHXBDetails" Relationship="DB_PHBCModel.FK_BDieuChinhKHXBDetail_BDieuChinhKHXB" FromRole="BDieuChinhKHXB" ToRole="BDieuChinhKHXBDetail" />
+  </EntityType>
+  <Association Name="FK_BDieuChinhKHXB_BThongTinBao">
+    <End Type="DB_PHBCModel.BThongTinBao" Role="BThongTinBao" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BDieuChinhKHXB" Role="BDieuChinhKHXB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BThongTinBao">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BDieuChinhKHXB">
+        <PropertyRef Name="ThongTinBaoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="SplitString_Result">
+    <Property Type="Int32" Name="zeroBasedOccurance" Nullable="true" />
+    <Property Type="String" Name="s" Nullable="true" MaxLength="4000" />
+  </ComplexType>
+  <EntityType Name="BDieuChinhKHXBDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DieuChinhKHXBId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="LoaiDieuChinh" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="SoBao" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="GiaBao" Type="Int32" />
+    <Property Name="TrongLuong" Type="Int32" />
+    <Property Name="SoTrang" Type="Int32" />
+    <Property Name="KichThuoc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BDieuChinhPhanHuongDistricts" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_BDieuChinhKHXBDetail1" FromRole="BDieuChinhKHXBDetail" ToRole="BDieuChinhPhanHuongDistrict" />
+    <NavigationProperty Name="BDieuChinhPhanHuongUnits" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_BDieuChinhKHXBDetail1" FromRole="BDieuChinhKHXBDetail" ToRole="BDieuChinhPhanHuongUnit" />
+    <NavigationProperty Name="BDieuChinhKHXB" Relationship="DB_PHBCModel.FK_BDieuChinhKHXBDetail_BDieuChinhKHXB" FromRole="BDieuChinhKHXBDetail" ToRole="BDieuChinhKHXB" />
+    <Property Name="Config" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="GhiChu" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="NgayOrThu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_DMDiemIn_District">
+    <End Type="DB_PHBCModel.District" Role="District" Multiplicity="0..1" />
+    <End Type="DB_PHBCModel.DMDiemIn" Role="DMDiemIn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="District">
+        <PropertyRef Name="DistrictCode" />
+      </Principal>
+      <Dependent Role="DMDiemIn">
+        <PropertyRef Name="DistrictCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BThongTinBao_BThongTinBao">
+    <End Type="DB_PHBCModel.BThongTinBao" Role="BThongTinBao" Multiplicity="0..1" />
+    <End Type="DB_PHBCModel.BThongTinBao" Role="BThongTinBao1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BThongTinBao">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BThongTinBao1">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="BDieuChinhPhanHuongDistrict">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ThongTinBaoId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="SoBao" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DieuChinhKHXBDetailId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DiemTiepNhanId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DistrictCode" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="Nam" Type="Int32" Nullable="false" />
+    <Property Name="Quy" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BDiemTiepNhan" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_BDiemTiepNhan" FromRole="BDieuChinhPhanHuongDistrict" ToRole="BDiemTiepNhan" />
+    <NavigationProperty Name="BThongTinBao" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_BThongTinBao" FromRole="BDieuChinhPhanHuongDistrict" ToRole="BThongTinBao" />
+    <NavigationProperty Name="District" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_District" FromRole="BDieuChinhPhanHuongDistrict" ToRole="District" />
+    <NavigationProperty Name="BDiemTiepNhan1" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_BDieuChinhKHXBDetail" FromRole="BDieuChinhPhanHuongDistrict" ToRole="BDiemTiepNhan" />
+    <NavigationProperty Name="BDieuChinhKHXBDetail" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongDistrict_BDieuChinhKHXBDetail1" FromRole="BDieuChinhPhanHuongDistrict" ToRole="BDieuChinhKHXBDetail" />
+  </EntityType>
+  <EntityType Name="BDieuChinhPhanHuongUnit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ThongTinBaoId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="SoBao" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DieuChinhKHXBDetailId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DiemTiepNhanId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UnitCode" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="Nam" Type="Int32" Nullable="false" />
+    <Property Name="Quy" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BDiemTiepNhan" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_BDiemTiepNhan" FromRole="BDieuChinhPhanHuongUnit" ToRole="BDiemTiepNhan" />
+    <NavigationProperty Name="BThongTinBao" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_BThongTinBao" FromRole="BDieuChinhPhanHuongUnit" ToRole="BThongTinBao" />
+    <NavigationProperty Name="Unit" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_Unit" FromRole="BDieuChinhPhanHuongUnit" ToRole="Unit" />
+    <NavigationProperty Name="BDiemTiepNhan1" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_BDieuChinhKHXBDetail" FromRole="BDieuChinhPhanHuongUnit" ToRole="BDiemTiepNhan" />
+    <NavigationProperty Name="BDieuChinhKHXBDetail" Relationship="DB_PHBCModel.FK_BDieuChinhPhanHuongUnit_BDieuChinhKHXBDetail1" FromRole="BDieuChinhPhanHuongUnit" ToRole="BDieuChinhKHXBDetail" />
+  </EntityType>
+  <EntityType Name="BThongTinGiaBao">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="ThongTinBaoId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="NgayHieuLuc" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="NgayHetHieuLuc" Type="DateTime" Precision="0" />
+    <Property Name="ProvinceCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="QuyetDinh" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="ValueType" Type="Int16" Nullable="false" />
+    <Property Name="Value" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="BThongTinBao" Relationship="DB_PHBCModel.FK_BThongTinGiaBao_BThongTinBao" FromRole="BThongTinGiaBao" ToRole="BThongTinBao" />
+    <NavigationProperty Name="Province" Relationship="DB_PHBCModel.FK_BThongTinGiaBao_Province" FromRole="BThongTinGiaBao" ToRole="Province" />
+  </EntityType>
+  <EntityType Name="SysDBLog">
+    <Key>
+      <PropertyRef Name="UserName" />
+      <PropertyRef Name="DateChange" />
+      <PropertyRef Name="TableName" />
+      <PropertyRef Name="RecordOld" />
+      <PropertyRef Name="RecordNew" />
+    </Key>
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateChange" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TableName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RecordOld" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="RecordNew" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_BDieuChinhPhanHuongDistrict_BDiemTiepNhan">
+    <End Type="DB_PHBCModel.BDiemTiepNhan" Role="BDiemTiepNhan" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BDieuChinhPhanHuongDistrict" Role="BDieuChinhPhanHuongDistrict" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BDiemTiepNhan">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BDieuChinhPhanHuongDistrict">
+        <PropertyRef Name="DiemTiepNhanId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BDieuChinhPhanHuongUnit_BDiemTiepNhan">
+    <End Type="DB_PHBCModel.BDiemTiepNhan" Role="BDiemTiepNhan" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BDieuChinhPhanHuongUnit" Role="BDieuChinhPhanHuongUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BDiemTiepNhan">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BDieuChinhPhanHuongUnit">
+        <PropertyRef Name="DiemTiepNhanId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BDieuChinhPhanHuongDistrict_BThongTinBao">
+    <End Type="DB_PHBCModel.BThongTinBao" Role="BThongTinBao" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BDieuChinhPhanHuongDistrict" Role="BDieuChinhPhanHuongDistrict" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BThongTinBao">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BDieuChinhPhanHuongDistrict">
+        <PropertyRef Name="ThongTinBaoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BDieuChinhPhanHuongDistrict_District">
+    <End Type="DB_PHBCModel.District" Role="District" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BDieuChinhPhanHuongDistrict" Role="BDieuChinhPhanHuongDistrict" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="District">
+        <PropertyRef Name="DistrictCode" />
+      </Principal>
+      <Dependent Role="BDieuChinhPhanHuongDistrict">
+        <PropertyRef Name="DistrictCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BDieuChinhPhanHuongUnit_BThongTinBao">
+    <End Type="DB_PHBCModel.BThongTinBao" Role="BThongTinBao" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BDieuChinhPhanHuongUnit" Role="BDieuChinhPhanHuongUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BThongTinBao">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BDieuChinhPhanHuongUnit">
+        <PropertyRef Name="ThongTinBaoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BDieuChinhPhanHuongUnit_Unit">
+    <End Type="DB_PHBCModel.Unit" Role="Unit" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BDieuChinhPhanHuongUnit" Role="BDieuChinhPhanHuongUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="UnitCode" />
+      </Principal>
+      <Dependent Role="BDieuChinhPhanHuongUnit">
+        <PropertyRef Name="UnitCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BThongTinGiaBao_BThongTinBao">
+    <End Type="DB_PHBCModel.BThongTinBao" Role="BThongTinBao" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BThongTinGiaBao" Role="BThongTinGiaBao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BThongTinBao">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BThongTinGiaBao">
+        <PropertyRef Name="ThongTinBaoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BThongTinGiaBao_Province">
+    <End Type="DB_PHBCModel.Province" Role="Province" Multiplicity="0..1" />
+    <End Type="DB_PHBCModel.BThongTinGiaBao" Role="BThongTinGiaBao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Province">
+        <PropertyRef Name="ProvinceCode" />
+      </Principal>
+      <Dependent Role="BThongTinGiaBao">
+        <PropertyRef Name="ProvinceCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BDieuChinhPhanHuongDistrict_BDieuChinhKHXBDetail">
+    <End Type="DB_PHBCModel.BDiemTiepNhan" Role="BDiemTiepNhan" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BDieuChinhPhanHuongDistrict" Role="BDieuChinhPhanHuongDistrict" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BDiemTiepNhan">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BDieuChinhPhanHuongDistrict">
+        <PropertyRef Name="DieuChinhKHXBDetailId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BDieuChinhPhanHuongUnit_BDieuChinhKHXBDetail">
+    <End Type="DB_PHBCModel.BDiemTiepNhan" Role="BDiemTiepNhan" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BDieuChinhPhanHuongUnit" Role="BDieuChinhPhanHuongUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BDiemTiepNhan">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BDieuChinhPhanHuongUnit">
+        <PropertyRef Name="DieuChinhKHXBDetailId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BDieuChinhPhanHuongDistrict_BDieuChinhKHXBDetail1">
+    <End Type="DB_PHBCModel.BDieuChinhKHXBDetail" Role="BDieuChinhKHXBDetail" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BDieuChinhPhanHuongDistrict" Role="BDieuChinhPhanHuongDistrict" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BDieuChinhKHXBDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BDieuChinhPhanHuongDistrict">
+        <PropertyRef Name="DieuChinhKHXBDetailId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BDieuChinhPhanHuongUnit_BDieuChinhKHXBDetail1">
+    <End Type="DB_PHBCModel.BDieuChinhKHXBDetail" Role="BDieuChinhKHXBDetail" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BDieuChinhPhanHuongUnit" Role="BDieuChinhPhanHuongUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BDieuChinhKHXBDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BDieuChinhPhanHuongUnit">
+        <PropertyRef Name="DieuChinhKHXBDetailId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BDieuChinhKHXBDetail_BDieuChinhKHXB">
+    <End Type="DB_PHBCModel.BDieuChinhKHXB" Role="BDieuChinhKHXB" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BDieuChinhKHXBDetail" Role="BDieuChinhKHXBDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BDieuChinhKHXB">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BDieuChinhKHXBDetail">
+        <PropertyRef Name="DieuChinhKHXBId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="BPhanHuongNhuCauDistrict">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ThongTinBaoId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DiemTiepNhanId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DistrictCode" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BDiemTiepNhan" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCauDistrict_BDiemTiepNhan" FromRole="BPhanHuongNhuCauDistrict" ToRole="BDiemTiepNhan" />
+    <NavigationProperty Name="BThongTinBao" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCauDistrict_BThongTinBao" FromRole="BPhanHuongNhuCauDistrict" ToRole="BThongTinBao" />
+    <NavigationProperty Name="District" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCauDistrict_District" FromRole="BPhanHuongNhuCauDistrict" ToRole="District" />
+  </EntityType>
+  <EntityType Name="BPhanHuongNhuCauUnit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ThongTinBaoId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DiemTiepNhanId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UnitCode" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BDiemTiepNhan" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCauUnit_BDiemTiepNhan" FromRole="BPhanHuongNhuCauUnit" ToRole="BDiemTiepNhan" />
+    <NavigationProperty Name="BThongTinBao" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCauUnit_BThongTinBao" FromRole="BPhanHuongNhuCauUnit" ToRole="BThongTinBao" />
+    <NavigationProperty Name="Unit" Relationship="DB_PHBCModel.FK_BPhanHuongNhuCauUnit_Unit" FromRole="BPhanHuongNhuCauUnit" ToRole="Unit" />
+  </EntityType>
+  <EntityType Name="Commune_MBCSync">
+    <Key>
+      <PropertyRef Name="CommuneCode" />
+    </Key>
+    <Property Name="CommuneCode" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="CommuneName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DistrictCode" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="District_MBCSync">
+    <Key>
+      <PropertyRef Name="DistrictCode" />
+    </Key>
+    <Property Name="DistrictCode" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="DistrictName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ProvinceCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="POS_MBCSync">
+    <Key>
+      <PropertyRef Name="POSCode" />
+    </Key>
+    <Property Name="POSCode" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="POSName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="AddressCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DatabaseServer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DatabaseUsername" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DatabasePassword" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="POSTypeCode" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="ProvinceCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="ServiceServer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ServicePort" Type="Int32" />
+    <Property Name="POSLevelCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="CommuneCode" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="IsOffline" Type="Boolean" />
+    <Property Name="UnitCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Byte" />
+    <Property Name="LastUpdate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="POSLevel_MBCSync">
+    <Key>
+      <PropertyRef Name="POSLevelCode" />
+    </Key>
+    <Property Name="POSLevelCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="POSLevelName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="POSType_MBCSync">
+    <Key>
+      <PropertyRef Name="POSTypeCode" />
+    </Key>
+    <Property Name="POSTypeCode" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="POSTypeName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Province_MBCSync">
+    <Key>
+      <PropertyRef Name="ProvinceCode" />
+    </Key>
+    <Property Name="ProvinceCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="ProvinceName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="RegionCode" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="ProvinceListCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Region_MBCSync">
+    <Key>
+      <PropertyRef Name="RegionCode" />
+    </Key>
+    <Property Name="RegionCode" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="RegionName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Unit_MBCSync">
+    <Key>
+      <PropertyRef Name="UnitCode" />
+    </Key>
+    <Property Name="UnitCode" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="UnitName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ParentUnitCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="CommuneCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="UnitTypeCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="UnitType_MBCSync">
+    <Key>
+      <PropertyRef Name="UnitTypeCode" />
+    </Key>
+    <Property Name="UnitTypeCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="UnitTypeName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_BPhanHuongNhuCauDistrict_BDiemTiepNhan">
+    <End Type="DB_PHBCModel.BDiemTiepNhan" Role="BDiemTiepNhan" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BPhanHuongNhuCauDistrict" Role="BPhanHuongNhuCauDistrict" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BDiemTiepNhan">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BPhanHuongNhuCauDistrict">
+        <PropertyRef Name="DiemTiepNhanId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BPhanHuongNhuCauUnit_BDiemTiepNhan">
+    <End Type="DB_PHBCModel.BDiemTiepNhan" Role="BDiemTiepNhan" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BPhanHuongNhuCauUnit" Role="BPhanHuongNhuCauUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BDiemTiepNhan">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BPhanHuongNhuCauUnit">
+        <PropertyRef Name="DiemTiepNhanId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BPhanHuongNhuCauDistrict_BThongTinBao">
+    <End Type="DB_PHBCModel.BThongTinBao" Role="BThongTinBao" Multiplicity="0..1" />
+    <End Type="DB_PHBCModel.BPhanHuongNhuCauDistrict" Role="BPhanHuongNhuCauDistrict" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BThongTinBao">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BPhanHuongNhuCauDistrict">
+        <PropertyRef Name="ThongTinBaoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BPhanHuongNhuCauDistrict_District">
+    <End Type="DB_PHBCModel.District" Role="District" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BPhanHuongNhuCauDistrict" Role="BPhanHuongNhuCauDistrict" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="District">
+        <PropertyRef Name="DistrictCode" />
+      </Principal>
+      <Dependent Role="BPhanHuongNhuCauDistrict">
+        <PropertyRef Name="DistrictCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BPhanHuongNhuCauUnit_BThongTinBao">
+    <End Type="DB_PHBCModel.BThongTinBao" Role="BThongTinBao" Multiplicity="0..1" />
+    <End Type="DB_PHBCModel.BPhanHuongNhuCauUnit" Role="BPhanHuongNhuCauUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BThongTinBao">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BPhanHuongNhuCauUnit">
+        <PropertyRef Name="ThongTinBaoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BPhanHuongNhuCauUnit_Unit">
+    <End Type="DB_PHBCModel.Unit" Role="Unit" Multiplicity="1" />
+    <End Type="DB_PHBCModel.BPhanHuongNhuCauUnit" Role="BPhanHuongNhuCauUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="UnitCode" />
+      </Principal>
+      <Dependent Role="BPhanHuongNhuCauUnit">
+        <PropertyRef Name="UnitCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

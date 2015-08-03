@@ -1,0 +1,59 @@
+﻿@model PHBC.DAO.Models.BThongTinGiaBaoModel
+<div class="form-group">
+    <div class="form-group col-md-6">
+        @Html.LabelForEdit(model => model.MaBao, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.MaBao, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MaBao, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelForEdit(model => model.TenBao, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.TenBao, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TenBao, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelForEdit(model => model.Id, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger " })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelForEdit(model => model.ThongTinBaoId, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.ThongTinBaoId, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ThongTinBaoId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelForEdit(model => model.ValueType, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.ValueType, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ValueType, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelForEdit(model => model.Value, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelForEdit(model => model.NgayHetHieuLuc, new { @class = "col-md-4 control-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.NgayHetHieuLuc, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.NgayHetHieuLuc, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-12">
+        @Html.LabelForEdit(model => model.GhiChu, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.GhiChu, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+﻿@model PHBC.DAO.Models.ThongTinBaoModel
+@using PHBC.Web.Constants;
+
+@using (Ajax.BeginForm("Edit", "ThongTinBao", new { area = "Bao" }, new AjaxOptions() { OnSuccess = "successBao" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-title">
+        Thông tin chung
+    </div>
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.Partial("_inputForm", Model)
+
+        <div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="@Application.ButtonLabel.Save" class="@Application.ButtonClass.Submit" />
+                @Html.ActionLink(Application.ButtonLabel.Back, "Index", null, new { @class = Application.ButtonClass.Submit })
+            </div>
+        </div>
+    </div>
+}
+
+    <script type="text/javascript">
+        $("document").ready(function () {
+            $('#MaToaSoan').val('@Model.MaToaSoan');
+            $('#LoaiAnPham').val('@Model.LoaiAnPham');
+        });
+    </script>

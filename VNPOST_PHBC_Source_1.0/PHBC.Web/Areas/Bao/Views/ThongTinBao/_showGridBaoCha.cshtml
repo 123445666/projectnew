@@ -1,0 +1,44 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@model PagedList<PHBC.DAO.Models.ThongTinBaoModel>
+<div class=" table-responsive">
+    <table class="table table-bordered table-hover table-custom">
+        <colgroup>
+            <col style="width: 95px;" />
+            <col style="width: 120px" />
+            <col style="width: 120px" />
+            <col style="width: 15%" />            
+        </colgroup>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaBao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenBao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenToaSoan)
+            </th>
+            <th>
+                Chọn
+            </th>           
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaBao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenBao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenToaSoan)
+                </td>
+                <td>
+                    <a href="javascript:chonbao('@item.Id','@item.TenBao');"><i class='fa fa-plus'></i></a>
+                </td>               
+            </tr>
+        }
+    </table>
+</div>

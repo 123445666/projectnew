@@ -1,0 +1,84 @@
+﻿@using PHBC.Web.Permission;
+@model IEnumerable<PHBC.DAO.AspNetRole>
+@using PHBC.Web.Constants
+
+@{
+    ViewBag.Title = Application.ButtonLabel.List + " " + ControllerDesc.Role;
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @ViewBag.Title
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="btn-toolbar col-md-8">
+                @Html.CustomLink(Application.ButtonLabel.Create + " " + ControllerDesc.Role, ActionType.Create, permisson, null, new { @class = Application.ButtonClass.Default })
+            </div>
+            <div class="col-md-4">
+                @using (Html.BeginForm("Search", "RoleManager", new { Area = "Admin" }, FormMethod.Post, htmlAttributes: new { role = "form", @class = "navbar-form navbar-right" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="input-group">
+                        <input type="text" name="roleName" class="form-control" placeholder="Vai trò" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-info" type="submit">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-custom">
+                <tr>
+                    <th>
+                        Tên vai trò
+                    </th>
+                    <th>
+                        Chi tiết
+                    </th>
+                    <th>Thao tác</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Discriminator)
+                        </td>
+                        <td>
+                            @*@if (permisson.hasPermisson("Edit")){
+                                    <a href="@Url.Action("Edit", new { id = item.Id })" data-toggle="tooltip" title="Sửa"><span class="fa fa-pencil"></span></a> @:|
+                                }
+                                @if (permisson.hasPermisson("Details")){
+                                    <a href="@Url.Action("Details", new { id = item.Id })" data-toggle="tooltip" title="Chi tiết"><span class="fa fa-file-text"></span></a> @:|
+                                }
+                                @if (permisson.hasPermisson("Delete")){
+                                    <a href="@Url.Action("Delete", new { id = item.Id })" data-toggle="tooltip" title="Xóa"><span class="fa fa-trash"></span></a> @:|
+                                }
+                                @if (permisson.hasPermisson("AddAction")){
+                                    <a href="@Url.Action("AddAction", new { id = item.Id })" data-toggle="tooltip" title="Thêm chức năng"><span class="fa fa-cogs"></span></a> @:|
+                                }
+                                @if (permisson.hasPermisson("AddUser")){
+                                    <a href="@Url.Action("AddUser", new { id = item.Id })" data-toggle="tooltip" title="Thêm người dùng"><span class="fa fa-users"></span></a>
+                                }*@
+                            @Html.CustomLink("", ActionType.Edit, permisson, new { id = item.Id }, null, Application.ButtonIcon.ToEdit, Application.ButtonLabel.ToEdit)
+                            @Html.CustomLink("", ActionType.Details, permisson, new { id = item.Id }, null, Application.ButtonIcon.Details, Application.ButtonLabel.Details)
+                            @Html.CustomLink("", ActionType.Delete, permisson, new { id = item.Id }, null, Application.ButtonIcon.Delete, Application.ButtonLabel.Delete)
+                            @Html.CustomLink("", "AddAction", permisson, new { id = item.Id }, null, Application.ButtonIcon.AddAction, Application.ButtonLabel.AddAction)
+                            @Html.CustomLink("", "AddUser", permisson, new { id = item.Id }, null, Application.ButtonIcon.AddUser, Application.ButtonLabel.AddUser)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+        </div>
+    </div>

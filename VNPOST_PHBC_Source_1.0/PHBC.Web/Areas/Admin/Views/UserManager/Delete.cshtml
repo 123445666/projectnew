@@ -1,0 +1,27 @@
+﻿@model PHBC.DAO.Models.UserModel
+@using PHBC.Web.Constants;
+@{
+    ViewBag.Title = "Xóa người dùng";
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Xóa người dùng
+    </div>
+    <div class="panel-body">
+        <h3>Bạn muốn xóa người dùng?</h3>
+        <div>
+            <hr />
+            @Html.Partial("_viewDetail", Model)
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="@Application.ButtonLabel.Delete" class="btn btn-default" /> 
+                    @Html.ActionLink(Application.ButtonLabel.Back, "Index", null, new { @class = "btn btn-default" })
+                </div>
+            }
+        </div>
+        </div>
+    </div>

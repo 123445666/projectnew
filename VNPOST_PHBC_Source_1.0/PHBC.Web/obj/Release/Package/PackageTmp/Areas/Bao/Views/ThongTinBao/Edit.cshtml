@@ -1,0 +1,97 @@
+﻿@model PHBC.DAO.Models.ThongTinBaoModel
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Constants;
+@{
+    ViewBag.Title = "Sửa thông tin báo";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Sửa thông tin báo
+    </div>
+    <div class="panel-body">
+        <div class="form-title">
+            Thông tin chung
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                @Html.Partial("_inputForm", Model);
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="@Application.ButtonLabel.Save" class="@Application.ButtonClass.Submit" />
+                        @Html.ActionLink(Application.ButtonLabel.Back, "Index", null, new { @class = Application.ButtonClass.Submit })
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    @{Html.RegisterMvcPagerScriptResource();}      
+    
+    <script type="text/javascript">
+        var popup;
+
+        $(document).ready(function () {
+            $('#MaToaSoan').val('@Model.MaToaSoan');
+            $('#LoaiAnPham').val('@Model.LoaiAnPham');
+            var anPham = $(".slcLoaiAnPham").val();
+            if (anPham == "c8560c18-4545-4b61-b8ab-f7dc2d828477") {
+                $(".txtMaoBaoCha_Edit").show();
+            }
+            else {
+                $(".txtMaoBaoCha_Edit").hide();
+            }
+            changeThue();
+        });  
+
+    function changeThue() {
+        var ischecked = $('#CoThue').is(':checked');
+        if (ischecked) {
+            $(".txtMucThue_EditValue").removeAttr("disabled");
+        }
+        else {
+            $(".txtMucThue_EditValue").attr("disabled", "disabled");
+        }
+    }
+
+    function fncLoaiAnPhamChange() {
+        var anPham = $(".slcLoaiAnPham").val();
+        if (anPham == "c8560c18-4545-4b61-b8ab-f7dc2d828477") {
+            $(".txtMaoBaoCha_Edit").show();
+        }
+        else {
+            $(".txtMaoBaoCha_Edit").hide();
+        }
+    }
+
+    function chonbao(id, name) {
+        $("#ParentId").val(id);
+        $("#ParentName").val(name);
+        popup.close();
+    }
+
+    function fillDataToListBao(result) {
+        var content = "<div id='ListBaoCha'>" + result + "</div>";
+        popup = new jPopup({
+            show: true,
+            close: false,
+            title: '',
+            width: 600,
+            body: content,
+            callbackFalse: function (event) {
+                event.close();
+            },
+            falseTitle: 'Hủy bỏ'
+        });
+    }
+</script>
+
+}

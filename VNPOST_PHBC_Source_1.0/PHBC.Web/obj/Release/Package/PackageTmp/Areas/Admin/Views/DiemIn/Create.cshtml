@@ -1,0 +1,56 @@
+﻿@model PHBC.DAO.Models.DMDiemInModel
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = Application.ButtonLabel.Create + ViewBag.TitleName;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @Application.ButtonLabel.Create @ViewBag.TitleName
+    </div>
+    <div class="panel-body">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true)
+                @Html.ValidationMessage("Error")
+
+                @Html.Partial("_inputForm", Model)
+
+                <div>
+                    <div class="col-md-offset-3 col-md-10">
+                        <input type="submit" id="submitID" value="@Application.ButtonLabel.Save" class="@Application.ButtonClass.Submit" />
+                        @Html.ActionLink(Application.ButtonLabel.Back, "Index", null, new { @class = Application.ButtonClass.Submit })
+                    </div>
+                </div>
+            </div>
+        }
+
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+            <script>
+                $(document).ready(function () {
+                    $('#DistrictCode').hide();
+                    //$('#submitID').hide();
+
+                    $('#ProvinceCode').change(function () {
+                        var URL = '@Url.Action("getDistrict")' + $('#ProvinceCode').val();
+                        $.getJSON(URL, function (data) {
+                            var items = '<option value="">--Chọn Huyện--</option>';
+                            $.each(data, function (i, district) {
+                                items += "<option value='" + district.Value + "'>" + district.Text + "</option>";
+                            });
+                            $('#DistrictCode').html(items);
+                            $('#DistrictCode').show();
+                        });
+                    });
+                });
+            </script>
+        }
+    </div>
+</div>

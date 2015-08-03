@@ -1,0 +1,198 @@
+﻿@model PagedList<PHBC.DAO.Models.ThongTinBaoModel>
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = Application.ButtonLabel.List + " " + ControllerDesc.ThongTinBao;
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+
+<div class="panel panel-primary">    
+        
+    <div class="panel-heading">
+        Danh sách báo
+    </div>
+    <div class="panel-body">
+
+        <div class="advanced_search">
+            @if (ViewBag.SearchModel == null)
+            {
+                @Html.Partial("_advancedSearchPartial", new PHBC.DAO.Models.ThongTinBaoSearchModel())
+            }
+            else
+            {
+                @Html.Partial("_advancedSearchPartial", ViewBag.SearchModel as PHBC.DAO.Models.ThongTinBaoSearchModel)
+            }            
+        </div>
+        <div class="row">
+            <div class="btn-toolbar col-md-7">
+                @if (permisson.hasPermisson("Create"))
+                {
+                    @Html.CustomLink(Application.ButtonLabel.Create + " " + ControllerDesc.ThongTinBao, ActionType.Create, permisson, null, new { @class = Application.ButtonClass.Default })
+                }
+            </div>
+            <div class="col-md-5">
+                @if (ViewBag.SearchModel == null)
+                {
+                    @Html.Partial("_searchPartial", new PHBC.DAO.Models.ThongTinBaoSearchModel())
+                }
+                else
+                {
+                    @Html.Partial("_searchPartial", ViewBag.SearchModel as PHBC.DAO.Models.ThongTinBaoSearchModel)
+                }
+            </div>
+        </div>
+        <div class=" table-responsive">
+            <table class="table table-bordered table-hover table-custom">
+                <colgroup>
+                    <col style="width: 95px;" />
+                    <col style="width: 120px" />
+                    <col style="width: 120px" />
+                    <col style="width: 15%" />
+                    <col style="width: 20%" />
+                    <col style="width: 20%" />
+                    <col style="width: 20%" />
+                    <col style="width: 25%;" />                    
+                    <col style="width: 160px;" />
+                </colgroup>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MaBao)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TenBao)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MaToaSoan)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SoTrang)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.KichThuoc)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TrongLuong)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GiaBia)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LoaiAnPham)
+                    </th>
+                    <th>
+                        Thao tác
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaBao)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenBao)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenToaSoan)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SoTrang)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.KichThuoc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TrongLuong)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GiaBia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenLoaiAnPham)
+                        </td>
+                        <td>
+                            @Html.CustomLink("", "SuaBao", permisson, new { id = item.Id }, null, Application.ButtonIcon.ToEdit, Application.ButtonLabel.ToEdit)
+                            @Html.CustomLink("", "XemBao", permisson, new { id = item.Id }, null, Application.ButtonIcon.Details, Application.ButtonLabel.Details)
+                            @Html.CustomLink("", ActionType.Delete, permisson, new { id = item.Id }, null, Application.ButtonIcon.Delete, Application.ButtonLabel.Delete)
+                            @Html.CustomLink("", "UpdateDiemIn", new { id = item.Id }, null, Application.ButtonIcon.UpdateDiemIn, Application.ButtonLabel.UpdateDiemIn)
+                            @Html.CustomLink("", "KyXuatBan", new { id = item.Id }, null, Application.ButtonIcon.KyXuatBan, Application.ButtonLabel.KyXuatBan)
+                            @Html.CustomLink("", "Add", "KeHoachXuatBan", permisson, new { id = item.Id }, null, Application.ButtonIcon.KyXuatBan, "Kế hoạch xuất bản")
+                            @Html.CustomLink("", "Index", "ThongTinGiaBao", permisson, new { id = item.Id }, null, Application.ButtonIcon.GiaBao, "Thông tin giá báo")
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        @if (Model.TotalPageCount > 1)
+        {
+            <div class="paginationcustome">
+                @Html.Pager(Model, new PagerOptions
+                       {
+                           PagerItemTemplate = "<li>{0}</li>",
+                           NextPageText = "&gt;",
+                           PrevPageText = "&lt;",
+                           FirstPageText = "Đầu",
+                           LastPageText = "Cuối",
+                           ShowDisabledPagerItems = false,
+                           ContainerTagName = "ul",
+                           CurrentPagerItemTemplate = "<li><a href='#' class='active'>{0}</a></li>"
+                       })
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //fnSortTable();
+            $(".advanced_search").hide();
+        });
+    </script>
+    <script>
+        function fncAdvancedSearch()
+        {            
+            var clicks = $(this).data('fncAdvancedSearch');
+            if (clicks) {                
+                $(".advanced_search").show();
+            } else {                
+                $(".advanced_search").hide();
+            }
+            $(this).data("fncAdvancedSearch", !clicks);
+        }
+    </script>
+    <script type="text/javascript">
+        $('.test').click(function (e) {
+            e.stopPropagation();
+        });
+
+    </script>
+    <script>
+        function fnSortTable() {
+            $('th').click(function () {
+                var table = $(this).parents('table').eq(0)
+                var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()))
+                this.asc = !this.asc
+                if (!this.asc) { rows = rows.reverse() }
+                for (var i = 0; i < rows.length; i++) { table.append(rows[i]) }
+            });
+        }
+        function comparer(index) {
+            return function (a, b) {
+                var valA = getCellValue(a, index), valB = getCellValue(b, index)
+                return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB)
+            }
+        }
+        function getCellValue(row, index) {
+            var exist_input = $(row).children('td').eq(index).find('input');
+            if (exist_input.length > 0) {
+                return exist_input.val();
+            }
+            else {
+                return $(row).children('td').eq(index).html();
+            }
+        }
+    </script>
+}
+

@@ -1,0 +1,30 @@
+﻿@model PHBC.DAO.Models.DMDiemInSearchModel
+@using PHBC.Web.Constants
+
+@using (Html.BeginForm("Search", "DiemIn", new { Area = "Admin" }, FormMethod.Post, htmlAttributes: new { @class = "form-horizontal navbar-form navbar-right", role = "form" }))
+    {
+    @Html.AntiForgeryToken()
+<div class="row">
+    <div class="col-md-12">
+        <div class="input-group" id="adv-search">
+            @Html.EditorFor(model => model.MaDiemIn, new { htmlAttributes = new { @class = "form-control", placeholder = "Mã điểm in" } })
+            <div class="input-group-btn">
+                <div class="btn-group" role="group">
+                    <div class="dropdown dropdown-lg">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                        <div class="dropdown-menu dropdown-menu-right" role="menu"> 
+                            <div class="test">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TenDiemIn)
+                                    <input name="TenDiemIn" class="form-control" type="text" value="@Html.Raw(Model.TenDiemIn)" />
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><span class="@Application.ButtonIcon.Search" aria-hidden="true"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

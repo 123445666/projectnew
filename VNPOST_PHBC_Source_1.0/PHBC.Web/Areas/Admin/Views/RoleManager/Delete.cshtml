@@ -1,0 +1,39 @@
+﻿@model PHBC.DAO.AspNetRole
+@using PHBC.Web.Constants
+
+@{
+    ViewBag.Title = Application.FormLabel.Delete + " " + ControllerDesc.Role;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @ViewBag.Title
+    </div>
+    <div class="panel-body">
+        <h3>@Application.FormMessage.Delete @ControllerDesc.Role?</h3>
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    Tên vai trò:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="@PHBC.Web.Constants.Application.ButtonLabel.Delete" class="btn btn-default" />
+                    @Html.ActionLink(PHBC.Web.Constants.Application.ButtonLabel.Back, "Index", null, new { @class = "btn btn-default" })
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+        

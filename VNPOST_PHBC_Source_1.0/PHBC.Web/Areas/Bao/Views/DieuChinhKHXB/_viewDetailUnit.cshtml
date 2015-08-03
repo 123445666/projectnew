@@ -1,0 +1,49 @@
+﻿@model IEnumerable<PHBC.DAO.Models.QuanHuyen>
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+@{
+    string curDistrictCode = "";
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <colgroup></colgroup>
+        <tr>
+            <th>Huyện</th>
+            <th>Điểm tiếp nhận</th>
+            <th>Chức năng</th>
+        </tr>
+        @foreach (var lstUnit in Model)
+        { 
+        foreach (var item in lstUnit.lstUnit)
+        {
+            if (item.DistrictCode != curDistrictCode)
+            {
+                curDistrictCode = item.DistrictCode;
+                <tr class="warning" valname="">
+                    <td colspan="2" valname=""><b>@item.DistrictName</b></td>
+                    <td valname="">
+                        @*@Html.CustomLink("", "Edit", permisson, new { provincecode = item.ProvinceCode, Mabao = ViewBag.MaBao }, null, Application.ButtonIcon.ToEdit, Application.ButtonLabel.ToEdit)*@
+                        @*@Html.CustomLink("", ActionType.Details, permisson, new { provincecode = item.ProvinceCode, Mabao = ViewBag.MaBao }, null, Application.ButtonIcon.Details, Application.ButtonLabel.Details)*@
+
+                    </td>
+                </tr>
+
+            }
+            <tr class="info">
+                <td valname="@Html.replaceUnicode(item.UnitName) @Html.replaceUnicode(item.DiemTiepNhanName)"><b>@item.UnitName</b> </td>
+                <td valname="@Html.replaceUnicode(item.UnitName) @Html.replaceUnicode(item.DiemTiepNhanName)"><span>  @item.DiemTiepNhanName</span></td>
+                <td valname="@Html.replaceUnicode(item.UnitName) @Html.replaceUnicode(item.DiemTiepNhanName)">
+                    @*@Html.CustomLink("", "EditPHNC", permisson, new { districtcode = item.DistrictCode, Mabao = ViewBag.MaBao }, null, Application.ButtonIcon.ToEdit, Application.ButtonLabel.ToEdit)*@
+                    @Html.CustomLink("", "EditPHNC" + (string)ViewBag.SubAction, permisson, new { id = item.UnitCode + ViewBag.DieuChinhKHXBDetailId }, null, Application.ButtonIcon.ToEdit, Application.ButtonLabel.ToEdit)
+
+                </td>
+            </tr>
+
+        }
+        }
+
+    </table>
+</div>
+

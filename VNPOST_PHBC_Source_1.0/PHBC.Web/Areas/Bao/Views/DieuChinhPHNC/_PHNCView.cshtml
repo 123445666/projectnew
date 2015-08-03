@@ -1,0 +1,71 @@
+﻿@model IEnumerable<PHBC.DAO.Models.TinhThanh>
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+@{
+    string curProvinceCode = "";
+    PHBC.DAO.BThongTinBao objBao = new PHBC.DAO.BThongTinBao();
+    if (ViewBag.ThongTinBao != null)
+    {
+        objBao = (PHBC.DAO.BThongTinBao)ViewBag.ThongTinBao;
+    }
+
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+        <div>
+            @if (@objBao.TenBao != null)
+            {
+                <p>
+                    <label>Tên Báo: </label>
+                    <label>@objBao.TenBao</label>
+                </p>
+            }
+        </div>
+
+        <br />
+        <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <colgroup>
+            <col style="width: 20px;" />
+            <col style="width: 20px;" />
+        </colgroup>
+        <tr>
+            <td colspan="3">Tổng số tỉnh : @Model.Count() ( Số huyện đã thiết lập: @Model.Sum(t => t.CountDistrictMap) / Tổng số huyện: @Model.Sum(t => t.lstQuanHuyen.Count))</td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            if (item.ProvinceCode != curProvinceCode)
+            {
+                curProvinceCode = item.ProvinceCode;
+                bool check = item.CountDistrictMap == item.lstQuanHuyen.Count;
+                <tr class="@(check ? "active" : "info")">
+                    <td><b>@item.ProvinceName</b> - <span title="số huyện đã thiết lập/ tổng số huyện">(@item.CountDistrictMap / @item.lstQuanHuyen.Count huyện) </span></td>
+                    <td>@item.ProvinceMapPoint</td>
+                    <td>
+                        @if (item.CountDistrictMap > 0)
+                        {
+                            if (item.CountDistrictMap < item.lstQuanHuyen.Count)
+                            {
+                                @Html.CustomLink("", ActionType.Create, permisson, new { provincecode = item.ProvinceCode, Mabao = ViewBag.MaBao }, null, Application.ButtonIcon.Create, "Thiết lập phân hướng")@:
+                                    }
+                                    @Html.CustomLink("", ActionType.Edit, permisson, new { provincecode = item.ProvinceCode, Mabao = ViewBag.MaBao }, null, Application.ButtonIcon.ToEdit, "Sửa huyện đã thiết lập") @:
+                                    @Html.CustomLink("", ActionType.Details, permisson, new { provincecode = item.ProvinceCode, Mabao = ViewBag.MaBao }, null, Application.ButtonIcon.Details, Application.ButtonLabel.Details) @:
+
+
+                        }
+
+                        else
+                        {
+                            @Html.CustomLink("", ActionType.Create, permisson, new { provincecode = item.ProvinceCode, Mabao = ViewBag.MaBao }, null, Application.ButtonIcon.Create, "Thiết lập phân hướng")
+                        }
+                    </td>
+
+                </tr>
+            }
+
+        }
+
+    </table>
+            @Html.ActionLink(Application.ButtonLabel.Back, "Index", "ThongTinBao", null, new { @class = "btn btn-default" })
+</div>
+

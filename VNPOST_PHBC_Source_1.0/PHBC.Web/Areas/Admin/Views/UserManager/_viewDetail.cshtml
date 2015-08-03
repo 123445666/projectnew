@@ -1,0 +1,37 @@
+﻿@model PHBC.DAO.Models.UserModel
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.LabelFor(model => model.UserName, new { @class = "control-label" }):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.Email, new { @class = "control-label" }):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label" }):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.UnitCode, new { @class = "control-label" }):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnitCode)
+        </dd>
+
+    </dl>
+</div>

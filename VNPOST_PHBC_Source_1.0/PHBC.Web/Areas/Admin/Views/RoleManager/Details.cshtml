@@ -1,0 +1,101 @@
+﻿@model PHBC.DAO.AspNetRole
+@using PHBC.Web.Constants
+@using PHBC.Web.Permission;
+@{
+    ViewBag.Title = Application.FormLabel.Details + " " + ControllerDesc.Role;
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @ViewBag.Title
+    </div>
+    <div class="panel-body">
+        <div class="form-title">
+            Thông tin @ControllerDesc.Role
+        </div>
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    Tên vai trò:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    Chi tiết:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Discriminator)
+                </dd>
+
+            </dl>
+        </div>
+        <div class="form-title">
+            Danh sách chức năng
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-custom">
+                <colgroup>
+                    <col style="width: 40%;" />
+                    <col style="width: 60%;" />
+                </colgroup>
+                <tr>
+                    <th>
+                        Mã chức năng
+                    </th>
+                    <th>Tên chức năng</th>
+                </tr>
+                @foreach (var item in Model.SysActions)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="form-title">
+            Danh sách @ControllerDesc.UserManager
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-custom">
+                <colgroup>
+                    <col style="width: 40%;" />
+                    <col style="width: 60%;" />
+                </colgroup>
+                <tr>
+                    <th>
+                        User Name
+                    </th>
+                    <th>Tên người dùng</th>
+                </tr>
+                @foreach (var item in Model.AspNetUsers)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td></td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <p>
+            @if (permisson.hasPermisson(ActionType.Edit))
+            {
+                @Html.ActionLink(Application.ButtonLabel.ToEdit, "Edit", new { id = Model.Id }, new { @class = "btn btn-default" })
+            }
+            @Html.ActionLink(Application.ButtonLabel.Back, "Index", null, new { @class = "btn btn-default" })
+        </p>
+    </div>
+</div>

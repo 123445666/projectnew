@@ -1,0 +1,14 @@
+﻿@model IEnumerable<PHBC.DAO.Models.DCThongTinBaoModel>
+<div id="DCTTBao">
+    <div class="form-horizontal" attr-add-contenyt-action>
+        @Html.DisplayForModel()
+        <div class="form-group col-md-12">
+            <label class="col-md-2 control-label">
+                Ghi Chú
+            </label>
+            <div class="col-md-10">
+               @ViewBag.GhiChu
+            </div>
+        </div>
+    </div>
+</div>

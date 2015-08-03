@@ -1,0 +1,21 @@
+﻿@model PHBC.DAO.Models.SysDMPublicSearchModel
+@using PHBC.Web.Constants;
+
+@using (Html.BeginForm("Search", "DanhMucCon", new { Area = "", id = ViewBag.DmTypeId }, FormMethod.Post, htmlAttributes: new { role = "form", @class = "navbar-form navbar-right" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="input-group">
+        @Html.HiddenFor(model => model.TypeId)
+        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Tên danh mục" } })
+        <span class="input-group-btn">
+            <button class="btn btn-info" type="submit">
+                @Html.Raw(Application.ButtonIcon.Search)
+            </button>
+        </span>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

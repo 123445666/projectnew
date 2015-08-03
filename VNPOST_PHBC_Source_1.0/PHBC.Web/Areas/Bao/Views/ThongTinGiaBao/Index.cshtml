@@ -1,0 +1,193 @@
+﻿@model PHBC.DAO.Models.DanhSachGiaBaoModel
+@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = Application.ButtonLabel.List + " " + ControllerDesc.ThongTinGiaBao;
+    PHBC.DAO.Models.ThongTinGiaBaoModel giabaoModel = null;
+    PermissonController permisson = ViewBag.Permisson as PermissonController;    
+}
+
+<div class="panel panel-primary">
+
+    <div class="panel-heading">
+        Thông tin giá báo
+    </div>
+    <div class="panel-body">
+        <div>            
+            <div class="form-group col-md-6">
+                @Html.LabelForView(model => model.MaBao, new { @class = "col-md-4 control-label" })
+                <div class="col-md-8">
+                    @Html.DisplayFor(model => model.MaBao, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelForView(model => model.TenBao, new { @class = "col-md-4 control-label" })
+                <div class="col-md-8">
+                    @Html.DisplayFor(model => model.TenBao, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelForView(model => model.BaoTrungUongDiaPhuong, new { @class = "col-md-4 control-label" })
+                <div class="col-md-8">
+                    @Html.CheckBoxFor(model => model.BaoTrungUongDiaPhuong, new { @disabled = "disabled", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelForView(model => model.BaoTrongMucLuc, new { @class = "col-md-4 control-label" })
+                <div class="col-md-8">
+                    @Html.CheckBoxFor(model => model.BaoTrongMucLuc, new { @disabled = "disabled", @readonly = "readonly" })
+                </div>
+            </div>
+        </div>
+        <div class=" form-title">Lịch sử giá</div>
+        <div class="row">
+            <div class="btn-toolbar col-md-7">
+                @Html.CustomLink("" + " " + ControllerDesc.ThongTinGiaBaoMua, "GiaMua", permisson, new {id = Model.ThongTinBaoId}, new { @class = Application.ButtonClass.Default })
+                @Html.CustomLink("" + " " + ControllerDesc.ThongTinGiaBaoBan, "GiaBan", permisson, new { id = Model.ThongTinBaoId }, new { @class = Application.ButtonClass.Default })
+            </div>
+            <div class="col-md-5">
+                @if (ViewBag.SearchModel == null)
+                {
+                    @Html.Partial("_searchPartial", new PHBC.DAO.Models.ThongTinGiaBaoSearchModel())
+                }
+                else
+                {
+                    @Html.Partial("_searchPartial", ViewBag.SearchModel as PHBC.DAO.Models.ThongTinGiaBaoSearchModel)
+                }
+            </div>
+        </div>
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#GiaMuaBao">Thông tin giá bán</a></li>
+            <li><a data-toggle="tab" href="#GiaBanBao">Thông tin giá mua</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="GiaMuaBao" class="tab-pane fade in active">
+                <div class=" table-responsive">
+                    <table class="table table-bordered table-hover table-custom">
+                        <tr>                            
+                            @*<th>
+                                @Html.DisplayNameFor(model => giabaoModel.ValueTypeDesc)
+                            </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => giabaoModel.Value)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => giabaoModel.NgayHieuLuc)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => giabaoModel.NgayHetHieuLuc)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => giabaoModel.QuyetDinh)
+                            </th>
+                            <th>
+                                Thao tác
+                            </th>
+                        </tr>
+
+                        @foreach (var baoGiaBan in Model.LstGiaBan)
+                        {
+                        <tr>
+                            @*<td>
+                                @Html.DisplayFor(modelItem => baoGiaBan.ValueTypeDesc)
+                            </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => baoGiaBan.Value)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => baoGiaBan.NgayHieuLuc)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => baoGiaBan.NgayHetHieuLuc)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => baoGiaBan.QuyetDinh)
+                            </td>
+                            <td>
+                                @Html.CustomLink("", "Edit", permisson, new { id = baoGiaBan.Id, thongTinBaoId = Model.ThongTinBaoId }, null, Application.ButtonIcon.ToEdit, Application.ButtonLabel.ToEdit)
+                                @Html.CustomLink("", "Details", permisson, new { id = baoGiaBan.Id, thongTinBaoId = Model.ThongTinBaoId }, null, Application.ButtonIcon.Details, Application.ButtonLabel.Details)
+                                @Html.CustomLink("", ActionType.Delete, permisson, new { id = baoGiaBan.Id, thongTinBaoId = Model.ThongTinBaoId }, null, Application.ButtonIcon.Delete, Application.ButtonLabel.Delete)
+                            </td>
+                        </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+
+            <div id="GiaBanBao" class="tab-pane fade">
+                <div class=" table-responsive">
+                    <table class="table table-bordered table-hover table-custom">
+                        <tr>
+                            @*<th>
+                                @Html.DisplayNameFor(model => giabaoModel.ValueTypeDesc)
+                            </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => giabaoModel.Value)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => giabaoModel.NgayHieuLuc)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => giabaoModel.NgayHetHieuLuc)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => giabaoModel.QuyetDinh)
+                            </th>
+                            <th>
+                                Thao tác
+                            </th>
+                        </tr>
+
+                        @foreach (var baoGiaMua in Model.LstGiaMua)
+                        {
+                        <tr>
+                            @*<td>
+                                @Html.DisplayFor(modelItem => baoGiaMua.ValueTypeDesc)
+                            </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => baoGiaMua.Value)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => baoGiaMua.NgayHieuLuc)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => baoGiaMua.NgayHetHieuLuc)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => baoGiaMua.QuyetDinh)
+                            </td>
+                            <td>
+                                @Html.CustomLink("", "Edit", permisson, new { id = baoGiaMua.Id, thongTinBaoId = Model.ThongTinBaoId }, null, Application.ButtonIcon.ToEdit, Application.ButtonLabel.ToEdit)
+                                @Html.CustomLink("", "Details", permisson, new { id = baoGiaMua.Id, thongTinBaoId = Model.ThongTinBaoId }, null, Application.ButtonIcon.Details, Application.ButtonLabel.Details)
+                                @Html.CustomLink("", ActionType.Delete, permisson, new { id = baoGiaMua.Id, thongTinBaoId = Model.ThongTinBaoId }, null, Application.ButtonIcon.Delete, Application.ButtonLabel.Delete)
+                            </td>
+                        </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".nav-tabs a").click(function () {
+                $(this).tab('show');
+            });
+            $('.nav-tabs a').on('shown.bs.tab', function (event) {
+                var x = $(event.target).text();
+                var y = $(event.relatedTarget).text();
+                $(".act span").text(x);
+                $(".prev span").text(y);
+            });
+        });
+
+        $('.test').click(function (e) {
+            e.stopPropagation(); // prevent click in dropdown
+        });
+    </script>
+}

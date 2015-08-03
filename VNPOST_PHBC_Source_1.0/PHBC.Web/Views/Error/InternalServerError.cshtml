@@ -1,0 +1,14 @@
+﻿@model ErrorModel
+    
+@{
+    ViewBag.Title = "Unexpected Error";
+    ViewBag.Description = "Có lỗi hệ thống đã ghi nhận, hãy thử lại nếu bị nhiều lần hãy báo cho người quản trị để xử lý !!!";
+}
+
+<div class="jumbotron text-center">
+    <header>
+        <h1><span aria-hidden="true" class="fa fa-exclamation-circle text-danger"></span> @ViewBag.Title</h1>
+    </header>
+    <p>@ViewBag.Description</p>
+    <a class="btn btn-primary btn-lg" href="@Url.RouteUrl(ControllerRoute.HomeGetIndex)"><span aria-hidden="true" class="fa fa-home"></span> Về trang chủ</a>
+</div>

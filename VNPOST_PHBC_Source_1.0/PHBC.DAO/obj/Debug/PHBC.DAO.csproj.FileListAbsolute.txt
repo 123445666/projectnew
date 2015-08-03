@@ -1,0 +1,58 @@
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\PHBC.DAO.dll.config
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\PHBC.DAO.dll
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\PHBC.DAO.pdb
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\EntityFramework.dll
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\EntityFramework.SqlServer.dll
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\Newtonsoft.Json.dll
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.dll
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.OOXML.dll
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.OpenXml4Net.dll
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.OpenXmlFormats.dll
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\EntityFramework.xml
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\EntityFramework.SqlServer.xml
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\Newtonsoft.Json.xml
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.xml
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.OOXML.xml
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.OpenXml4Net.xml
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\obj\Debug\PHBC.DAO.dll
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\obj\Debug\PHBC.DAO.pdb
+D:\work2015\VNPOST_PHBC\04. Implementation\4.1 Code\VNPOST_PHBC_Source_1.0\PHBC.DAO\obj\Debug\PHBC.DAO.csprojResolveAssemblyReference.cache
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\PHBC.DAO.dll.config
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\PHBC.DAO.dll
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\PHBC.DAO.pdb
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\EntityFramework.dll
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\EntityFramework.SqlServer.dll
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\Newtonsoft.Json.dll
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.dll
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.OOXML.dll
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.OpenXml4Net.dll
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.OpenXmlFormats.dll
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\EntityFramework.xml
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\EntityFramework.SqlServer.xml
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\Newtonsoft.Json.xml
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.xml
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.OOXML.xml
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.OpenXml4Net.xml
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\obj\Debug\PHBC.DAO.dll
+D:\VNPOST_PHBC_Source_1.0\PHBC.DAO\obj\Debug\PHBC.DAO.pdb
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\PHBC.DAO.dll.config
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\PHBC.DAO.dll
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\PHBC.DAO.pdb
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\EntityFramework.dll
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\EntityFramework.SqlServer.dll
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\Newtonsoft.Json.dll
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.dll
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.OOXML.dll
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.OpenXml4Net.dll
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.OpenXmlFormats.dll
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\EntityFramework.xml
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\EntityFramework.SqlServer.xml
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\Newtonsoft.Json.xml
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.xml
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.OOXML.xml
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\bin\Debug\NPOI.OpenXml4Net.xml
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\obj\Debug\PHBC.DAO.dll
+D:\privateWork\V1_20150803\VNPOST_PHBC_Source_1.0\PHBC.DAO\obj\Debug\PHBC.DAO.pdb

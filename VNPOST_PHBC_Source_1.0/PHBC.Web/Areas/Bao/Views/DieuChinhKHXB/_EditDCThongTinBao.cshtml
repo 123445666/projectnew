@@ -1,0 +1,40 @@
+﻿@model IEnumerable<PHBC.DAO.Models.DCThongTinBaoEditModel>
+<div id="DCTTBao">
+    @using (Ajax.BeginForm("Edit", "DieuChinhKHXB", routeValues: new { area = "Bao" }, ajaxOptions: new AjaxOptions() { OnBegin = "actionDieuChinh(true);", OnSuccess = "successDCBao" }, htmlAttributes: new { id = "actionupdatedieuchinh" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal" attr-add-contenyt-action>
+            @Html.Hidden("id", (string)ViewBag.Id)
+            @*@Html.Hidden("LoaiDieuChinh", (int)ViewBag.LoaiDieuChinh)*@
+            @*@Html.Hidden("Config", (string)ViewBag.Config)*@
+            @Html.ValidationMessage("", new { @class = "text-danger" })
+            @Html.EditorForModel()
+            <div class="form-group col-md-12">
+                <label class="col-md-2 control-label">
+                    Ghi Chú
+                </label>
+                <div class="col-md-10">
+                    @Html.TextArea("GhiChu", (string)ViewBag.GhiChu, new { @class = "form-control", rows = 3, required = "required" })
+                    @Html.ValidationMessage("GhiChu", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div style="display:none;">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" onclick="lib.removeDisabled(); $('#actionupdatedieuchinh').submit();" class="btn btn-default" />
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+                </div>
+            </div>
+        </div>
+    }
+<script type="text/javascript">
+    function successDCBao(result) {
+        if (result.MSG) {
+            window.location.href = linkback;
+        } else {
+            $('#DCTTBao').replaceWith(result);
+            lib.fromcontroler();
+            actionDieuChinh(false);
+        }
+    }
+</script>
+</div>

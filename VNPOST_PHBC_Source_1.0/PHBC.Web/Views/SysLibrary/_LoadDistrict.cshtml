@@ -1,0 +1,70 @@
+﻿@model IEnumerable<PHBC.DAO.Models.QuanHuyen>
+
+<table class="table table-hover">
+    <colgroup>
+        <col style="width:30%;" />
+        <col style="width:70%;" />
+    </colgroup>
+
+    @foreach (var item in Model)
+    {
+        <tr class="districtrow danger" data-id="@Html.DisplayFor(modelItem => item.DistrictCode)">
+            <td>
+                <span class="icon-table">@Html.Raw(Application.ButtonIcon.TreeClose)</span>
+                @Html.DisplayFor(modelItem => item.DistrictCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DistrictName)
+            </td>
+        </tr>
+    <tr>
+        <td colspan="2" class="unittable" data-id="@Html.DisplayFor(modelItem => item.DistrictCode)"></td>
+    </tr>
+    }
+
+</table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.unittable').hide();
+    });
+    $(".districtrow").click(function () {
+        var districtcode;
+        var objthis = $(this);
+        lib.fromcontroler();
+        districtcode = $(this).data("id");
+        var row = $('.unittable[data-id="' + districtcode + '"]');
+        if (!row.hasClass("active")) {
+            serviceURL = "@Url.Action("LoadUnit", "SysLibrary", null)";
+
+            if (!row.hasClass("deactive")) {
+                $.ajax({
+                    type: "POST",
+                    url: serviceURL,
+                    data: { 'districtcode': districtcode },
+                    dataType: "html",
+                    success: function (data, status) {
+                        row.addClass("active");
+                        objthis.find(".icon-table").html("@Html.Raw(Application.ButtonIcon.TreeOpen)");
+                        row.show();
+                        row.html(data);
+                    },
+                    error: function (request, status, error) {
+                        row.html(request.responseText);
+                        console.log("error" + request.responseText);
+                    }
+
+                });
+            } else {
+                row.removeClass("deactive");
+                $(this).find(".icon-table").html("@Html.Raw(Application.ButtonIcon.TreeOpen)");
+                row.addClass("active");
+                row.show();
+            }
+        } else {
+            row.removeClass("active");
+            row.addClass("deactive");
+            $(this).find(".icon-table").html("@Html.Raw(Application.ButtonIcon.TreeClose)");
+            row.hide();
+        }
+    })
+</script>

@@ -1,0 +1,114 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@using PHBC.Web.Permission;
+@model IEnumerable<PHBC.DAO.Models.SysDMPublicModel>
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = Application.ButtonLabel.List + ViewBag.TitleName;
+    PermissonController permisson = ViewBag.Permisson as PermissonController;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+       @Application.ButtonLabel.List @ViewBag.TitleName
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="btn-toolbar col-md-9">
+@if (permisson.hasPermisson(ActionType.Create))
+                    {
+                @Html.ActionLink(Application.ButtonLabel.Create + (string)ViewBag.TitleName, "Create", new { id = ViewBag.DmTypeId }, htmlAttributes: new { @class = "btn btn-info" })
+}
+            </div>
+            <div class="col-md-3">
+@if (permisson.hasPermisson("Search"))
+                    {
+                if (ViewBag.SearchModel == null)
+                {
+                    @Html.Partial("_searchPartial", new PHBC.DAO.Models.SysDMPublicSearchModel())
+                }
+                else
+                {
+                    @Html.Partial("_searchPartial", ViewBag.SearchModel as PHBC.DAO.Models.SysDMPublicSearchModel)
+                }
+}
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsLock)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th></th>
+            </tr>
+@if (Model != null || Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @if (item.IsLock == 0)
+                {
+                    <i class="fa fa-unlock"></i>
+                }
+                else
+                {
+                    <i class="fa fa-lock"></i>
+                }
+                @*@Html.DisplayFor(modelItem => item.IsLock)*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+@if (item.IsLock == 0)
+                {
+    <td>
+@if (permisson.hasPermisson("Edit"))
+{
+        <a href="@Url.Action(string.Format("Edit/{0}/{1}", item.TypeId, item.Code), "danhmuccon", null)" data-toggle="tooltip" title="@Application.ButtonLabel.ToEdit"><span class="@Application.ButtonIcon.ToEdit"></span></a> 
+} | 
+@if (permisson.hasPermisson("Details"))
+{
+        <a href="@Url.Action(string.Format("Details/{0}/{1}", item.TypeId, item.Code), "danhmuccon", null)" data-toggle="tooltip" title="@Application.ButtonLabel.Details"><span class="@Application.ButtonIcon.Details"></span></a> 
+} |
+@if (permisson.hasPermisson("Delete"))
+{
+        <a href="@Url.Action(string.Format("Delete/{0}/{1}", item.TypeId, item.Code), "danhmuccon", null)" data-toggle="tooltip" title="@Application.ButtonLabel.Delete"><span class="@Application.ButtonIcon.Delete"></span></a> 
+}
+    </td>
+                }
+                else
+                {
+        <td>
+@if (permisson.hasPermisson("Details"))
+{
+            <a href="@Url.Action(string.Format("Details/{0}/{1}", item.TypeId, item.Code), "danhmuccon", null)" data-toggle="tooltip" title="@Application.ButtonLabel.Details"><span class="fa fa-file-text"></span></a>
+}
+        </td>
+            }
+        
+        </tr>
+    }
+}
+else
+{
+    <tr>
+        <td colspan="3">
+            Không có bản ghi nào !
+        </td>
+    </tr>
+}
+        </table>
+        @Html.Partial("_pagingpartial") 
+        <br />
+        @Html.ActionLink(Application.ButtonLabel.Back, "Index", "DanhMuc", new { Area = "Admin" }, new { @class="btn btn-default" })
+    </div>
+</div>

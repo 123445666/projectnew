@@ -1,0 +1,114 @@
+﻿@model PHBC.DAO.BThongTinGiaBao
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BThongTinGiaBao</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayHieuLuc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayHieuLuc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayHetHieuLuc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayHetHieuLuc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuyetDinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuyetDinh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValueType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValueType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Value)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Value)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifyBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifyBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifyDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifyDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BThongTinBao.MaBao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BThongTinBao.MaBao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Province.ProvinceName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Province.ProvinceName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

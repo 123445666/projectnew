@@ -1,0 +1,143 @@
+﻿@using PHBC.Web.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+<div style="clear: both; height: 50px;"></div>
+<div class="body-login" valtype="0" style="display:none;">
+    <div class="body-panel-head">
+    </div>
+    <div class="body-panel-login">
+        <div class="panel_from">
+            <div class="panel_from_row panel_from_row_input">
+                <lable>Email</lable>
+                <span>
+                    @Html.TextBoxFor(m => m.Email)
+                </span>
+            </div>
+            <div style="clear: both; height: 20px;" aaa-step2></div>
+            <div class="panel_from_row panel_from_row_input" aaa-step2>
+                <lable>Email</lable>
+                <span>
+                    @*<asp:TextBox ID="txtEmail_XacNhan" runat="server" valname="login_email_rep" Enabled="false"></asp:TextBox>*@
+                </span>
+            </div>
+            <div style="clear: both; height: 20px;" aaa-step2></div>
+            <div class="panel_from_row panel_from_row_input" aaa-step2>
+                <lable>Xác nhận</lable>
+                <span>
+                    @*<asp:TextBox ID="txtEmail" runat="server" valname="login_email" valtype="email" no-empty></asp:TextBox>*@
+                </span>
+            </div>
+            <div style="clear: both; height: 20px;" aaa-step0></div>
+            <div class="panel_from_row panel_from_row_input" aaa-step0>
+                <lable>Mật khẩu</lable>
+                <span>
+                    @Html.PasswordFor(m => m.Password)
+                </span>
+            </div>
+            <div style="clear: both; height: 10px;" aaa-step0></div>
+            <div class="panel_from_row panel_from_row_checkbox" valname="login_cookie" aaa-step0>
+                <lable style="font-size:12px;">Ghi nhớ</lable>
+                <span style="display: inline-block;position: relative;top: -3px;">
+                    <span style="">
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                    </span>
+                </span>
+            </div>
+        </div>
+        <input class="btn-login-new" type="submit" value="ĐĂNG NHẬP" aaa-step0>
+        <input type="button" value="Kiểm tra" class="btn-login-new" aaa-step1 />
+        <input type="button" value="Gửi email" class="btn-login-new" aaa-step2 />
+        <div class="btn-quen-pass" valdata="Đăng nhập"></div>
+        <div style="clear: both; height: 20px;"></div>
+    </div>
+    <div style="clear: both; height: 20px;"></div>
+    <div class="body-panel-status">
+        <asp:Literal ID="ltStatus" runat="server"></asp:Literal>
+    </div>
+</div>
+
+
+<div class="row vertical-offset-100">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Please sign in</h3>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("Login", "Account", new { area = "" }, FormMethod.Post, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.Hidden("returnUrl", (string)ViewBag.ReturnUrl)
+                    <fieldset>
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "E-mail" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </label>
+                        </div>
+                        <input class="btn btn-lg btn-success btn-block" type="submit" value="Log in">
+                    </fieldset>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section head{
+    <link href="~/Styles/lib/login.css" rel="stylesheet" />
+    <link href="~/Styles/lib/fromstyle.css" rel="stylesheet" />
+    <style type="text/css">
+        #loginLink{
+            display:none;
+        }
+        footer{
+            display:none;
+        }
+        .vertical-offset-100 {
+            padding-top: 100px;
+        }
+
+        body, #page-wrapper {
+            background-color: #EEE;
+        }
+
+        .panel_from .panel_from_row > lable:first-child {
+            color: #555;
+            display: inline-table;
+            font-size: 15px;
+            letter-spacing: 0;
+            padding: 0 10px 0 0;
+            text-transform: uppercase;
+            width: 100px;
+        }
+
+        .panel_from .panel_from_row_input > span:last-child input[type="text"], .panel_from .panel_from_row_input > span:last-child input[type="password"], .panel_from .panel_from_row_input > span:last-child textarea {
+            width: 250px;
+        }
+
+        .alert {
+            border-radius: 0px;
+            text-transform: uppercase;
+        }
+
+        .close {
+            display: none;
+        }
+    </style>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,1041 @@
+﻿@model PHBC.DAO.Models.KeHoachXuatBanModel
+@using PHBC.Web.Constants
+@{
+    ViewBag.Title = @Model.data["TypeText"] + " kế hoạch xuất bản Năm " + Model.Nam + " Quý " + Model.Quy;
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @Model.data["TypeText"] Quý @Model.Quy Năm @Model.Nam
+    </div>
+    <div class="panel-body">
+        <div class="form-title">
+            Thông tin báo
+        </div>
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.LabelForView(model => model.MaBao, null)
+
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MaBao)
+            </dd>
+            <dt>
+                @Html.LabelForView(model => model.TenBao, null)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenBao)
+            </dd>
+            <dt>
+                @Html.LabelForView(model => model.Nam, null)
+
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Nam)
+            </dd>
+            <dt>
+                @Html.LabelForView(model => model.Quy, null)
+
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Quy)
+            </dd>
+        </dl>
+
+        <div class="form-title" style="@(Convert.ToInt32(Model.data["Type"]) != (int)PHBC.DAO.Common.Enums.KeHoachXuatBan.add ? "" : "display:none;")">@Model.data["TypeText"] Quý @Model.Quy Năm @Model.Nam</div>
+        <div class="form-horizontal" style="@(Convert.ToInt32(Model.data["Type"]) != (int)PHBC.DAO.Common.Enums.KeHoachXuatBan.add ? "" : "display:none;")">
+            <div group-config style="@(Convert.ToInt32(Model.data["Type"]) != (int)PHBC.DAO.Common.Enums.KeHoachXuatBan.add ? "" : "display:none;")">
+                <div class="form-group col-md-6" attr-start style="margin-left:-15px;">
+                    <label class="col-md-5 control-label">
+                        @Model.data["TypeText"] theo số xuất bản
+                    </label>
+                    <div class="col-md-7">
+                        <input type="checkbox" groupname="groupcheck" value="0">
+                    </div>
+                </div>
+                @if (Model.LoaiKy >= 0 && Model.LoaiKy <= 3 && ((string[])@Model.data["KyConfig"]).Count() > 0)
+                {
+                    <div style="clear:both;"></div>
+                    <div class="form-group col-md-6" attr-start style="margin-left:-15px;">
+                        <label class="col-md-5 control-label">
+                            @Model.data["TypeText"] theo kỳ xuất bản
+                        </label>
+                        <div class="col-md-7">
+                            <input type="checkbox" groupname="groupcheck" value="1">
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div group-check-kxb>
+                        @foreach (var item in ((string[])@Model.data["KyConfig"]).Select((value, index) => new { index, value }))
+                        {
+                            <input type="button" value="@(Model.LoaiKy==0 || Model.LoaiKy==1?Convert.ToInt32(item.value)==8?"Chủ nhật":"Thứ "+item.value:"Ngày "+item.value)" valdata="@item.value" valindex="@item.index" />
+                        }
+                    </div>
+                }
+                <div style="clear:both;"></div>
+                <div style="margin-top:10px;text-align:right;">
+                    <input type="button" value="Lấy dữ liệu" class="@Application.ButtonClass.Submit" attr-find-number />
+                </div>
+                <div style="clear:both;height:10px;"></div>
+            </div>
+            <div div-showwww none></div>
+            <div attr-table-so></div>
+        </div>
+        <div style="clear:both;height:20px;"></div>
+    </div>
+    <div style="margin:0px 20px;" from-save disabled>
+        @if ((int)@Model.data["Type"] == ((int)PHBC.DAO.Common.Enums.KeHoachXuatBan.group))
+        {
+            <div attr-select-time>
+                <div class="form-title">
+                    Chọn ngày phát hành
+                </div>
+                <div class="form-horizontal" attr-add-contenyt-action>
+                    <div class="form-group col-md-6">
+                        <label class="col-md-4 control-label">
+                            Ngày phát hành
+                        </label>
+                        <div class="col-md-8">
+                            <select class="form-control" attr-time-group></select>
+                        </div>
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+        }
+        else if ((int)@Model.data["Type"] == ((int)PHBC.DAO.Common.Enums.KeHoachXuatBan.add))
+        {
+            <div attr-select-time>
+                <div class="form-title">
+                    Thông tin báo ra riêng
+                </div>
+                <div class="form-horizontal" attr-add-contenyt-action>
+                    <div class="form-group col-md-6">
+                        <label class="col-md-4 control-label">
+                            Số báo
+                        </label>
+                        <div class="col-md-8">
+                            <input type="text" attr-rarieng-sobao maxlength="100" />
+                            <span class="text-danger field-validation-error"></span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="col-md-4 control-label">
+                            Ngày phát hành
+                        </label>
+                        <div class="col-md-8">
+                            <input type="text" attr-rarieng-time />
+                            <span class="text-danger field-validation-error"></span>
+
+                        </div>
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+        }
+        else if ((int)@Model.data["Type"] == ((int)PHBC.DAO.Common.Enums.KeHoachXuatBan.cancel))
+        {
+            <div class="form-title">
+                Thông tin báo nghỉ
+            </div>
+        }
+        else if ((int)@Model.data["Type"] == ((int)PHBC.DAO.Common.Enums.KeHoachXuatBan.changed))
+        {
+            <div class="form-title">
+                Thông tin thay đổi cho báo
+            </div>
+        }
+        @Html.Action("CreateDCThongTinBao", "DieuChinhKHXB", new { area = "Bao", id = Model.IdKeHoachXuatBan, loaiDieuChinh = Model.data["Type"] })
+        <div style="clear:both;"></div>
+        <div style="margin-top:10px;text-align:right;">
+            <input type="button" value="Cập nhật @Model.data["TypeText"]" class="@Application.ButtonClass.Default" attr-save-number />
+        </div>
+        <div style="clear:both;height:20px;"></div>
+    </div>
+    <span style="margin:0px 20px 0px 20px;position:relative;z-index:1;top:-54px;">
+        <a class="btn btn-default" href="@Url.Action("Index", new { id = Model.IdKeHoachXuatBan })">Quay lại</a>
+    </span>
+</div>
+<div attr-loading value="Xin vui lòng đợi" loading-new>
+    <img src="~/Content/icons/loading_new_gif.gif" />
+</div>
+
+@section head{
+    <link href="~/Styles/KyXuatBan/fonts.css" rel="stylesheet" />
+    <link href="~/Styles/KyXuatBan/style.css" rel="stylesheet" />
+    <style type="text/css">
+        [item-panel] {
+            border: 1px solid #dddddd;
+            padding: 0 0;
+            margin-top: -1px;
+            display: none;
+        }
+
+            [item-panel][show] {
+                display: block;
+            }
+
+        [attr-btn-ac] span {
+            margin: 5px 30px 10px 0;
+        }
+        /*[attr-btn-ac] span {
+                background-color: #ddd;
+                border-radius: 3px;
+                color: #777;
+                cursor: pointer;
+                display: inline-block;
+                font-size: 12px;
+                margin: 5px 30px 10px 0;
+                padding: 5px 15px;
+                text-transform: uppercase;
+            }
+            [attr-btn-ac] span:hover{
+                background-color:#333;
+                color:#FFF;
+            }*/
+        .confirm-Btn[style-new-btn-popup] {
+            text-align: left !important;
+        }
+
+            .confirm-Btn[style-new-btn-popup] span {
+                width: calc(50% - 20px) !important;
+                text-align: center !important;
+                background-color: #555 !important;
+                padding: 5px 10px !important;
+            }
+
+                .confirm-Btn[style-new-btn-popup] span:hover {
+                    box-shadow: 0 0 2px #555 !important;
+                }
+
+        [action-number-dieuchinh][none] {
+            opacity: 0;
+        }
+
+        [loading-new] {
+            background-color: rgba(255, 255, 255, 0.5);
+            height: 100% !important;
+            left: 0;
+            position: fixed !important;
+            top: 0;
+            width: 100%;
+            z-index: 100000;
+            display: none;
+        }
+
+            [loading-new]::before {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translateX(-50%) translateY(-50%);
+                -ms-transform: translateX(-50%) translateY(-50%);
+                -webkit-transform: translateX(-50%) translateY(-50%);
+            }
+
+            [loading-new] img {
+                position: absolute;
+                left: 50%;
+                top: calc(50% + 20px);
+                transform: translateX(-50%) translateY(-50%);
+                -ms-transform: translateX(-50%) translateY(-50%);
+                -webkit-transform: translateX(-50%) translateY(-50%);
+            }
+
+        [group-check-kxb] {
+            border: 1px solid #CCC;
+            padding: 10px;
+        }
+
+            [group-check-kxb] > input[type=button] {
+                border: 1px solid #CCC;
+                padding: 5px 0px;
+                margin: 3px 10px;
+                font-size: 13px;
+                background-color: #FFF;
+                width: 100px;
+                text-align: center;
+            }
+
+                [group-check-kxb] > input[type=button]:hover {
+                    background-color: #EDEDED;
+                    color: #333;
+                }
+
+                [group-check-kxb] > input[type=button][active] {
+                    background-color: #DDD;
+                    color: #333;
+                }
+        /*[group-check-kxb] > input[type=button]:first-child{
+            margin-left:0px;
+        }*/
+        [attr-table-so] {
+            position: relative;
+            z-index: 11;
+            background-color: #FFF;
+        }
+
+        [group-btn-acccc] {
+            left: 0;
+            position: absolute;
+            top: -49px;
+            z-index: 1;
+            padding: 5px;
+            background-color: #FFF;
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+        }
+
+            [group-btn-acccc][fixed] {
+                width: 100%;
+            }
+
+        [attr-group-cancel-number] {
+            margin-left: 20px;
+            display: none;
+        }
+
+
+        [div-showwww] {
+            position: fixed;
+            z-index: 10;
+            background-color: rgba(0,0,0,0.5);
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+        }
+
+            [div-showwww][none] {
+                display: none;
+            }
+
+        [accc-timepicker] {
+            left: 0;
+            opacity: 0;
+            position: absolute;
+            top: 15px;
+            z-index: -1;
+        }
+
+        tr[valgroup] > td:first-child {
+            opacity: 1 !important;
+            pointer-events: inherit !important;
+            cursor: pointer;
+        }
+
+            tr[valgroup] > td:first-child > input[type=checkbox] {
+                display: none;
+            }
+
+            tr[valgroup] > td:first-child:before {
+                background-image: url("/Content/icons/delete-1-icon.png");
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: 20px auto;
+                content: " ";
+                cursor: pointer;
+                height: 20px;
+                left: 15px;
+                position: absolute;
+                width: 20px;
+                z-index: 2;
+                opacity: 0.7;
+            }
+
+            tr[valgroup] > td:first-child:hover:before {
+                opacity: 1;
+            }
+
+        tr[valgroupold] > td:first-child > input {
+            display: none;
+        }
+
+        [attr-add-contenyt-action] {
+            margin-left: -15px;
+        }
+    </style>
+
+}
+
+@section scripts{
+    <script src="~/Scripts/KyXuatBan/script.js"></script>
+    <script type="text/javascript">
+        var linkback = '@Url.Action("Index", new { id = Model.IdKeHoachXuatBan })';
+        @*'@Url.RouteUrl("Bao_kehoachxuatban_new",new { action="dieuchinh",id=@Model.Id,idkehoach=@Model.IdKeHoachXuatBan})';*@
+
+        var dataConfig = null;
+        var typeDieuChinh = @Model.data["Type"];
+        var typeBaoNghi = @((int)PHBC.DAO.Common.Enums.KeHoachXuatBan.cancel);
+        var typeBaoRaRieng = @((int)PHBC.DAO.Common.Enums.KeHoachXuatBan.add);
+        var typeDieuChinhTTB = @((int)PHBC.DAO.Common.Enums.KeHoachXuatBan.changed);
+        var typeDonso = @((int)PHBC.DAO.Common.Enums.KeHoachXuatBan.group);
+        var loaiKy = @Model.LoaiKy;
+        var days=new Array("Chủ nhật","Thứ hai","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7");
+        var timeAc;
+        var timeStartQuy = '@(new DateTime(Convert.ToInt32(Model.Nam), Convert.ToInt32(((Model.Quy - 1) * 3 + 1)), 1).ToString("dd/MM/yyyy"))';
+        var timeEndQuy = '@(new DateTime(Convert.ToInt32(Model.Nam), Convert.ToInt32(Model.Quy*3), 1).AddMonths(1).AddDays(-1).ToString("dd/MM/yyyy"))';
+        var _timeStart = new Date(@Convert.ToInt32(Model.Nam),@(Convert.ToInt32(((Model.Quy - 1) * 3 + 1))-1),1);
+        var numberNgay = @Convert.ToInt32(((new DateTime(Convert.ToInt32(Model.Nam), Convert.ToInt32(Model.Quy*3), 1).AddMonths(1).AddDays(-1) - new DateTime(Convert.ToInt32(Model.Nam), Convert.ToInt32(((Model.Quy - 1) * 3 + 1)), 1)).TotalDays));
+        function getdataConfig() {
+            var data = {};
+            data["type"] = parseInt($('input:checkbox[groupname="groupcheck"]:checked').val());
+            data["data"] = [];
+            data["typekxb"] = @Model.LoaiKy;
+            if (data["type"] == 1)
+                $('[group-check-kxb] > input:button[active]').filter(function () {
+                    data["data"].push(parseInt($(this).attr('valdata')));
+                });
+            return data;
+        }
+        function actionDieuChinh(status){
+            if(status)
+                $('[loading-new]').css({ 'display': 'block' });
+            else
+                $('[loading-new]').css({ 'display': 'none' });
+        }
+        $(document).ready(function () {
+            var acCle = setInterval(function(){
+                var acIn = $('input:focus,textarea:focus');
+                if(acIn.size()>0){
+                    acIn.blur();
+                    clearInterval(acCle);
+                }
+            },10);
+            setTimeout(function(){
+                clearInterval(acCle);
+            },1000);
+            timeAc = setInterval(function(){
+                if(typeDieuChinh!=typeDonso){
+                    if($('[attr-table-so] > table').find('td').children('input:checkbox:checked').size()>0)
+                        $('[from-save]').removeAttr('disabled');
+                    else
+                        $('[from-save]').attr('disabled','');
+                }else{
+                    if($('[attr-table-so] > table').find('tr[valgroup]').size()>0)
+                        $('[from-save]').removeAttr('disabled');
+                    else
+                        $('[from-save]').attr('disabled','');
+                }
+
+            },500);
+            $('input:checkbox[groupname="groupcheck"]').click(function () {
+                if ($('input:checkbox[groupname="groupcheck"]:checked').val() == "1") {
+                    $('[group-check-kxb]').removeAttr('disabled');
+                } else {
+                    $('[group-check-kxb]').attr('disabled', '');
+                }
+            }).eq(0).click();
+            $('[group-config]').click(function () {
+                var dataPost = getdataConfig();
+                if (JSON.stringify(dataConfig) == JSON.stringify(dataPost))
+                    $('[attr-find-number]').attr('disabled', 'disabled');
+                else{
+                    if(typeDieuChinh==typeDonso){
+                        if(dataPost["type"]==0 ||dataPost["data"].length>1)
+                            $('[attr-find-number]').removeAttr('disabled');
+                        else
+                            $('[attr-find-number]').attr('disabled', 'disabled');
+                    }else{
+                        $('[attr-find-number]').removeAttr('disabled');
+                    }
+                }
+            });
+            $('[attr-find-number]').click(function () {
+                var dataPost = getdataConfig();
+                if (JSON.stringify(dataConfig) == JSON.stringify(dataPost))
+                    return;
+                dataConfig = dataPost;
+                $.ajax({
+                    type: "POST",
+                    url: "/bao/DieuChinhKHXB/getsoxuatban",
+                    data: "{id:'@Model.Id',idkehoach:'@Model.IdKeHoachXuatBan',typekhxb:@Model.LoaiKy,data:" + JSON.stringify(JSON.stringify(dataPost)) + ",typeDieuChinh:"+typeDieuChinh+"}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    beforeSend: function () {
+                        $('[loading-new]').css({ 'display': 'block' });
+                    },
+                    success: function (message) {
+                        var nData = message;
+                        $('[loading-new]').css({ 'display': 'none' });
+
+                        if(typeDieuChinh==typeBaoRaRieng){
+                            clearInterval(timeAc);
+                            $('[from-save]').removeAttr('disabled');
+                            var arrayDate = [];
+                            arrayDate['2015/10/1'] = true;
+                            $.each(nData, function (index, item) {
+                                var _date = new Date(item.Nam,item.Thang-1,item.Ngay);
+                                arrayDate[_date.getFullYear()+'/'+(_date.getMonth())+'/'+_date.getDate()] = true;
+                            });
+                            var _valueSelect = timeStartQuy;
+                            @*var _timeStart = new Date(@Convert.ToInt32(Model.Nam),@(Convert.ToInt32(((Model.Quy - 1) * 3 + 1))-1),1);
+                            var numberNgay = @Convert.ToInt32(((new DateTime(Convert.ToInt32(Model.Nam), Convert.ToInt32(Model.Quy*3), 1).AddMonths(1).AddDays(-1) - new DateTime(Convert.ToInt32(Model.Nam), Convert.ToInt32(((Model.Quy - 1) * 3 + 1)), 1)).TotalDays));*@
+                            for (var i = 0; i < numberNgay; i++) {
+                                if(typeof arrayDate[_timeStart.getFullYear()+'/'+(_timeStart.getMonth())+'/'+_timeStart.getDate()] == 'undefined'){
+                                    _valueSelect = _timeStart.getDate()+'/'+(_timeStart.getMonth()+1)+'/'+_timeStart.getFullYear();
+                                    break;
+                                }
+                                _timeStart.setDate(_timeStart.getDate()+1);
+                            }
+                            $('[attr-rarieng-time]').datetimepicker({
+                                formatDate: 'd/m/Y',
+                                format:'d/m/Y',
+                                timepicker: false,
+                                lang:'vi',
+                                minDate: timeStartQuy,
+                                maxDate: timeEndQuy,
+                                value:_valueSelect,
+                                beforeShowDay: function(date) {
+                                    if(typeof arrayDate[date.getFullYear()+'/'+(date.getMonth())+'/'+date.getDate()] != 'undefined')
+                                        return [false, ""];
+                                    return [true, ""];
+                                }
+                            });
+                            $('[attr-rarieng-time]').keypress(function(event){
+                                event.preventDefault();
+                            });
+                            return;
+                        }
+                        var html = (dataPost["type"]==0 && typeDieuChinh==typeDonso?'<div group-btn-acccc><input type="button" value="Tạo Dồn Số mới" class="@Application.ButtonClass.Default" attr-group-number valevent="0"/><input type="text" accc-timepicker/><input type="button" value="Hủy" class="@Application.ButtonClass.Submit" attr-group-cancel-number/></div>':'')+'<table class="table table-bordered table-hover"><colgroup><col style="width: 50px;' + (dataPost["type"] != 0 ? 'display:none;' : '') + '@(Convert.ToInt32(Model.data["Type"]) != (int)PHBC.DAO.Common.Enums.KeHoachXuatBan.add?"":"display:none;")"/><col style="width: calc(35% - 50px);" /><col style="width: calc(35%);" /><col style="width: calc(30%);" /></colgroup><tr><th style="text-align:center;' + (dataPost["type"] != 0 ? 'display:none;' : '') + '@(Convert.ToInt32(Model.data["Type"]) != (int)PHBC.DAO.Common.Enums.KeHoachXuatBan.add?"":"display:none;")"><input type="checkbox" style="@(Convert.ToInt32(Model.data["Type"]) == (int)PHBC.DAO.Common.Enums.KeHoachXuatBan.group ? "display:none;" : "")"/></th><th>Số</th><th>Ngày phát hành</th><th>Thứ</th></tr>';
+                        $.each(typeDieuChinh==typeDieuChinhTTB?nData:nData.filter(function(data,index){return data.Number!=-1;}), function (index, item) {
+                            html += '<tr '+(typeDieuChinh==typeDonso && item.DonSo!=null?'valgroupold="'+item.DonSo+'"':'')+' valindex="' + index + '" valNumber="' + item.SoBao + '" valNumberThuc="' + item.Number + '" valYear="' + item.Nam + '" valMonth="' + item.Thang + '" valDay="' + item.Ngay + '" valThu="' + item.Thu + '"><td @(Convert.ToInt32(Model.data["Type"]) == (int)PHBC.DAO.Common.Enums.KeHoachXuatBan.group ? "disabled" : "") style="text-align:center;' + (dataPost["type"] != 0 ? 'display:none;' : '') + '@(Convert.ToInt32(Model.data["Type"]) != (int)PHBC.DAO.Common.Enums.KeHoachXuatBan.add?"":"display:none;")"><input type="checkbox" valindex="' + index + '" valNumber="' + item.SoBao + '" valNumberThuc="' + item.Number + '" valYear="' + item.Nam + '" valMonth="' + item.Thang + '" valDay="' + item.Ngay + '" valThu="' + item.Thu + '" ' + (dataPost["type"] != 0 ? 'checked="checked"' : '') + '/></td><td>Số ' + (typeDieuChinh==typeDieuChinhTTB && item.SoXuatBan!=null?item.SoXuatBan.replace(/,/g, ' + '):item.Number) + '</td><td>' + item.Ngay + "/" + item.Thang + "/" + item.Nam + '</td><td>' + (item.Thu == 8 ? "Chủ nhật" : "Thứ " + item.Thu) + '</td></tr>';
+                        });
+                        html += '</table>';
+                        $('[attr-table-so]').html(html);
+                        $('[attr-table-so] > table').find('th').children('input:checkbox').click(function () {
+                            var table = $(this).parents('table');
+                            if ($(this).prop('checked'))
+                                table.find('td').children('input:checkbox').prop('checked', true);
+                            else
+                                table.find('td').children('input:checkbox').prop('checked', false);
+                        });
+                        $('[attr-table-so] > table').find('td').children('input:checkbox').click(function () {
+                            var table = $(this).parents('table');
+                            var sizeInput = table.find('td > input:checkbox').size();
+                            var sizeInputChecked = table.find('td > input:checkbox:checked').size();
+                            if (sizeInput == sizeInputChecked)
+                                table.find('th').children('input:checkbox').prop('checked', true);
+                            else
+                                table.find('th').children('input:checkbox').prop('checked', false);
+                        });
+                        if(typeDieuChinh==typeDonso){
+                            var guidc = '-1';
+                            $('[attr-table-so] > table').find('tr[valgroupold]').each(function(){
+                                var _guid = $(this).attr('valgroupold');
+                                var isFirst = false;
+                                if(_guid!=guidc){
+                                    guidc = _guid;
+                                    isFirst = true;
+                                }
+                                if(isFirst){
+                                    var dataSe = nData.filter(function(data,index){return data.Number==-1 && data.SoBao==_guid;})[0];
+                                    $(this).children('td:eq(1)').next('td').text(dataSe.Ngay + "/" + dataSe.Thang + "/" + dataSe.Nam).next('td').text((dataSe.Thu == 8 ? "Chủ nhật" : "Thứ " + dataSe.Thu));
+                                }else{
+                                    $(this).css({'display':'none'});
+                                    var trDau = $('tr[valgroupold="'+_guid+'"]:eq(0)');
+                                    trDau.children('td:eq(1)').append(' + '+$(this).attr('valNumberThuc'));
+                                }
+                            });
+                        }
+                        if(typeDieuChinh==typeDonso && dataPost["type"]==0){
+                            $(window).scroll(function () {
+                                var sTop = $(window).scrollTop();
+                                var SSSS = $('[attr-table-so]');
+                                if (SSSS.size() > 0) {
+                                    var _top = sTop - (SSSS.offset().top-99);
+                                    if(_top>0){
+                                        _top = -49+_top;
+                                        if(SSSS.outerHeight()-44>_top)
+                                            $('[group-btn-acccc]').attr('fixed','').css({'top':_top+'px'})
+                                    }else{
+                                        _top = -49;
+                                        $('[group-btn-acccc]').removeAttr('fixed').css({'top':_top+'px'})
+                                    }
+
+                                    //if (sTop >= SSSS.offset().top - 40) {
+                                    //    var _paneEff = SSSS.addClass('panelBox-NewLB-Time-Parent-Show').find('.panelEFFRightInfo');
+                                    //    _paneEff.addClass('panelBox-NewLB-Time-Fixed').css('top', (sTop - (SSSS.offset().top - 40)) + 'px');
+                                    //    if ((_paneEff.offsetRelative().top + _paneEff.height()) >= $('.panelInfoHocTap-Content').height())
+                                    //        _paneEff.addClass('panelBox-NewLB-Time-Fixed').css('top', ($('.panelInfoHocTap-Content').height() - _paneEff.height()) + 'px');
+                                    //} else {
+                                    //    SSSS.removeClass('panelBox-NewLB-Time-Parent-Show').find('.panelEFFRightInfo').removeClass('panelBox-NewLB-Time-Fixed').css('top', '0px');
+                                    //}
+                                }
+                            }).scroll();
+
+                            $('select[attr-time-group]').parents('[attr-select-time]').css({'display':'none'});
+                            var even = -1;
+                            $('[attr-group-cancel-number]').click(function(){
+                                $('[attr-group-cancel-number]').css({'display':'none'});
+                                $('[attr-table-so] > table').find('tr:not([valgroup])').find('td:eq(0) > input:checkbox:checked').prop('checked',false);
+                                $('[attr-table-so] > table').find('tr[valgroup]').removeAttr('disabled');
+                                $('[attr-table-so] > table').find('tr').find('td:eq(0)').attr('disabled','');
+                                $('[div-showwww]').attr('none','');
+                                $('[attr-group-number]').attr('valevent',0);
+                                $('[attr-group-number]').val('Tạo Dồn Số mới').removeAttr('disabled');;
+                                even = 0;
+                                $('[accc-timepicker]').datetimepicker('destroy');
+                            });
+                            var logic = function( ){
+                                var first = $('[attr-table-so] > table').find('tr:not([valgroup])').find('td > input:checkbox:checked').first().parents('tr');
+                                var last = $('[attr-table-so] > table').find('tr:not([valgroup])').find('td > input:checkbox:checked').last().parents('tr');
+                                this.setOptions({
+                                    minDate: first.attr('valday')+'/'+first.attr('valmonth')+'/'+first.attr('valyear'),
+                                    maxDate: last.attr('valday')+'/'+last.attr('valmonth')+'/'+last.attr('valyear'),
+                                    value:first.attr('valday')+'/'+first.attr('valmonth')+'/'+first.attr('valyear')
+                                });
+                            };
+                            $('[attr-group-number]').click(function(){
+                                var _this = $(this);
+                                even = parseInt(_this.attr('valevent'));
+                                if(even==0){
+                                    $('[attr-table-so] > table').find('tr[valgroup]').attr('disabled','').find('td:eq(0)').removeAttr('disabled').find('td:eq(0)').removeAttr('disabled');
+                                    $('[attr-table-so] > table').find('tr').find('td:eq(0)').removeAttr('disabled');
+                                    $('[div-showwww]').removeAttr('none');
+                                    _this.attr('valevent',1);
+                                    _this.val('Chọn ngày xuất bản');
+                                    even = 1;
+                                    _this.attr('disabled','disabled');
+                                    $('[attr-group-cancel-number]').css({'display':'inline-block'});
+                                    $('[accc-timepicker]').datetimepicker({
+                                        formatDate: 'd/m/Y',
+                                        format:'d/m/Y',
+                                        timepicker: false,
+                                        lang:'vi',
+                                        onShow:logic,
+                                        opened:true,
+                                        onSelectDate:function(current_time,$input){
+                                            var guid = lib.newGuid();
+                                            var allCheckBox = $('[attr-table-so] > table').find('tr:not([valgroup])').find('td > input:checkbox:checked');
+                                            allCheckBox.each(function(){
+                                                $(this).parents('tr').attr('valgroup',guid);
+                                            });
+                                            $('[attr-group-cancel-number]').click();
+
+
+                                            $('tr[valgroup="'+guid+'"] > td:first-child').click(function(){
+                                                var trall = $('tr[valgroup="'+guid+'"]');
+                                                trall.eq(0).children('td:eq(1)').text('Số '+trall.eq(0).attr('valNumberThuc')).next('td').text(trall.eq(0).attr('valday')+'/'+trall.eq(0).attr('valmonth')+'/'+trall.eq(0).attr('valyear')).next('td').text(trall.eq(0).attr('valthu')=="8"?"Chủ nhật":"Thứ "+trall.eq(0).attr('valthu'));
+                                                trall.removeAttr('style').removeAttr('valgroup').find('td').css({'background-color':'#FFF','color':'#000'}).eq(0).unbind("click");
+                                                trall.find('td:eq(0)').children('input:checkbox').prop('checked',false);
+
+                                            });
+
+                                            var color = '#CCCCCC';
+                                            var foregroundcolor = lib.foregroundColor(color);
+                                            var guidc = '-1';
+
+                                            $('[attr-table-so] > table').find('tr[valgroup]').each(function(){
+                                                var _guid = $(this).attr('valgroup');
+                                                var isFirst = false;
+                                                if(_guid!=guidc){
+                                                    guidc = _guid;
+                                                    color = color=='#CCCCCC'?"#EEEEEE":'#CCCCCC';
+                                                    foregroundcolor = lib.foregroundColor(color);
+                                                    isFirst = true;
+                                                }
+                                                if(isFirst){
+                                                    $(this).attr('valtimenew',$input.val()).children('td').css({'background-color':color,'color':foregroundcolor});
+                                                }else{
+                                                    $(this).css({'display':'none'});
+                                                    var trDau = $('tr[valgroup="'+_guid+'"]:eq(0)');
+                                                    trDau.children('td:eq(1)').append(' + '+$(this).attr('valNumberThuc')).next('td').text($input.val()).next('td').text(days[current_time.getDay()]);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }else if(even==1){
+                                    $('[accc-timepicker]').datetimepicker('show');
+                                }else{
+                                    $('[attr-table-so] > table').find('tr[valgroup]').removeAttr('disabled');
+                                    $('[attr-table-so] > table').find('tr').find('td:eq(0)').attr('disabled','');
+                                    $('[div-showwww]').attr('none','');
+                                    _this.attr('valevent',0);
+                                    _this.val('Tạo Dồn Số mới');
+                                    even = 0;
+                                    $('[attr-group-cancel-number]').css({'display':'none'});
+                                }
+                            });
+                            var rowTr = $('[attr-table-so] > table').find('tr');
+                            rowTr.find('td').children('input:checkbox').click(function () {
+                                var _this = $(this);
+                                var table = _this.parents('table');
+                                if(_this.prop('checked')){
+                                    var sizeCheck = table.find('tr:not([valgroup])').find('td > input:checkbox:checked').size()-1;
+                                    if(sizeCheck==0){
+                                        _this.prop('checked',true);
+                                    }else{
+                                        var indexFirst = table.find('tr:not([valgroup])').find('td > input:checkbox:checked').first().parents('tr').index();
+                                        var indexLast = table.find('tr:not([valgroup])').find('td > input:checkbox:checked').last().parents('tr').index();
+                                        var checkOk = true;
+                                        for (var i = indexFirst; i <= indexLast; i++) {
+                                            var row = rowTr.eq(i);
+                                            if(typeof row.attr('valgroup') != 'undefined' || typeof row.attr('valgroupold') != 'undefined'){
+                                                checkOk = false;
+                                                break;
+                                            }else if(row.children('td:eq(0)').children('input:checkbox:checked').size()==0){
+                                                checkOk = false;
+                                                break;
+                                            }
+                                        }
+                                        if(!checkOk)
+                                            _this.prop('checked',false);
+                                        else
+                                            _this.prop('checked',true);
+                                    }
+                                }else{
+                                    var trParent = _this.parents('tr');
+                                    var trNext = trParent.next('tr:not([valgroup]),tr:not([valgroupold])');
+                                    var trPrev = trParent.prev('tr:not([valgroup]),tr:not([valgroupold])');
+                                    if(trNext.size()==0||trPrev.size==0)
+                                        _this.prop('checked',false);
+                                    else if(trNext.size()>0&&trPrev.size()>0 && trNext.children('td:eq(0)').children('input:checkbox:checked').size()>0 && trPrev.children('td:eq(0)').children('input:checkbox:checked').size()>0)
+                                        _this.prop('checked',true);
+                                    else if(trNext.size()>0 && trNext.children('td:eq(0)').children('input:checkbox:checked').size()==0)
+                                        _this.prop('checked',false);
+                                    else if(trPrev.size()>0 && trPrev.children('td:eq(0)').children('input:checkbox:checked').size()==0)
+                                        _this.prop('checked',false);
+                                }
+                                if(table.find('tr:not([valgroup])').find('td > input:checkbox:checked').size()>1){
+                                    $('[attr-group-number]').removeAttr('disabled');
+                                }else{
+                                    $('[attr-group-number]').attr('disabled','disabled');
+                                }
+                            });
+                        }else if(typeDieuChinh==typeDonso && dataPost["type"]==1){
+                            var numstart = null;
+                            var color = '#CCCCCC';
+                            var foregroundcolor = lib.foregroundColor(color);
+                            var groupnum = lib.newGuid();
+                            var tdFillNumStart = $('[attr-table-so] > table').find('tr:not([valgroupold])');
+                            var arrayGroup = [];
+                            var arrBtn = $('[group-check-kxb] > input:button');
+                            var arrayTestNew = [];
+                            arrBtn.each(function(){
+                                var btn = $(this);
+                                arrayTestNew.push({index:i,value:parseInt(btn.attr('valdata')),active:typeof btn.attr('active') == 'undefined'?false:true});
+                            });
+                            if(arrayTestNew.filter(function(data){return data.active;}).length==arrBtn.size()){
+                                numstart = parseInt(arrBtn.eq(0).attr('valdata'));
+                                arrayGroup = arrayTestNew;
+                            }
+                            //if(loaiKy==0 || loaiKy==1){
+                            //    if(arrayTestNew.filter(function(data){return data.active;}).length==arrBtn.size()){
+                            //        numstart = parseInt(arrBtn.eq(0).attr('valdata'));
+                            //        arrayGroup = arrayTestNew;
+                            //    }
+
+                            //}else{
+                            //    if(arrayTestNew.filter(function(data){return data.active;}).length==31){
+                            //        numstart = 1;
+                            //        arrayGroup = arrayTestNew;
+                            //    }
+                            //}
+                            if(numstart==null){
+                                var arrayDataRam = [];
+                                for (var i = 0; i < tdFillNumStart.size(); i++) {
+                                    var _this = tdFillNumStart.eq(i);
+                                    var data = {
+                                        value: (loaiKy==0 || loaiKy==1?parseInt(_this.attr('valthu')):parseInt(_this.attr('valday')))
+                                    };
+                                    if(numstart==null && dataPost["data"].indexOf(data.value)>-1){
+                                        if(typeof arrayDataRam[data.value] == 'undefined'){
+                                            var arrayTest = [];
+                                            var indexS = parseInt($('[group-check-kxb] > input:button[valdata="'+data.value+'"]').attr('valindex'));
+                                            for (var i = indexS; i < arrayTestNew.length; i++) {
+                                                arrayTest.push(arrayTestNew[i]);
+                                            }
+                                            var iNext = arrayTestNew.length - arrayTest.length;
+                                            for (var i = 0; i < iNext; i++) {
+                                                arrayTest.push(arrayTestNew[i]);
+                                            }
+                                            arrayDataRam[data.value] = arrayTest;
+                                            var checkOk = true;
+                                            for (var i = 0; i < arrayTest.length; i++) {
+                                                if(!arrayTest[i].active){
+                                                    var checkFor = true;
+                                                    for (var j = i+1; j < arrayTest.length; j++) {
+                                                        if(arrayTest[j].active){
+                                                            checkFor = false;
+                                                            break;
+                                                        }
+                                                    }
+                                                    if(!checkFor){
+                                                        checkOk = false;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            if(checkOk){
+                                                numstart = data.value;
+                                                arrayGroup = arrayTest;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if(numstart!=null)
+                                        break;
+                                }
+                            }
+                            arrayGroup = arrayGroup.filter(function(data){return data.active;});
+                            tdFillNumStart.filter(function(){return (loaiKy==0 || loaiKy==1?parseInt($(this).attr('valthu')):parseInt($(this).attr('valday')))==numstart;}).each(function(){
+                                var groupCheck = true;
+                                var thisSet = $(this);
+                                for (var i = 1; i < arrayGroup.length; i++) {
+                                    var num = arrayGroup[i].value;
+                                    if(loaiKy==0 || loaiKy==1){
+                                        thisSet = thisSet.next('tr:not([valgroupold])[valthu="'+num+'"]');
+                                        if(thisSet.size()==0){
+                                            groupCheck = false;
+                                            break;
+                                        }
+                                    }else{
+                                        thisSet = thisSet.next('tr:not([valgroupold])[valday="'+num+'"]');
+                                        if(thisSet.size()==0){
+                                            groupCheck = false;
+                                            break;
+                                        }
+                                    }
+                                    if(!arrayGroup[i].active)
+                                        break;
+                                }
+                                if(groupCheck){
+                                    thisSet = $(this);
+                                    for (var i = 0; i < arrayGroup.length; i++) {
+                                        thisSet.attr('valgroup',groupnum).children('td').css({'background-color':color,'color':foregroundcolor});
+                                        thisSet = thisSet.next('tr');
+                                    }
+                                    color = color=='#CCCCCC'?"#EEEEEE":'#CCCCCC';
+                                    foregroundcolor = lib.foregroundColor(color);
+                                    groupnum = lib.newGuid();
+                                }
+                            });
+                            $('[attr-table-so] > table').find('tr:not([valgroup])').attr('disabled','');
+                            $('[attr-table-so] > table').find('tr:not([valgroup]):eq(0)').removeAttr('disabled');
+
+                            var group0 = $('[attr-table-so] > table').find('tr[valgroup]:eq(0)');
+                            if(group0.size()>0){
+                                var _id = group0.attr('valgroup');
+                                var groupLast = $('[attr-table-so] > table').find('tr[valgroup="'+_id+'"]:last');
+                                var time = new Date(parseInt(group0.attr('valyear')),parseInt(group0.attr('valmonth'))-1,parseInt(group0.attr('valday')));
+                                var timeLast = new Date(parseInt(groupLast.attr('valyear')),parseInt(groupLast.attr('valmonth'))-1,parseInt(groupLast.attr('valday')));
+                                var exitW = false;
+                                $('select[attr-time-group]').children('option').remove();
+                                while(!exitW){
+                                    var timeNew =  time;
+                                    $('select[attr-time-group]').append('<option value="'+(loaiKy==0 || loaiKy==1?timeNew.getDay()==0?8:timeNew.getDay()+1:timeNew.getDate())+'">'+(loaiKy==0 || loaiKy==1?days[timeNew.getDay()]:'Ngày '+timeNew.getDate())+'</option>');
+                                    time.setDate(time.getDate()+1)
+                                    if(time>timeLast)
+                                        exitW = true;
+                                }
+                                $('select[attr-time-group]').parents('[attr-select-time]').css({'display':'block'});
+                            }
+                        }
+                    },
+                    error: function (errormessage) {
+                        $('[loading-new]').css({ 'display': 'none' });
+                    }
+                });
+            }).click();
+            $('[group-check-kxb] > input:button').click(function () {
+                if(typeDieuChinh==typeDonso){
+                    var indexLast = $('[group-check-kxb] > input:button[active]').last().size()==0?-1:parseInt($('[group-check-kxb] > input:button[active]').last().attr('valindex'));
+                    var indexFirst = $('[group-check-kxb] > input:button[active]').first().size()==0?-1:parseInt($('[group-check-kxb] > input:button[active]').first().attr('valindex'));
+                    var indexNow = parseInt($(this).attr('valindex'));
+                    var maxIndex = parseInt($('[group-check-kxb] > input:button').last().attr('valindex'));
+
+                    //if (typeof $(this).attr('active') == 'undefined' && (indexLast==-1 || (indexNow==0 && $('[group-check-kxb] > input:button:last[active]').size()>0) || (indexNow==maxIndex && $('[group-check-kxb] > input:button:first[active]').size()>0) || (indexLast>-1 && indexNow==indexLast+1) || (indexFirst>-1 && indexNow==indexFirst-1))){
+                    //}else if(typeof $(this).attr('active') != 'undefined' && ($(this).next().size()==0 || $(this).prev().size()==0 || ($(this).next('[active]').size()==0 || $(this).prev('[active]').size()==0))){
+                    //}else if(typeof $(this).attr('active') != 'undefined' && ($(this).next('[active]').size()==0 || $(this).prev('[active]').size()==0 || (indexNow-1==0 && $(this).prev('[active]').size()>0 && $('[group-check-kxb] > input:button:last[active]').size()>0) || (indexNow+1==maxIndex && $(this).next('[active]').size()>0 && $('[group-check-kxb] > input:button:first[active]').size()>0))){
+                    if (typeof $(this).attr('active') == 'undefined' && (indexLast==-1 || (indexNow==0 && $('[group-check-kxb] > input:button:last[active]').size()>0) || (indexNow==maxIndex && $('[group-check-kxb] > input:button:first[active]').size()>0) || $(this).next('[active]').size()>0 || $(this).prev('[active]').size()>0)){
+                        $(this).attr('active', '');
+                    }else if(typeof $(this).attr('active') != 'undefined'){
+                        //var arrayTest = [];
+                        //var arrBtn = $('[group-check-kxb] > input:button');
+                        //for (var i = 0; i < arrBtn.length; i++) {
+                        //    var btn = arrBtn.eq(i);
+                        //    arrayTest.push({index:i,value:parseInt(btn.attr('valdata')),active:indexNow==i?false:typeof btn.attr('active') == 'undefined'?false:true});
+                        //}
+                        //for (var i = 0; i < 1; i++) {
+                        //    var btn = arrBtn.eq(i);
+                        //    arrayTest.push({index:i,value:parseInt(btn.attr('valdata')),active:indexNow==i?false:typeof btn.attr('active') == 'undefined'?false:true});
+                        //}
+                        //console.log(arrayTest);
+                        //var check = false;
+                        //for (var i = 0; i < arrayTest.length; i++) {
+
+                        //    if(!check && i<arrayTest.length-1 && arrayTest[i].active && arrayTest[i+1].active)
+                        //        check = true;
+                        //    else if(check && i<arrayTest.length-1 && !arrayTest[i].active && arrayTest[i+1].active && arrayTest[i+1].index!=0)
+                        //        check = false;
+
+                        //}
+                        //if(check || $('[group-check-kxb] > input:button[active]').size()<=2)
+                        //    $(this).removeAttr('active');
+
+                        var arrBtn = $('[group-check-kxb] > input:button');
+                        var arrayTestNew = [];
+                        arrBtn.each(function(index){
+                            var btn = $(this);
+                            arrayTestNew.push({index:index,value:parseInt(btn.attr('valdata')),active:indexNow==index?false:typeof btn.attr('active') == 'undefined'?false:true});
+                        });
+                        var checkA = false;
+                        for (var k = 0; k < arrBtn.length; k++) {
+                            var value = parseInt(arrBtn.eq(k).attr('valdata'));
+                            var arrayTest = [];
+                            var indexS = parseInt($('[group-check-kxb] > input:button[valdata="'+value+'"]').attr('valindex'));
+
+                            for (var i = indexS; i < arrayTestNew.length; i++) {
+                                arrayTest.push(arrayTestNew[i]);
+                            }
+                            var iNext = arrayTestNew.length - arrayTest.length;
+                            for (var i = 0; i < iNext; i++) {
+                                arrayTest.push(arrayTestNew[i]);
+                            }
+                            var checkOk = true;
+                            for (var i = 0; i < arrayTest.length; i++) {
+                                if(!arrayTest[i].active){
+                                    var checkFor = true;
+                                    for (var j = i+1; j < arrayTest.length; j++) {
+                                        if(arrayTest[j].active){
+                                            checkFor = false;
+                                            break;
+                                        }
+                                    }
+                                    if(!checkFor){
+                                        checkOk = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            checkA = checkOk;
+                            if(checkA)
+                                break;
+                        }
+
+                        if(checkA || $('[group-check-kxb] > input:button[active]').size()<=2)
+                            $(this).removeAttr('active');
+
+
+                    }
+
+                }else{
+                    if (typeof $(this).attr('active') == 'undefined')
+                        $(this).attr('active', '');
+                    else
+                        $(this).removeAttr('active');
+                }
+            });
+            $('[attr-save-number]').click(function () {
+                var dataConfig = getdataConfig();
+                var dataNunber = {};
+                dataNunber["type"] = typeDieuChinh;
+                dataNunber["data"] = {};
+                //dataNunber["data"]["content"] = {};
+                if(typeDieuChinh==typeBaoNghi){
+                    dataNunber["data"] = [];
+                    $('[attr-table-so] > table').find('td').children('input:checkbox:checked').filter(function () {
+                        dataNunber["data"].push({
+                            index: parseInt($(this).attr('valindex')),
+                            year: parseInt($(this).attr('valyear')),
+                            month: parseInt($(this).attr('valmonth')),
+                            day: parseInt($(this).attr('valday')),
+                            thu: parseInt($(this).attr('valthu')),
+                            number: parseInt($(this).attr('valnumber'))
+                        });
+                    });
+                }else if(typeDieuChinh==typeBaoRaRieng){
+                    var _sobao = $.trim($('[attr-rarieng-sobao]').val());
+                    var _ngayxuatban = $.trim($('[attr-rarieng-time]').val());
+                    if(_sobao.length==0)
+                        $('[attr-rarieng-sobao]').next('.field-validation-error').text('Không được trống');
+                    else
+                        $('[attr-rarieng-sobao]').next('.field-validation-error').text('');
+                    if(_ngayxuatban.length==0)
+                        $('[attr-rarieng-time]').next('.field-validation-error').text('Không được trống');
+                    else
+                        $('[attr-rarieng-time]').next('.field-validation-error').text('');
+                    if(_ngayxuatban.length==0 || _sobao.length==0)
+                        return;
+                    dataNunber["data"]={
+                        time:_ngayxuatban,
+                        data:_sobao
+                    };
+                }else if(typeDieuChinh==typeDonso){
+                    dataNunber["data"] = [];
+                    $('[attr-table-so] > table').find('tr[valgroup]').each(function(){
+                        var _this = $(this);
+                        var id=_this.attr('valgroup');
+                        if(dataNunber["data"].filter(function(data,index){return data.id==id}).length==0){
+                            if(dataConfig["type"]==0){
+                                dataNunber["data"].push({
+                                    time:_this.attr('valtimenew'),
+                                    data:[parseInt(_this.attr('valnumber'))],
+                                    id:id
+                                });
+                            }else{
+                                var numberSelect = parseInt($('select[attr-time-group]').val());
+                                var groupArray = $('[attr-table-so] > table').find('tr[valgroup="'+id+'"]');
+                                if(groupArray.index(_this)==0){
+                                    var time = new Date(parseInt(groupArray.eq(0).attr('valyear')),parseInt(groupArray.eq(0).attr('valmonth'))-1,parseInt(groupArray.eq(0).attr('valday')));
+                                    var timeLast = new Date(parseInt(groupArray.last().attr('valyear')),parseInt(groupArray.last().attr('valmonth'))-1,parseInt(groupArray.last().attr('valday')));
+                                    var exitW = false;
+                                    var timeSet = null;
+                                    while(!exitW){
+                                        var timeNew =  time;
+                                        var thuVal = loaiKy==0 || loaiKy==1?timeNew.getDay()==0?8:timeNew.getDay()+1:timeNew.getDate();
+                                        if(thuVal==numberSelect){
+                                            timeSet = time;
+                                            exitW = true;
+                                        }else{
+                                            time.setDate(time.getDate()+1)
+                                            if(time>timeLast)
+                                                exitW = true;
+                                        }
+                                    }
+                                    if(timeSet!=null){
+                                        dataNunber["data"].push({
+                                            time:timeSet.getDate()+"/"+(timeSet.getMonth()+1)+"/"+timeSet.getFullYear(),
+                                            data:[parseInt(_this.attr('valnumber'))],
+                                            id:id
+                                        });
+                                    }
+                                }
+                            }
+                        }else{
+                            dataNunber["data"].filter(function(data,index){
+                                if(data.id==id){
+                                    data.data.push(parseInt(_this.attr('valnumber')));
+                                }
+                            });
+                        }
+                    });
+                }else if(typeDieuChinh==typeDieuChinhTTB){
+                    dataNunber["data"] = [];
+                    $('[attr-table-so] > table').find('td').children('input:checkbox:checked').filter(function () {
+                        dataNunber["data"].push({
+                            index: parseInt($(this).attr('valindex')),
+                            year: parseInt($(this).attr('valyear')),
+                            month: parseInt($(this).attr('valmonth')),
+                            day: parseInt($(this).attr('valday')),
+                            thu: parseInt($(this).attr('valthu')),
+                            number: $(this).attr('valnumber')
+                        });
+                    });
+                }
+                var dataSave = {
+                    config:dataConfig,
+                    content:dataNunber
+                };
+                $('#Config').val(JSON.stringify(dataSave));
+                $('#LoaiDieuChinh').val(typeDieuChinh);
+                lib.removeDisabled();
+                $('#actionupdatedieuchinh').submit();
+                lib.removeDisabled(true);
+            });
+
+        });
+    </script>
+}
+
+
